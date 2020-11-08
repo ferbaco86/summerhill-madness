@@ -5,6 +5,7 @@ import phaserLogo from '../assets/logo.png';
 import greyBox from '../assets/ui/grey_box.png';
 import checkBox from '../assets/ui/blue_boxCheckmark.png';
 import townMusic from '../assets/TownTheme.mp3';
+import '../style.css';
 
 
 export default class PreloaderScene extends Phaser.Scene {
@@ -33,7 +34,7 @@ export default class PreloaderScene extends Phaser.Scene {
       y: height / 2 - 50,
       text: 'Loading...',
       style: {
-        font: '20px monospace',
+        font: '38px ThaleahFat',
         fill: '#ffffff',
       },
     });
@@ -44,7 +45,7 @@ export default class PreloaderScene extends Phaser.Scene {
       y: height / 2 - 5,
       text: '0%',
       style: {
-        font: '18px monospace',
+        font: '28px ThaleahFat',
         fill: '#ffffff',
       },
     });
@@ -55,7 +56,7 @@ export default class PreloaderScene extends Phaser.Scene {
       y: height / 2 + 50,
       text: '',
       style: {
-        font: '18px monospace',
+        font: '28px ThaleahFat',
         fill: '#ffffff',
       },
     });
