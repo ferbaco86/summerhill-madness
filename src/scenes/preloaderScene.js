@@ -1,9 +1,12 @@
 import Phaser from 'phaser';
+import bgMenu from '../assets/titleMenu.png';
+import soundMenu from '../assets/soundMenu.png';
+import title from '../assets/title.png';
 import button1 from '../assets/ui/blue_button02.png';
 import button2 from '../assets/ui/blue_button03.png';
 import phaserLogo from '../assets/logo.png';
-import greyBox from '../assets/ui/grey_box.png';
-import checkBox from '../assets/ui/blue_boxCheckmark.png';
+import soundOff from '../assets/ui/soundOff.png';
+import soundOn from '../assets/ui/soundOn.png';
 import townMusic from '../assets/TownTheme.mp3';
 import '../style.css';
 
@@ -64,7 +67,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
     // update progress bar
     this.load.on('progress', (value) => {
-      percentText.setText(`${parseInt(value * 100)}%`);
+      percentText.setText(`${parseInt(value * 100, 10)}%`);
       progressBar.clear();
       progressBar.fillStyle(0xffffff, 1);
       progressBar.fillRect(250, 280, 300 * value, 30);
@@ -91,9 +94,12 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('button1', button1);
     this.load.image('button2', button2);
     this.load.image('phaserLogo', phaserLogo);
-    this.load.image('box', greyBox);
-    this.load.image('checkedBox', checkBox);
+    this.load.image('soundOn', soundOn);
+    this.load.image('soundOff', soundOff);
     this.load.audio('bgMusic', [townMusic]);
+    this.load.image('bgMenu', bgMenu);
+    this.load.image('soundMenu', soundMenu);
+    this.load.image('gameTitle', title);
   }
 
   ready() {

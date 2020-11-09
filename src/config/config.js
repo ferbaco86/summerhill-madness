@@ -2,7 +2,8 @@ import Phaser from 'phaser';
 
 export default {
   type: Phaser.AUTO,
-  parent: 'phaser-example',
-  width: 800,
+  parent: 'content',
+  autoCenter: Phaser.Scale.CENTER_BOTH,
+  width: 960,
   height: 600,
 };

@@ -10,6 +10,11 @@ export default class TitleScene extends Phaser.Scene {
 
 
   create() {
+    // Background Pic
+    this.add.image(0, 0, 'bgMenu').setOrigin(0);
+    this.menuTitle = this.add.image(200, 0, 'gameTitle').setOrigin(0);
+    // Phaser.Display.Align.In.Center(this.menuTitle);
+
     // Game
     this.gameButton = new Button(this, config.width / 2, config.height / 2 - 100, 'button1', 'button2', 'Play', 'Game');
 

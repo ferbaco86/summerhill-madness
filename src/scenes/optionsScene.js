@@ -10,12 +10,14 @@ export default class OptionsScene extends Phaser.Scene {
   create() {
     this.model = this.sys.game.globals.model;
 
-    this.text = this.add.text(300, 100, 'Options', { font: '62px ThaleahFat' });
-    this.musicButton = this.add.image(200, 200, 'checkedBox');
-    this.musicText = this.add.text(250, 190, 'Music Enabled', { font: '42px ThaleahFat' });
 
-    this.soundButton = this.add.image(200, 300, 'checkedBox');
-    this.soundText = this.add.text(250, 290, 'Sound Enabled', { font: '42px ThaleahFat' });
+    this.add.image(0, 0, 'soundMenu').setOrigin(0);
+    this.text = this.add.text(400, 100, 'Options', { font: '62px ThaleahFat' });
+    this.musicButton = this.add.image(310, 220, 'soundOn');
+    this.musicText = this.add.text(360, 190, 'Music Enabled', { font: '42px ThaleahFat' });
+
+    this.soundButton = this.add.image(310, 320, 'soundOn');
+    this.soundText = this.add.text(360, 290, 'Sound Enabled', { font: '42px ThaleahFat' });
 
     this.musicButton.setInteractive();
     this.soundButton.setInteractive();
@@ -31,16 +33,16 @@ export default class OptionsScene extends Phaser.Scene {
     });
 
     this.updateAudio();
-    this.menuButton = new Button(this, 400, 500, 'button1', 'button2', 'Menu', 'Title');
+    this.menuButton = new Button(this, 490, 500, 'button1', 'button2', 'Menu', 'Title');
   }
 
   updateAudio() {
     if (this.model.musicOn === false) {
-      this.musicButton.setTexture('box');
+      this.musicButton.setTexture('soundOff');
       this.sys.game.globals.bgMusic.stop();
       this.model.bgMusicPlaying = false;
     } else {
-      this.musicButton.setTexture('checkedBox');
+      this.musicButton.setTexture('soundOn');
       if (this.model.bgMusicPlaying === false) {
         this.sys.game.globals.bgMusic.play();
         this.model.bgMusicPlaying = true;
@@ -48,9 +50,9 @@ export default class OptionsScene extends Phaser.Scene {
     }
 
     if (this.model.soundOn === false) {
-      this.soundButton.setTexture('box');
+      this.soundButton.setTexture('soundOff');
     } else {
-      this.soundButton.setTexture('checkedBox');
+      this.soundButton.setTexture('soundOn');
     }
   }
 }
