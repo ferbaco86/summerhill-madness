@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import bgMenu from '../assets/titleMenu.png';
 import soundMenu from '../assets/soundMenu.png';
+import introBG from '../assets/introScene.png';
 import title from '../assets/title.png';
 import button1 from '../assets/ui/buttonDefault.png';
 import button2 from '../assets/ui/buttonHover.png';
@@ -100,6 +101,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('bgMenu', bgMenu);
     this.load.image('soundMenu', soundMenu);
     this.load.image('gameTitle', title);
+    this.load.image('introBG', introBG);
   }
 
   ready() {
