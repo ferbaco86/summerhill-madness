@@ -2,8 +2,8 @@ import Phaser from 'phaser';
 import bgMenu from '../assets/titleMenu.png';
 import soundMenu from '../assets/soundMenu.png';
 import title from '../assets/title.png';
-import button1 from '../assets/ui/blue_button02.png';
-import button2 from '../assets/ui/blue_button03.png';
+import button1 from '../assets/ui/buttonDefault.png';
+import button2 from '../assets/ui/buttonHover.png';
 import phaserLogo from '../assets/logo.png';
 import soundOff from '../assets/ui/soundOff.png';
 import soundOn from '../assets/ui/soundOn.png';
@@ -28,7 +28,7 @@ export default class PreloaderScene extends Phaser.Scene {
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);
-    progressBox.fillRect(240, 270, 320, 50);
+    progressBox.fillRect(320, 270, 320, 50);
 
     const { width } = this.cameras.main;
     const { height } = this.cameras.main;
@@ -70,7 +70,7 @@ export default class PreloaderScene extends Phaser.Scene {
       percentText.setText(`${parseInt(value * 100, 10)}%`);
       progressBar.clear();
       progressBar.fillStyle(0xffffff, 1);
-      progressBar.fillRect(250, 280, 300 * value, 30);
+      progressBar.fillRect(330, 280, 300 * value, 30);
     });
 
     // update file progress text
