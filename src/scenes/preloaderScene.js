@@ -7,6 +7,7 @@ import button1 from '../assets/ui/buttonDefault.png';
 import button2 from '../assets/ui/buttonHover.png';
 import phaserLogo from '../assets/logo.png';
 import introSleeping from '../assets/sleepingSpriteAnim.png';
+import redHeadWalkUp from '../assets/redHeadWalkUp.png';
 import soundOff from '../assets/ui/soundOff.png';
 import soundOn from '../assets/ui/soundOn.png';
 import townMusic from '../assets/TownTheme.mp3';
@@ -106,6 +107,10 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.spritesheet('introSleeping', introSleeping, {
       frameWidth: 152,
       frameHeight: 232,
+    });
+    this.load.spritesheet('redHeadUp', redHeadWalkUp, {
+      frameWidth: 16,
+      frameHeight: 24,
     });
   }
 
