@@ -1,8 +1,10 @@
 import Phaser from 'phaser';
 import config from '../config/config';
+import EventDispatcher from '../eventDispatcher';
 
 
 const content = "Hey player wake up!, wake up!. There's something really weird... ...going on in the city! There's monsters all over the place!... ...We have to get out!";
+
 
 const { GetValue } = Phaser.Utils.Objects;
 
@@ -19,7 +21,7 @@ const getBBcodeText = (scene, wrapWidth, fixedWidth, fixedHeight) => scene.rexUI
   maxLines: 2,
 });
 
-const createTextBox = (scene, x, y, config) => {
+const createTextBox = (scene, x, y, config, window, icon, eventEmit = null) => {
   const wrapWidth = GetValue(config, 'wrapWidth', 0);
   const fixedWidth = GetValue(config, 'fixedWidth', 0);
   const fixedHeight = GetValue(config, 'fixedHeight', 0);
@@ -27,15 +29,9 @@ const createTextBox = (scene, x, y, config) => {
     x,
     y,
 
-    background: scene.add.image(0, 0, 'lightWindow'),
-
-    icon: scene.add.image(0, 0, 'redHeadFace').setScale(2),
-
-    // scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
-
+    background: scene.add.image(0, 0, window),
+    icon: scene.add.image(0, 0, icon).setScale(2),
     iconMask: false,
-
-    // text: getBuiltInText(scene, wrapWidth, fixedWidth, fixedHeight),
     text: getBBcodeText(scene, wrapWidth, fixedWidth, fixedHeight),
 
     action: scene.add.image(0, 0, 'nextPage').setScale(2).setVisible(false),
@@ -59,6 +55,9 @@ const createTextBox = (scene, x, y, config) => {
       textBox.resetChildVisibleState(icon);
       if (textBox.isLastPage) {
         textBox.destroy();
+        if (eventEmit != null) {
+          scene.emitter.emit(eventEmit);
+        }
       }
       if (textBox.isTyping) {
         textBox.stop(true);
@@ -95,10 +94,15 @@ export default class IntroScene extends Phaser.Scene {
     this.add.image(xPos, yPos, 'introBG');
     this.introSleepSprite = this.add.sprite(xPos + 32, yPos - 162, 'introSleeping');
     this.redHeadChar = this.add.sprite(xPos - 150, 540, 'redHeadUp');
-    this.mainChar = this.add.sprite(xPos, yPos, 'mainDown').setScale(4).setFrame(1);
+    this.mainChar = this.add.sprite(xPos + 32, yPos - 50, 'mainDown');
+    this.emitter = EventDispatcher.getInstance();
 
     this.redHeadShow = () => {
       this.redHeadChar.visible = true;
+    };
+
+    this.mainCharShow = () => {
+      this.mainChar.visible = true;
     };
 
     this.redHeadMoveUp = () => {
@@ -115,8 +119,7 @@ export default class IntroScene extends Phaser.Scene {
       this.redHeadChar.anims.pause(this.redHeadChar.anims.currentAnim.frames[1]);
       createTextBox(this, xPos - 340, 350, {
         wrapWidth: 470,
-      }).start(content, 50);
-      this.introSleepSprite.anims.stopAfterDelay(6000);
+      }, 'lightWindow', 'redHeadFace', 'wakeUp').start(content, 50);
     };
 
     this.anims.create({
@@ -156,6 +159,14 @@ export default class IntroScene extends Phaser.Scene {
 
     this.redHeadChar.setScale(4);
     this.redHeadChar.visible = false;
+    this.mainChar.setScale(4);
+    this.mainChar.visible = false;
+    this.wakeUpChar = () => {
+      this.introSleepSprite.destroy();
+      this.mainCharShow();
+    };
+
+    this.emitter.on('wakeUp', this.wakeUpChar);
 
     this.introSleepSprite.play('introSleepingAnim');
     this.time.delayedCall(1000, this.redHeadShow, [], this);
