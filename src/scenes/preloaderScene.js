@@ -4,6 +4,7 @@ import soundMenu from '../assets/backgrounds/soundMenu.png';
 import introBG from '../assets/backgrounds/introScene.png';
 import title from '../assets/title.png';
 import redHeadFace from '../assets/redHeadCharacter/redHeadFaceFrame.png';
+import mainFace from '../assets/mainCharacter/mainCharFaceFrame.png';
 import redWindow from '../assets/ui/windowLight3.png';
 import button1 from '../assets/ui/buttonDefault.png';
 import arrowRight from '../assets/ui/arrow_point_right.png';
@@ -109,6 +110,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('nextPage', arrowRight);
     this.load.image('phaserLogo', phaserLogo);
     this.load.image('redHeadFace', redHeadFace);
+    this.load.image('mainFace', mainFace);
     this.load.image('soundOn', soundOn);
     this.load.image('soundOff', soundOff);
     this.load.audio('bgMusic', [townMusic]);

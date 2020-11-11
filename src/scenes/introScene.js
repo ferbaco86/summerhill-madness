@@ -3,7 +3,8 @@ import config from '../config/config';
 import EventDispatcher from '../eventDispatcher';
 
 
-const content = "Hey player wake up!, wake up!. There's something really weird... ...going on in the city! There's monsters all over the place!... ...We have to get out!";
+const redHeadText = "Hey player wake up!, wake up!. There's something really weird... ...going on in the city! There's monsters all over the place!... ...We have to get out!";
+const mainCharText = "Wow! are you for real?! We should probably go to Danny's... ...house and see how he is doing! Let me grab something... ...to use as a weapon and we should get going!";
 
 
 const { GetValue } = Phaser.Utils.Objects;
@@ -119,7 +120,7 @@ export default class IntroScene extends Phaser.Scene {
       this.redHeadChar.anims.pause(this.redHeadChar.anims.currentAnim.frames[1]);
       createTextBox(this, xPos - 340, 350, {
         wrapWidth: 470,
-      }, 'lightWindow', 'redHeadFace', 'wakeUp').start(content, 50);
+      }, 'lightWindow', 'redHeadFace', 'wakeUp').start(redHeadText, 50);
     };
 
     this.anims.create({
@@ -132,6 +133,20 @@ export default class IntroScene extends Phaser.Scene {
     this.anims.create({
       key: 'redHeadWalkUp',
       frames: this.anims.generateFrameNumbers('redHeadUp'),
+      frameRate: 10,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: 'redHeadWalkDown',
+      frames: this.anims.generateFrameNumbers('redHeadDown'),
+      frameRate: 10,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: 'redHeadWalkLeft',
+      frames: this.anims.generateFrameNumbers('redHeadLeft'),
       frameRate: 10,
       repeat: -1,
     });
@@ -157,6 +172,13 @@ export default class IntroScene extends Phaser.Scene {
       repeat: -1,
     });
 
+    this.anims.create({
+      key: 'mainCharWalkUp',
+      frames: this.anims.generateFrameNumbers('mainUp'),
+      frameRate: 10,
+      repeat: -1,
+    });
+
     this.redHeadChar.setScale(4);
     this.redHeadChar.visible = false;
     this.mainChar.setScale(4);
@@ -164,9 +186,26 @@ export default class IntroScene extends Phaser.Scene {
     this.wakeUpChar = () => {
       this.introSleepSprite.destroy();
       this.mainCharShow();
+      createTextBox(this, xPos - 340, 350, {
+        wrapWidth: 470,
+      }, 'lightWindow', 'mainFace', 'grabWeapon').start(mainCharText, 50);
+    };
+    this.grabWeaponAnim = () => {
+      this.moveMainUp = () => {
+        this.tweens.add({ targets: this.mainChar, duration: 900, y: 180 });
+        this.mainChar.anims.play('mainCharWalkUp');
+        this.redHeadChar.anims.load('redHeadWalkLeft', 1);
+
+      };
+      this.tweens.add({ targets: this.mainChar, duration: 3500, x: xPos - 286 });
+      this.time.delayedCall(3550, this.moveMainUp, [], this);
+      this.mainChar.anims.play('mainCharWalkLeft');
+      this.redHeadChar.anims.load('redHeadWalkDown', 1);
     };
 
     this.emitter.on('wakeUp', this.wakeUpChar);
+    this.emitter.on('grabWeapon', this.grabWeaponAnim);
+
 
     this.introSleepSprite.play('introSleepingAnim');
     this.time.delayedCall(1000, this.redHeadShow, [], this);
