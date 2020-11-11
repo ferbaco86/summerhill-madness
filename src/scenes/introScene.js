@@ -1,11 +1,8 @@
 import Phaser from 'phaser';
 import config from '../config/config';
 
-const COLOR_PRIMARY = 0x4e342e;
-const COLOR_LIGHT = 0x7b5e57;
-const COLOR_DARK = 0x260e04;
 
-const content = "Hey player wake up!, wake up!. There's something really weird going on in the city! There's monsters all over the place!. We have to get out!";
+const content = "Hey player wake up!, wake up!. There's something really weird... ...going on in the city! There's monsters all over the place!... ...We have to get out!";
 
 const { GetValue } = Phaser.Utils.Objects;
 
@@ -30,23 +27,26 @@ const createTextBox = (scene, x, y, config) => {
     x,
     y,
 
-    background: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_PRIMARY)
-      .setStrokeStyle(2, COLOR_LIGHT),
+    background: scene.add.image(0, 0, 'lightWindow'),
 
-    icon: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
+    icon: scene.add.image(0, 0, 'redHeadFace').setScale(2),
+
+    // scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
+
+    iconMask: false,
 
     // text: getBuiltInText(scene, wrapWidth, fixedWidth, fixedHeight),
-    text: getBBcodeText(scene, wrapWidth - 50, fixedWidth, fixedHeight),
+    text: getBBcodeText(scene, wrapWidth, fixedWidth, fixedHeight),
 
-    action: scene.add.image(0, 0, 'nextPage').setScale(2).setTint(COLOR_LIGHT).setVisible(false),
+    action: scene.add.image(0, 0, 'nextPage').setScale(2).setVisible(false),
 
     space: {
-      left: 20,
-      right: 20,
-      top: 20,
-      bottom: 20,
-      icon: 10,
-      text: 10,
+      left: 30,
+      right: 30,
+      top: 30,
+      bottom: 30,
+      icon: 20,
+      text: 20,
     },
   })
     .setOrigin(0)
@@ -112,6 +112,9 @@ export default class IntroScene extends Phaser.Scene {
 
     this.redHeadSMessage = () => {
       this.redHeadChar.anims.pause(this.redHeadChar.anims.currentAnim.frames[1]);
+      createTextBox(this, xPos - 340, 350, {
+        wrapWidth: 470,
+      }).start(content, 50);
     };
 
     this.anims.create({
@@ -143,9 +146,5 @@ export default class IntroScene extends Phaser.Scene {
     this.time.delayedCall(2000, this.redHeadMoveUp, [], this);
     this.time.delayedCall(5300, this.redHeadMoveRight, [], this);
     this.time.delayedCall(7000, this.redHeadSMessage, [], this);
-
-    createTextBox(this, 100, 400, {
-      wrapWidth: 500,
-    }).start(content, 50);
   }
 }

@@ -3,6 +3,8 @@ import bgMenu from '../assets/titleMenu.png';
 import soundMenu from '../assets/soundMenu.png';
 import introBG from '../assets/introScene.png';
 import title from '../assets/title.png';
+import redHeadFace from '../assets/redHeadFaceFrame.png';
+import redWindow from '../assets/windowLight3.png';
 import button1 from '../assets/ui/buttonDefault.png';
 import arrowRight from '../assets/ui/arrow_point_right.png';
 import button2 from '../assets/ui/buttonHover.png';
@@ -100,12 +102,14 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('button2', button2);
     this.load.image('nextPage', arrowRight);
     this.load.image('phaserLogo', phaserLogo);
+    this.load.image('redHeadFace', redHeadFace);
     this.load.image('soundOn', soundOn);
     this.load.image('soundOff', soundOff);
     this.load.audio('bgMusic', [townMusic]);
     this.load.image('bgMenu', bgMenu);
     this.load.image('soundMenu', soundMenu);
     this.load.image('gameTitle', title);
+    this.load.image('lightWindow', redWindow);
     this.load.image('introBG', introBG);
     this.load.spritesheet('introSleeping', introSleeping, {
       frameWidth: 152,
