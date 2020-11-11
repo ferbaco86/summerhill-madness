@@ -1,7 +1,15 @@
 @font-face {
-  font-family: "ThaleahFat";
+  font-family: "pixelFont";
   src: 
-     url("/src/assets/ui/ThaleahFat.ttf") format("truetype");
+     url("/src/assets/ui/04B_03.ttf") format("truetype");
  font-weight: bold;
  font-style: normal;
 }
+
+/* @font-face {
+  font-family: "04B03";
+  src: 
+     url("/src/assets/ui/04B_03.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+} */

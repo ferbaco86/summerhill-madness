@@ -4,6 +4,7 @@ import soundMenu from '../assets/soundMenu.png';
 import introBG from '../assets/introScene.png';
 import title from '../assets/title.png';
 import button1 from '../assets/ui/buttonDefault.png';
+import arrowRight from '../assets/ui/arrow_point_right.png';
 import button2 from '../assets/ui/buttonHover.png';
 import phaserLogo from '../assets/logo.png';
 import introSleeping from '../assets/sleepingSpriteAnim.png';
@@ -41,7 +42,7 @@ export default class PreloaderScene extends Phaser.Scene {
       y: height / 2 - 50,
       text: 'Loading...',
       style: {
-        font: '38px ThaleahFat',
+        font: '38px pixelFont',
         fill: '#ffffff',
       },
     });
@@ -52,7 +53,7 @@ export default class PreloaderScene extends Phaser.Scene {
       y: height / 2 - 5,
       text: '0%',
       style: {
-        font: '28px ThaleahFat',
+        font: '28px pixelFont',
         fill: '#ffffff',
       },
     });
@@ -63,7 +64,7 @@ export default class PreloaderScene extends Phaser.Scene {
       y: height / 2 + 50,
       text: '',
       style: {
-        font: '28px ThaleahFat',
+        font: '28px pixelFont',
         fill: '#ffffff',
       },
     });
@@ -97,6 +98,7 @@ export default class PreloaderScene extends Phaser.Scene {
     // load assets needed in our game
     this.load.image('button1', button1);
     this.load.image('button2', button2);
+    this.load.image('nextPage', arrowRight);
     this.load.image('phaserLogo', phaserLogo);
     this.load.image('soundOn', soundOn);
     this.load.image('soundOff', soundOff);
