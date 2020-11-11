@@ -1,17 +1,23 @@
 import Phaser from 'phaser';
-import bgMenu from '../assets/titleMenu.png';
-import soundMenu from '../assets/soundMenu.png';
-import introBG from '../assets/introScene.png';
+import bgMenu from '../assets/backgrounds/titleMenu.png';
+import soundMenu from '../assets/backgrounds/soundMenu.png';
+import introBG from '../assets/backgrounds/introScene.png';
 import title from '../assets/title.png';
-import redHeadFace from '../assets/redHeadFaceFrame.png';
-import redWindow from '../assets/windowLight3.png';
+import redHeadFace from '../assets/redHeadCharacter/redHeadFaceFrame.png';
+import redWindow from '../assets/ui/windowLight3.png';
 import button1 from '../assets/ui/buttonDefault.png';
 import arrowRight from '../assets/ui/arrow_point_right.png';
 import button2 from '../assets/ui/buttonHover.png';
 import phaserLogo from '../assets/logo.png';
-import introSleeping from '../assets/sleepingSpriteAnim.png';
-import redHeadWalkUp from '../assets/redHeadWalkUp.png';
-import redHeadWalkRight from '../assets/redHeadWalkRight.png';
+import introSleeping from '../assets/mainCharacter/sleepingSpriteAnim.png';
+import redHeadWalkUp from '../assets/redHeadCharacter/redHeadWalkUp.png';
+import redHeadWalkRight from '../assets/redHeadCharacter/redHeadWalkRight.png';
+import redHeadWalkDown from '../assets/redHeadCharacter/redHeadWalkDown.png';
+import redHeadWalkLeft from '../assets/redHeadCharacter/redHeadWalkLeft.png';
+import mainWalkDown from '../assets/mainCharacter/mainWalkDown.png';
+import mainWalkLeft from '../assets/mainCharacter/mainWalkLeft.png';
+import mainWalkRight from '../assets/mainCharacter/mainWalkRight.png';
+import mainWalkUp from '../assets/mainCharacter/mainWalkUp.png';
 import soundOff from '../assets/ui/soundOff.png';
 import soundOn from '../assets/ui/soundOn.png';
 import townMusic from '../assets/TownTheme.mp3';
@@ -122,6 +128,30 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.spritesheet('redHeadRight', redHeadWalkRight, {
       frameWidth: 16,
       frameHeight: 24,
+    });
+    this.load.spritesheet('redHeadDown', redHeadWalkDown, {
+      frameWidth: 16,
+      frameHeight: 24,
+    });
+    this.load.spritesheet('redHeadLeft', redHeadWalkLeft, {
+      frameWidth: 16,
+      frameHeight: 24,
+    });
+    this.load.spritesheet('mainRight', mainWalkRight, {
+      frameWidth: 16,
+      frameHeight: 26,
+    });
+    this.load.spritesheet('mainLeft', mainWalkLeft, {
+      frameWidth: 16,
+      frameHeight: 26,
+    });
+    this.load.spritesheet('mainDown', mainWalkDown, {
+      frameWidth: 16,
+      frameHeight: 26,
+    });
+    this.load.spritesheet('mainUp', mainWalkUp, {
+      frameWidth: 16,
+      frameHeight: 26,
     });
   }
 

@@ -95,6 +95,7 @@ export default class IntroScene extends Phaser.Scene {
     this.add.image(xPos, yPos, 'introBG');
     this.introSleepSprite = this.add.sprite(xPos + 32, yPos - 162, 'introSleeping');
     this.redHeadChar = this.add.sprite(xPos - 150, 540, 'redHeadUp');
+    this.mainChar = this.add.sprite(xPos, yPos, 'mainDown').setScale(4).setFrame(1);
 
     this.redHeadShow = () => {
       this.redHeadChar.visible = true;
@@ -110,11 +111,12 @@ export default class IntroScene extends Phaser.Scene {
       this.redHeadChar.anims.play('redHeadWalkRight');
     };
 
-    this.redHeadSMessage = () => {
+    this.redHeadMessage = () => {
       this.redHeadChar.anims.pause(this.redHeadChar.anims.currentAnim.frames[1]);
       createTextBox(this, xPos - 340, 350, {
         wrapWidth: 470,
       }).start(content, 50);
+      this.introSleepSprite.anims.stopAfterDelay(6000);
     };
 
     this.anims.create({
@@ -138,6 +140,20 @@ export default class IntroScene extends Phaser.Scene {
       repeat: -1,
     });
 
+    this.anims.create({
+      key: 'mainCharWalkDown',
+      frames: this.anims.generateFrameNumbers('mainUp'),
+      frameRate: 10,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: 'mainCharWalkLeft',
+      frames: this.anims.generateFrameNumbers('mainLeft'),
+      frameRate: 10,
+      repeat: -1,
+    });
+
     this.redHeadChar.setScale(4);
     this.redHeadChar.visible = false;
 
@@ -145,6 +161,6 @@ export default class IntroScene extends Phaser.Scene {
     this.time.delayedCall(1000, this.redHeadShow, [], this);
     this.time.delayedCall(2000, this.redHeadMoveUp, [], this);
     this.time.delayedCall(5300, this.redHeadMoveRight, [], this);
-    this.time.delayedCall(7000, this.redHeadSMessage, [], this);
+    this.time.delayedCall(7000, this.redHeadMessage, [], this);
   }
 }
