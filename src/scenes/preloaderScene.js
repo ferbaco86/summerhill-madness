@@ -23,7 +23,12 @@ import mainWalkRight from '../assets/mainCharacter/mainWalkRight.png';
 import mainWalkUp from '../assets/mainCharacter/mainWalkUp.png';
 import soundOff from '../assets/ui/soundOff.png';
 import soundOn from '../assets/ui/soundOn.png';
-import townMusic from '../assets/TownTheme.mp3';
+import titleMusic from '../assets/sounds/titleMenu.wav';
+import doorOpenFX from '../assets/sounds/doorOpen.wav';
+import textFX from '../assets/sounds/text.wav';
+import stepsFX from '../assets/sounds/steps.wav';
+import getItemFX from '../assets/sounds/itemget2.wav';
+import wowFX from '../assets/sounds/wow.wav';
 import '../style.css';
 
 
@@ -116,7 +121,12 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('mainFace', mainFace);
     this.load.image('soundOn', soundOn);
     this.load.image('soundOff', soundOff);
-    this.load.audio('bgMusic', [townMusic]);
+    this.load.audio('bgMusic', [titleMusic]);
+    this.load.audio('doorOpen', [doorOpenFX]);
+    this.load.audio('stepsFX', [stepsFX]);
+    this.load.audio('getItemFX', [getItemFX]);
+    this.load.audio('wowFX', [wowFX]);
+    this.load.audio('textFX', [textFX]);
     this.load.image('bgMenu', bgMenu);
     this.load.image('soundMenu', soundMenu);
     this.load.image('gameTitle', title);
