@@ -5,7 +5,7 @@ import EventDispatcher from '../eventDispatcher';
 
 const redHeadText = "Hey player wake up!, wake up!. There's something really weird... ...going on in the city! There's monsters all over the place!... ...We have to get out!";
 const mainCharText = "Wow! are you for real?! We should probably go to Danny's... ...house and see how he is doing! Let me grab something... ...to use as a weapon and we should get going!";
-
+const batPickUpText = 'Cool! you found a bat. This will come in handy for dealing with monsters';
 
 const { GetValue } = Phaser.Utils.Objects;
 
@@ -179,10 +179,18 @@ export default class IntroScene extends Phaser.Scene {
       repeat: -1,
     });
 
+    this.anims.create({
+      key: 'batPickUp',
+      frames: this.anims.generateFrameNumbers('mainBatPick'),
+      frameRate: 10,
+      repeat: -1,
+    });
+
     this.redHeadChar.setScale(4);
     this.redHeadChar.visible = false;
     this.mainChar.setScale(4);
     this.mainChar.visible = false;
+
     this.wakeUpChar = () => {
       this.introSleepSprite.destroy();
       this.mainCharShow();
@@ -190,21 +198,30 @@ export default class IntroScene extends Phaser.Scene {
         wrapWidth: 470,
       }, 'lightWindow', 'mainFace', 'grabWeapon').start(mainCharText, 50);
     };
+
     this.grabWeaponAnim = () => {
       this.moveMainUp = () => {
         this.tweens.add({ targets: this.mainChar, duration: 900, y: 180 });
         this.mainChar.anims.play('mainCharWalkUp');
         this.redHeadChar.anims.load('redHeadWalkLeft', 1);
+      };
 
+      this.pickUpBat = () => {
+        this.mainChar.anims.play('batPickUp');
+        createTextBox(this, xPos - 340, 350, {
+          wrapWidth: 470,
+        }, 'lightWindow', 'purpleSquare').start(batPickUpText, 50);
       };
       this.tweens.add({ targets: this.mainChar, duration: 3500, x: xPos - 286 });
       this.time.delayedCall(3550, this.moveMainUp, [], this);
+      this.time.delayedCall(5000, this.pickUpBat, [], this);
       this.mainChar.anims.play('mainCharWalkLeft');
       this.redHeadChar.anims.load('redHeadWalkDown', 1);
     };
 
     this.emitter.on('wakeUp', this.wakeUpChar);
     this.emitter.on('grabWeapon', this.grabWeaponAnim);
+    // this.emitter.on('goOutside', this.exitRoomAnim);
 
 
     this.introSleepSprite.play('introSleepingAnim');

@@ -3,6 +3,7 @@ import bgMenu from '../assets/backgrounds/titleMenu.png';
 import soundMenu from '../assets/backgrounds/soundMenu.png';
 import introBG from '../assets/backgrounds/introScene.png';
 import title from '../assets/title.png';
+import purpleSquare from '../assets/ui/squarePurple.png';
 import redHeadFace from '../assets/redHeadCharacter/redHeadFaceFrame.png';
 import mainFace from '../assets/mainCharacter/mainCharFaceFrame.png';
 import redWindow from '../assets/ui/windowLight3.png';
@@ -11,6 +12,7 @@ import arrowRight from '../assets/ui/arrow_point_right.png';
 import button2 from '../assets/ui/buttonHover.png';
 import phaserLogo from '../assets/logo.png';
 import introSleeping from '../assets/mainCharacter/sleepingSpriteAnim.png';
+import batPickUp from '../assets/mainCharacter/weaponPickupBase-sheet.png';
 import redHeadWalkUp from '../assets/redHeadCharacter/redHeadWalkUp.png';
 import redHeadWalkRight from '../assets/redHeadCharacter/redHeadWalkRight.png';
 import redHeadWalkDown from '../assets/redHeadCharacter/redHeadWalkDown.png';
@@ -109,6 +111,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('button2', button2);
     this.load.image('nextPage', arrowRight);
     this.load.image('phaserLogo', phaserLogo);
+    this.load.image('purpleSquare', purpleSquare);
     this.load.image('redHeadFace', redHeadFace);
     this.load.image('mainFace', mainFace);
     this.load.image('soundOn', soundOn);
@@ -154,6 +157,10 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.spritesheet('mainUp', mainWalkUp, {
       frameWidth: 16,
       frameHeight: 26,
+    });
+    this.load.spritesheet('mainBatPick', batPickUp, {
+      frameWidth: 30,
+      frameHeight: 48,
     });
   }
 
