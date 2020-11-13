@@ -85,12 +85,20 @@ const createTextBox = (scene, x, y, config, window, icon, speechFX, eventEmit = 
   return textBox;
 };
 
+const fadeOutScene = (scene, newScene, delay) => {
+  scene.cameras.main.fadeOut(delay, 0, 0, 0);
+  scene.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+    scene.scene.start(newScene);
+  });
+};
+
 export default class IntroScene extends Phaser.Scene {
   constructor() {
     super('Intro');
   }
 
   create() {
+    this.cameras.main.setBackgroundColor('#000000');
     this.sys.game.globals.bgMusic.stop();
     const xPos = config.width / 2;
     const yPos = config.height / 2;
@@ -247,13 +255,17 @@ export default class IntroScene extends Phaser.Scene {
 
       this.tweens.add({ targets: this.mainChar, duration: 3500, x: xPos - 286 });
       this.time.delayedCall(3550, this.moveMainUp, [], this);
-      this.time.delayedCall(4300, this.pickUpBat, [], this);
+      this.time.delayedCall(4600, this.pickUpBat, [], this);
       this.mainChar.anims.play('mainCharWalkLeft');
       this.redHeadChar.anims.load('redHeadWalkDown', 1);
       this.stepsFx.play();
     };
 
     this.exitRoomAnim = () => {
+      this.nextScene = () => {
+        fadeOutScene(this, 'Town', 1500);
+        this.stepsFx.destroy();
+      };
       this.mainCharExitRight = () => {
         this.tweens.add({ targets: this.mainChar, duration: 2500, x: xPos - 140 });
         this.mainChar.anims.play('mainCharWalkRight');
@@ -270,6 +282,7 @@ export default class IntroScene extends Phaser.Scene {
       this.redHeadCharExitDown = () => {
         this.tweens.add({ targets: this.redHeadChar, duration: 1500, y: 550 });
         this.redHeadChar.anims.play('redHeadWalkDown');
+        this.time.delayedCall(1500, this.nextScene, [], this);
       };
       this.tweens.add({ targets: this.mainChar, duration: 1500, y: 450 });
       this.tweens.add({ targets: this.redHeadChar, duration: 3500, y: 400 });
