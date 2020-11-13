@@ -91,14 +91,22 @@ export default class IntroScene extends Phaser.Scene {
   }
 
   create() {
+    this.sys.game.globals.bgMusic.stop();
     const xPos = config.width / 2;
     const yPos = config.height / 2;
+
+    // Background
     this.add.image(xPos, yPos, 'introBG');
+
+    // Animation Sprites
     this.introSleepSprite = this.add.sprite(xPos + 32, yPos - 162, 'introSleeping');
     this.redHeadChar = this.add.sprite(xPos - 150, 540, 'redHeadUp');
     this.mainChar = this.add.sprite(xPos + 32, yPos - 50, 'mainDown');
+
+    // Event Emitter
     this.emitter = EventDispatcher.getInstance();
-    this.sys.game.globals.bgMusic.stop();
+
+    // Scene Sounds
     this.doorOpenFx = this.sound.add('doorOpen', { volume: 0.5, loop: false });
     this.textFx = this.sound.add('textFX', {
       volume: 0.2, loop: false,
