@@ -7,7 +7,7 @@ import utils from '../utils/utilsFunctions';
 
 const redHeadText = "Hey player wake up!, wake up!. There's something really weird... ...going on in the city! There's monsters all over the place!... ...We have to get out!";
 const mainCharText = "WOW!! are you for real?! We should probably go to Danny's... ...house and see how he is doing! Let me grab something... ...to use as a weapon and we should get going!";
-const batPickUpText = 'Cool! you found a bat. This will come in handy for dealing with monsters';
+const batPickUpText = 'Cool! you found a bat. This will come in handy for dealing... ...with monsters';
 
 export default class IntroScene extends Phaser.Scene {
   constructor() {
@@ -16,7 +16,7 @@ export default class IntroScene extends Phaser.Scene {
 
   create() {
     this.cameras.main.setBackgroundColor('#000000');
-    this.cameras.main.fadeIn(1000, 0, 0, 0);
+    this.cameras.main.fadeIn(500, 0, 0, 0);
     this.sys.game.globals.bgMusic.stop();
     const xPos = config.width / 2;
     const yPos = config.height / 2;
@@ -149,6 +149,7 @@ export default class IntroScene extends Phaser.Scene {
     this.wakeUpChar = () => {
       this.introSleepSprite.destroy();
       this.mainCharShow();
+      this.cameras.main.shake(300, 0.02);
       utils.createTextBox(this, xPos - 340, 350, {
         wrapWidth: 470,
       }, 'lightWindow', 'mainFace', this.textFx, 'grabWeapon').start(mainCharText, 50);

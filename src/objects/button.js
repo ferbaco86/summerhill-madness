@@ -17,7 +17,7 @@ export default class Button extends Phaser.GameObjects.Container {
     this.add(this.text);
 
     this.button.on('pointerdown', () => {
-      utils.fadeOutScene(scene, targetScene, 1500);
+      utils.fadeOutScene(scene, targetScene, 1000);
     });
 
     this.button.on('pointerover', () => {

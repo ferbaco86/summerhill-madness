@@ -10,7 +10,7 @@ export default class TitleScene extends Phaser.Scene {
 
 
   create() {
-    this.cameras.main.fadeIn(1000, 0, 0, 0);
+    this.cameras.main.fadeIn(500, 0, 0, 0);
     this.cameras.main.setBackgroundColor('#000000');
     // Background Pic
     this.add.image(0, 0, 'bgMenu').setOrigin(0);

@@ -21,6 +21,8 @@ import mainWalkDown from '../assets/mainCharacter/mainWalkDown.png';
 import mainWalkLeft from '../assets/mainCharacter/mainWalkLeft.png';
 import mainWalkRight from '../assets/mainCharacter/mainWalkRight.png';
 import mainWalkUp from '../assets/mainCharacter/mainWalkUp.png';
+import tileSet from '../assets/backgrounds/tileset_master.png';
+import mapData from '../assets/data/Town.json';
 import soundOff from '../assets/ui/soundOff.png';
 import soundOn from '../assets/ui/soundOn.png';
 import titleMusic from '../assets/sounds/titleMenu.wav';
@@ -132,6 +134,8 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('gameTitle', title);
     this.load.image('lightWindow', redWindow);
     this.load.image('introBG', introBG);
+    this.load.image('tiles', tileSet);
+    this.load.tilemapTiledJSON('townMap', mapData);
     this.load.spritesheet('introSleeping', introSleeping, {
       frameWidth: 152,
       frameHeight: 232,

@@ -12,8 +12,16 @@ export default {
     },
     ],
   },
-  pixelArt: true,
+  render: {
+    pixelArt: true, antialias: false, autoResize: false,
+  },
   autoCenter: Phaser.Scale.CENTER_BOTH,
   width: 960,
-  height: 600,
+  height: 608,
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 0 },
+    },
+  },
 };
