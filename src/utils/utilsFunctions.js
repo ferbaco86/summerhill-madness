@@ -85,9 +85,22 @@ const utils = (() => {
       scene.scene.start(newScene);
     });
   };
+
+  const createAnims = (scene, keys, spritesNames, rate, timeRepeat) => {
+    for (let index = 0; index < keys.length; index += 1) {
+      scene.anims.create({
+        key: keys[index],
+        frames: scene.anims.generateFrameNumbers(spritesNames[index]),
+        frameRate: rate,
+        repeat: timeRepeat,
+      });
+    }
+  };
+
   return {
     createTextBox,
     fadeOutScene,
+    createAnims,
   };
 })();
 

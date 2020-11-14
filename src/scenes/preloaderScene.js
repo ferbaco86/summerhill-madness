@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import utils from '../utils/utilsFunctions';
 import bgMenu from '../assets/backgrounds/titleMenu.png';
 import soundMenu from '../assets/backgrounds/soundMenu.png';
 import introBG from '../assets/backgrounds/introScene.png';
@@ -21,7 +22,7 @@ import mainWalkDown from '../assets/mainCharacter/mainWalkDown.png';
 import mainWalkLeft from '../assets/mainCharacter/mainWalkLeft.png';
 import mainWalkRight from '../assets/mainCharacter/mainWalkRight.png';
 import mainWalkUp from '../assets/mainCharacter/mainWalkUp.png';
-import tileSet from '../assets/backgrounds/tileset_master.png';
+import tileSet from '../assets/backgrounds/tileset-extruded.png';
 import mapData from '../assets/data/Town.json';
 import soundOff from '../assets/ui/soundOff.png';
 import soundOn from '../assets/ui/soundOn.png';
@@ -176,6 +177,14 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 30,
       frameHeight: 48,
     });
+  }
+
+  create() {
+    this.animKeys = ['introSleepingAnim', 'redHeadWalkUp', 'redHeadWalkDown', 'redHeadWalkLeft', 'redHeadWalkRight',
+      'mainCharWalkDown', 'mainCharWalkLeft', 'mainCharWalkRight', 'mainCharWalkUp', 'batPickUp'];
+    this.spriteSheets = ['introSleeping', 'redHeadUp', 'redHeadDown', 'redHeadLeft', 'redHeadRight',
+      'mainDown', 'mainLeft', 'mainRight', 'mainUp', 'mainBatPick'];
+    utils.createAnims(this, this.animKeys, this.spriteSheets, 10, -1);
   }
 
   ready() {

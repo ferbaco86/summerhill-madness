@@ -31,7 +31,7 @@ export default class CreditsScene extends Phaser.Scene {
       duration: 4000,
       delay: 1000,
       onComplete: () => {
-        this.destroy;
+        this.destroy();
       },
     });
 
@@ -42,7 +42,7 @@ export default class CreditsScene extends Phaser.Scene {
       duration: 9000,
       delay: 1000,
       onComplete: () => {
-        this.madeByTween.destroy;
+        this.madeByTween.destroy();
         this.scene.start('Title');
       },
     });

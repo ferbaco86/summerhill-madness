@@ -2,7 +2,6 @@ import Phaser from 'phaser';
 import config from '../config/config';
 import EventDispatcher from '../utils/eventDispatcher';
 import utils from '../utils/utilsFunctions';
-// import Utils from '../utils/utilsFunctions';
 
 
 const redHeadText = "Hey player wake up!, wake up!. There's something really weird... ...going on in the city! There's monsters all over the place!... ...We have to get out!";
@@ -71,75 +70,75 @@ export default class IntroScene extends Phaser.Scene {
       this.stepsFx.stop();
     };
 
-    this.anims.create({
-      key: 'introSleepingAnim',
-      frames: this.anims.generateFrameNumbers('introSleeping'),
-      frameRate: 10,
-      repeat: -1,
-    });
+    // this.anims.create({
+    //   key: 'introSleepingAnim',
+    //   frames: this.anims.generateFrameNumbers('introSleeping'),
+    //   frameRate: 10,
+    //   repeat: -1,
+    // });
 
-    this.anims.create({
-      key: 'redHeadWalkUp',
-      frames: this.anims.generateFrameNumbers('redHeadUp'),
-      frameRate: 10,
-      repeat: -1,
-    });
+    // this.anims.create({
+    //   key: 'redHeadWalkUp',
+    //   frames: this.anims.generateFrameNumbers('redHeadUp'),
+    //   frameRate: 10,
+    //   repeat: -1,
+    // });
 
-    this.anims.create({
-      key: 'redHeadWalkDown',
-      frames: this.anims.generateFrameNumbers('redHeadDown'),
-      frameRate: 10,
-      repeat: -1,
-    });
+    // this.anims.create({
+    //   key: 'redHeadWalkDown',
+    //   frames: this.anims.generateFrameNumbers('redHeadDown'),
+    //   frameRate: 10,
+    //   repeat: -1,
+    // });
 
-    this.anims.create({
-      key: 'redHeadWalkLeft',
-      frames: this.anims.generateFrameNumbers('redHeadLeft'),
-      frameRate: 10,
-      repeat: -1,
-    });
+    // this.anims.create({
+    //   key: 'redHeadWalkLeft',
+    //   frames: this.anims.generateFrameNumbers('redHeadLeft'),
+    //   frameRate: 10,
+    //   repeat: -1,
+    // });
 
-    this.anims.create({
-      key: 'redHeadWalkRight',
-      frames: this.anims.generateFrameNumbers('redHeadRight'),
-      frameRate: 10,
-      repeat: -1,
-    });
+    // this.anims.create({
+    //   key: 'redHeadWalkRight',
+    //   frames: this.anims.generateFrameNumbers('redHeadRight'),
+    //   frameRate: 10,
+    //   repeat: -1,
+    // });
 
-    this.anims.create({
-      key: 'mainCharWalkDown',
-      frames: this.anims.generateFrameNumbers('mainDown'),
-      frameRate: 10,
-      repeat: -1,
-    });
+    // this.anims.create({
+    //   key: 'mainCharWalkDown',
+    //   frames: this.anims.generateFrameNumbers('mainDown'),
+    //   frameRate: 10,
+    //   repeat: -1,
+    // });
 
-    this.anims.create({
-      key: 'mainCharWalkLeft',
-      frames: this.anims.generateFrameNumbers('mainLeft'),
-      frameRate: 10,
-      repeat: -1,
-    });
+    // this.anims.create({
+    //   key: 'mainCharWalkLeft',
+    //   frames: this.anims.generateFrameNumbers('mainLeft'),
+    //   frameRate: 10,
+    //   repeat: -1,
+    // });
 
-    this.anims.create({
-      key: 'mainCharWalkRight',
-      frames: this.anims.generateFrameNumbers('mainRight'),
-      frameRate: 10,
-      repeat: -1,
-    });
+    // this.anims.create({
+    //   key: 'mainCharWalkRight',
+    //   frames: this.anims.generateFrameNumbers('mainRight'),
+    //   frameRate: 10,
+    //   repeat: -1,
+    // });
 
-    this.anims.create({
-      key: 'mainCharWalkUp',
-      frames: this.anims.generateFrameNumbers('mainUp'),
-      frameRate: 10,
-      repeat: -1,
-    });
+    // this.anims.create({
+    //   key: 'mainCharWalkUp',
+    //   frames: this.anims.generateFrameNumbers('mainUp'),
+    //   frameRate: 10,
+    //   repeat: -1,
+    // });
 
-    this.anims.create({
-      key: 'batPickUp',
-      frames: this.anims.generateFrameNumbers('mainBatPick'),
-      frameRate: 10,
-      repeat: -1,
-    });
+    // this.anims.create({
+    //   key: 'batPickUp',
+    //   frames: this.anims.generateFrameNumbers('mainBatPick'),
+    //   frameRate: 10,
+    //   repeat: -1,
+    // });
 
     this.redHeadChar.setScale(4);
     this.redHeadChar.visible = false;
