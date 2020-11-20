@@ -23,7 +23,9 @@ import mainWalkLeft from '../assets/mainCharacter/mainWalkLeft.png';
 import mainWalkRight from '../assets/mainCharacter/mainWalkRight.png';
 import mainWalkUp from '../assets/mainCharacter/mainWalkUp.png';
 import tileSet from '../assets/backgrounds/tileset-extruded.png';
+import wallsTileSet from '../assets/backgrounds/tile-walls-extruded.png';
 import mapData from '../assets/data/Town.json';
+import houseData from '../assets/data/dannyHouse.json';
 import soundOff from '../assets/ui/soundOff.png';
 import soundOn from '../assets/ui/soundOn.png';
 import titleMusic from '../assets/sounds/titleMenu.wav';
@@ -135,8 +137,10 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('gameTitle', title);
     this.load.image('lightWindow', redWindow);
     this.load.image('introBG', introBG);
+    this.load.image('wallTiles', wallsTileSet);
     this.load.image('tiles', tileSet);
     this.load.tilemapTiledJSON('townMap', mapData);
+    this.load.tilemapTiledJSON('houseMap', houseData);
     this.load.spritesheet('introSleeping', introSleeping, {
       frameWidth: 152,
       frameHeight: 232,

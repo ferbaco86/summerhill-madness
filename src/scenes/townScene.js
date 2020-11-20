@@ -10,12 +10,18 @@ export default class TownScene extends Phaser.Scene {
     const map = this.make.tilemap({ key: 'townMap' });
     const tileSet = map.addTilesetImage('tileset_master', 'tiles', 16, 16, 1, 2);
     map.createStaticLayer('Ground', tileSet, 0, 0);
-    const worldLayer = map.createStaticLayer('World', tileSet, 0, 0);
     const aboveLayer = map.createStaticLayer('Above', tileSet, 0, 0);
+    const worldLayer = map.createStaticLayer('World', tileSet, 0, 0);
+    const decorationsLayer = map.createStaticLayer('Decorators', tileSet, 0, 0);
     worldLayer.setCollisionByExclusion([-1]);
+    decorationsLayer.setCollisionByProperty({ collider: true });
     aboveLayer.setDepth(10);
-    const spawnPoint = map.findObject('Objects', obj => obj.name === 'SpawnPoint');
+    // obstaclesLayer.setDepth(20);
+    const spawnPoint = map.findObject('Objects', obj => obj.name === 'mainHouseSpawn');
     this.mainChar = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, 'mainDown', 1);
+
+    this.mainChar.body.setSize(this.mainChar.width, this.mainChar.height / 2, false)
+      .setOffset(0, this.mainChar.height / 2);
 
     this.physics.world.bounds.width = map.widthInPixels;
     this.physics.world.bounds.height = map.heightInPixels;
@@ -27,7 +33,21 @@ export default class TownScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.mainChar);
     this.cameras.main.roundPixels = true;
 
-    this.physics.add.collider(this.mainChar, worldLayer);
+    this.physics.add.collider(this.mainChar, [worldLayer, decorationsLayer]);
+
+    // this.physics.world.createDebugGraphic();
+
+    // // Create worldLayer collision graphic above the player, but below the help text
+    // const graphics = this.add
+    //   .graphics()
+    //   .setAlpha(0.75)
+    //   .setDepth(20);
+    // worldLayer.renderDebug(graphics, {
+    //   tileColor: null, // Color of non-colliding tiles
+    //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
+    // Color of colliding tiles
+    //   faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
+    // });
   }
 
   update() {
