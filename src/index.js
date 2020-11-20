@@ -7,6 +7,7 @@ import TitleScene from './scenes/titleScene';
 import OptionsScene from './scenes/optionsScene';
 import CreditsScene from './scenes/creditsScene';
 import TownScene from './scenes/townScene';
+import HouseScene from './scenes/houseScene';
 import Model from './model';
 
 
@@ -22,6 +23,7 @@ class Game extends Phaser.Game {
     this.scene.add('Credits', CreditsScene);
     this.scene.add('Game', IntroScene);
     this.scene.add('Town', TownScene);
+    this.scene.add('House', HouseScene);
     this.scene.start('Boot');
   }
 }
