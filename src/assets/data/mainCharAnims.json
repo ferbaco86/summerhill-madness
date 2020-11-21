@@ -1,0 +1,18 @@
+{
+    "left": {
+      "spriteKey": "mainLeft" ,
+      "animationKey": "mainCharWalkLeft"
+    },
+    "right": {
+      "spriteKey": "mainRight" ,
+      "animationKey": "mainCharWalkRight"
+    },
+    "up": {
+      "spriteKey": "mainUp" ,
+      "animationKey": "mainCharWalkUp"
+    },
+    "down": {
+      "spriteKey": "mainDown" ,
+      "animationKey": "mainCharWalkDown"
+    }
+}
