@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import generateMaps from '../utils/generateMaps';
 
 export default class TownScene extends Phaser.Scene {
   constructor() {
@@ -8,32 +9,23 @@ export default class TownScene extends Phaser.Scene {
   create() {
     this.cameras.main.fadeIn(1000, 0, 0, 0);
     const map = this.make.tilemap({ key: 'townMap' });
+
     const tileSet = map.addTilesetImage('tileset_master', 'tiles', 16, 16, 1, 2);
-    map.createStaticLayer('Ground', tileSet, 0, 0);
-    const aboveLayer = map.createStaticLayer('Above', tileSet, 0, 0);
-    const worldLayer = map.createStaticLayer('World', tileSet, 0, 0);
-    const decorationsLayer = map.createStaticLayer('Decorators', tileSet, 0, 0);
-    worldLayer.setCollisionByExclusion([-1]);
-    decorationsLayer.setCollisionByProperty({ collider: true });
-    aboveLayer.setDepth(10);
-    // obstaclesLayer.setDepth(20);
+    const tileSetArr = [tileSet];
+    const staticLayersArr = generateMaps.generateStaticLayers(map, ['Ground', 'Above', 'World', 'Decorators'], tileSetArr, 0, 0);
     const spawnPoint = map.findObject('Objects', obj => obj.name === 'mainHouseSpawn');
     this.mainChar = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, 'mainDown', 1);
+    generateMaps.generateCollision(this, this.mainChar, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
+    generateMaps.generateDepth(staticLayersArr, 'Above', 10);
 
     this.mainChar.body.setSize(this.mainChar.width, this.mainChar.height / 2, false)
       .setOffset(0, this.mainChar.height / 2);
 
-    this.physics.world.bounds.width = map.widthInPixels;
-    this.physics.world.bounds.height = map.heightInPixels;
-    this.mainChar.setCollideWorldBounds(true);
+    generateMaps.setWorld(this, map, this.mainChar, 3);
+
 
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    this.cameras.main.setZoom(3).centerToBounds();
-    this.cameras.main.startFollow(this.mainChar);
-    this.cameras.main.roundPixels = true;
 
-    this.physics.add.collider(this.mainChar, [worldLayer, decorationsLayer]);
 
     // this.physics.world.createDebugGraphic();
 
