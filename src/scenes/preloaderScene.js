@@ -24,6 +24,7 @@ import mainWalkRight from '../assets/mainCharacter/mainWalkRight.png';
 import mainWalkUp from '../assets/mainCharacter/mainWalkUp.png';
 import tileSet from '../assets/backgrounds/tileset-extruded.png';
 import wallsTileSet from '../assets/backgrounds/tile-walls-extruded.png';
+import emptySprite from '../assets/backgrounds/emptySprite.png';
 import mapData from '../assets/data/Town.json';
 import houseData from '../assets/data/dannyHouse.json';
 import soundOff from '../assets/ui/soundOff.png';
@@ -124,6 +125,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('purpleSquare', purpleSquare);
     this.load.image('redHeadFace', redHeadFace);
     this.load.image('mainFace', mainFace);
+    this.load.image('emptySprite', emptySprite);
     this.load.image('soundOn', soundOn);
     this.load.image('soundOff', soundOff);
     this.load.audio('bgMusic', [titleMusic]);
@@ -192,10 +194,10 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   ready() {
-    this.scene.start('House');
+    this.scene.start('Town');
     this.readyCount += 1;
     if (this.readyCount === 2) {
-      this.scene.start('House');
+      this.scene.start('Town');
     }
   }
 }

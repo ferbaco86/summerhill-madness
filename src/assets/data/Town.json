@@ -202,6 +202,45 @@
                  "width":0,
                  "x":76,
                  "y":185
+                }, 
+                {
+                 "height":6.00000000000011,
+                 "id":15,
+                 "name":"houseEntrance",
+                 "properties":[
+                        {
+                         "name":"collider",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":18,
+                 "x":190.666666666667,
+                 "y":717.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":16,
+                 "name":"schoolEntrance",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":295.333333333333,
+                 "y":211.333333333333
+                }, 
+                {
+                 "height":0,
+                 "id":17,
+                 "name":"townExit",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":699.333333333333,
+                 "y":750
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -210,7 +249,7 @@
          "y":0
         }],
  "nextlayerid":12,
- "nextobjectid":15,
+ "nextobjectid":19,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",
@@ -219,7 +258,7 @@
         {
          "columns":96,
          "firstgid":1,
-         "image":"tileset_master.png",
+         "image":"..\/..\/..\/..\/..\/..\/..\/Desktop\/Game_Resources\/For Capstone\/graphics\/tileset_master.png",
          "imageheight":1360,
          "imagewidth":1536,
          "margin":0,
