@@ -1,8 +1,10 @@
 
 const charMovement = (() => {
   const charMovementControl = (char, cursors, speed, rightVelocity,
-    leftVelocity, upVelocity, downVelocity) => {
+    leftVelocity, upVelocity, downVelocity, animationsObj, idleFrame) => {
+    const prevVelocity = char.body.velocity.clone();
     char.body.setVelocity(0);
+
 
     // Horizontal movement
     if (cursors.left.isDown) {
@@ -17,11 +19,9 @@ const charMovement = (() => {
     } else if (cursors.down.isDown) {
       char.body.setVelocityY(downVelocity);
     }
-    char.body.velocity.normalize().scale(speed);
-  };
 
-  const charMovementAnim = (char, cursors, animationsObj, idleFrame) => {
-    const prevVelocity = char.body.velocity.clone();
+    char.body.velocity.normalize().scale(speed);
+
     if (cursors.left.isDown) {
       char.anims.play(animationsObj.left.animationKey, true);
     } else if (cursors.right.isDown) {
@@ -40,9 +40,10 @@ const charMovement = (() => {
       else if (prevVelocity.y > 0) char.setTexture(animationsObj.down.spriteKey, idleFrame);
     }
   };
+
+
   return {
     charMovementControl,
-    charMovementAnim,
   };
 })();
 
