@@ -13,7 +13,7 @@ export default {
     ],
   },
   render: {
-    pixelArt: true, antialias: false, autoResize: false,
+    pixelArt: true, antialias: false,
   },
   autoCenter: Phaser.Scale.CENTER_BOTH,
   width: 960,
