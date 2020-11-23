@@ -8,8 +8,11 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/dist',
+    path: path.resolve(__dirname, 'dist/'),
+  },
+  performance: {
+    maxEntrypointSize: 900000,
+    maxAssetSize: 900000, // These configure the file size limit // of your build, webpack send you warnings if it is exceeded
   },
   module: {
     rules: [
@@ -51,7 +54,15 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          MiniCssExtractPlugin.loader, 'css-loader',
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '',
+            },
+          },
+          {
+            loader: 'css-loader',
+          },
         ],
       },
       {
