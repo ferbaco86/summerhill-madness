@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin';
+import MoveToPlugin from 'phaser3-rex-plugins/plugins/moveto-plugin';
 
 export default {
   type: Phaser.AUTO,
@@ -10,6 +11,13 @@ export default {
       plugin: UIPlugin,
       mapping: 'rexUI',
     },
+    ],
+    global: [{
+      key: 'rexMoveTo',
+      plugin: MoveToPlugin,
+      start: true,
+    },
+      // ...
     ],
   },
   render: {

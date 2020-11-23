@@ -22,6 +22,7 @@ import mainWalkDown from '../assets/mainCharacter/mainWalkDown.png';
 import mainWalkLeft from '../assets/mainCharacter/mainWalkLeft.png';
 import mainWalkRight from '../assets/mainCharacter/mainWalkRight.png';
 import mainWalkUp from '../assets/mainCharacter/mainWalkUp.png';
+import blueSlimeDown from '../assets/monsters/blueSlimeIdleWalkDown.png';
 import tileSet from '../assets/backgrounds/tileset-extruded.png';
 import wallsTileSet from '../assets/backgrounds/tile-walls-extruded.png';
 import emptySprite from '../assets/backgrounds/emptySprite.png';
@@ -185,21 +186,25 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 30,
       frameHeight: 48,
     });
+    this.load.spritesheet('blueSlimeDown', blueSlimeDown, {
+      frameWidth: 20,
+      frameHeight: 20,
+    });
   }
 
   create() {
     this.animKeys = ['introSleepingAnim', 'redHeadWalkUp', 'redHeadWalkDown', 'redHeadWalkLeft', 'redHeadWalkRight',
-      'mainCharWalkDown', 'mainCharWalkLeft', 'mainCharWalkRight', 'mainCharWalkUp', 'batPickUp'];
+      'mainCharWalkDown', 'mainCharWalkLeft', 'mainCharWalkRight', 'mainCharWalkUp', 'batPickUp', 'blueSlimeWalkDown'];
     this.spriteSheets = ['introSleeping', 'redHeadUp', 'redHeadDown', 'redHeadLeft', 'redHeadRight',
-      'mainDown', 'mainLeft', 'mainRight', 'mainUp', 'mainBatPick'];
+      'mainDown', 'mainLeft', 'mainRight', 'mainUp', 'mainBatPick', 'blueSlimeDown'];
     utils.createAnims(this, this.animKeys, this.spriteSheets, 10, -1);
   }
 
   ready() {
-    this.scene.start('Title');
+    this.scene.start('Town');
     this.readyCount += 1;
     if (this.readyCount === 2) {
-      this.scene.start('Title');
+      this.scene.start('Town');
     }
   }
 }

@@ -29,6 +29,8 @@ export default class TownScene extends Phaser.Scene {
     const schoolEntrance = map.findObject('Objects', obj => obj.name === 'schoolEntrance');
     const houseEntranceSpawn = map.findObject('Objects', obj => obj.name === 'houseEntranceSpawnPoint');
     const schoolEntranceSpawn = map.findObject('Objects', obj => obj.name === 'schoolEntrancesSpawn');
+    const monsterSpawn1 = map.findObject('Objects', obj => obj.name === 'enemyTownSpawn1');
+
     if (data.fromHouse === true) {
       this.mainChar = this.physics.add.sprite(houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1);
     } else if (data.fromSchool === true) {
@@ -36,6 +38,13 @@ export default class TownScene extends Phaser.Scene {
     } else {
       this.mainChar = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, 'mainDown', 1);
     }
+
+    this.blueSlime = this.physics.add.sprite(monsterSpawn1.x, monsterSpawn1.y, 'blueSlimeDown', 1);
+    this.blueSlime.anims.play('blueSlimeWalkDown');
+    this.blueSlime.moveTo = this.plugins.get('rexMoveTo').add(this.blueSlime, {
+      speed: 20,
+      rotateToTarget: false,
+    });
 
     generateMaps.generateCollision(this, this.mainChar, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
     generateMaps.generateDepth(staticLayersArr, 'Above', 10);
@@ -72,5 +81,17 @@ export default class TownScene extends Phaser.Scene {
   update() {
     characterMov.charMovementControl(this.mainChar, this.cursors, 155, 50, -50, -50, 50,
       mainCharAnimInfo, 1);
+
+    if (Phaser.Math.Distance.Between(this.mainChar.x, this.mainChar.y,
+      this.blueSlime.x, this.blueSlime.y) < 80) {
+      // rotate enemy to face towards player
+      // this.blueSlime.rotation = Phaser.Math.Angle.Between(this.mainChar.x, this.mainChar.y,
+      //   this.blueSlime.x, this.blueSlime.y);
+      // move enemy towards player at 150px per second
+      this.blueSlime.moveTo.moveTo(this.mainChar.x, this.mainChar.y);
+
+      // physics.arcade.velocityFromRotation(enemy.rotation, 150, enemy.body.velocity);
+      // could add other code - make enemy fire weapon, etc.
+    }
   }
 }
