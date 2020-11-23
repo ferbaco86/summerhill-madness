@@ -3,41 +3,41 @@ import generateMaps from '../utils/generateMaps';
 import characterMov from '../utils/characterMovement';
 import mainCharAnimInfo from '../assets/data/mainCharAnims.json';
 
-export default class HouseScene extends Phaser.Scene {
+export default class SchoolScene extends Phaser.Scene {
   constructor() {
-    super('House');
+    super('School');
   }
 
   create() {
-    this.exitHouse = () => {
-      this.scene.stop('House');
-      this.scene.start('Town', { fromHouse: true });
+    this.exitSchool = () => {
+      this.scene.stop('School');
+      this.scene.start('Town', { fromSchool: true });
     };
     this.cameras.main.fadeIn(1000, 0, 0, 0);
-    const mapHouse = this.make.tilemap({ key: 'houseMap' });
+    const mapSchool = this.make.tilemap({ key: 'schoolMap' });
 
-    const arrayTiles = generateMaps.generateTilesSet(mapHouse, generateMaps.tilesParams);
-    const arrayLayers = generateMaps.generateStaticLayers(mapHouse, ['Ground', 'World', 'Above', 'Decorators'], arrayTiles, 0, 0);
+    const arrayTiles = generateMaps.generateTilesSet(mapSchool, generateMaps.tilesParams);
+    const arrayLayers = generateMaps.generateStaticLayers(mapSchool, ['Ground', 'World', 'Above', 'Decorators'], arrayTiles, 0, 0);
 
-    const spawnPoint = mapHouse.findObject('Objects', obj => obj.name === 'roomPlayerSpawnPoint');
+    const spawnPoint = mapSchool.findObject('Objects', obj => obj.name === 'schoolPlayerSpawnPoint');
     this.mainChar = this.physics.add.sprite(spawnPoint.x, spawnPoint.y - 5, 'mainUp', 1);
 
     generateMaps.generateCollision(this, this.mainChar, 'World', 'Decorators', arrayLayers, ['World', 'Decorators']);
     generateMaps.generateDepth(arrayLayers, 'Above', 10);
-    generateMaps.setWorld(this, mapHouse, this.mainChar, 3);
+    generateMaps.setWorld(this, mapSchool, this.mainChar, 3);
 
     this.mainChar.body.setSize(this.mainChar.width, this.mainChar.height / 2, false)
       .setOffset(0, this.mainChar.height / 2);
 
-    const houseExit = mapHouse.findObject('Objects', obj => obj.name === 'roomExit');
+    const schoolExit = mapSchool.findObject('Objects', obj => obj.name === 'schoolExit');
 
-    const exit = this.physics.add.sprite(houseExit.x, houseExit.y, 'emptySprite');
-    exit.body.setSize(houseExit.width, houseExit.height);
+    const exit = this.physics.add.sprite(schoolExit.x, schoolExit.y, 'emptySprite');
+    exit.body.setSize(schoolExit.width, schoolExit.height);
     exit.setOrigin(-1, 0);
 
 
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.physics.add.overlap(this.mainChar, exit, this.exitHouse, null, this);
+    this.physics.add.overlap(this.mainChar, exit, this.exitSchool, null, this);
     // this.physics.world.createDebugGraphic();
 
     // // Create worldLayer collision graphic above the player, but below the help text

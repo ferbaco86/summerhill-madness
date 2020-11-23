@@ -2,12 +2,20 @@
 const generateMaps = (() => {
   const tilesParams = {
     tileSet1: {
-      tileName: '',
-      tileKey: '',
-      tileWidth: 0,
-      tileHeight: 0,
-      tileMargin: 0,
-      tileSpacing: 0,
+      tileName: 'tileset_master',
+      tileKey: 'tiles',
+      tileWidth: 16,
+      tileHeight: 16,
+      tileMargin: 1,
+      tileSpacing: 2,
+    },
+    tileSet2: {
+      tileName: 'tileA4_walls3',
+      tileKey: 'wallTiles',
+      tileWidth: 16,
+      tileHeight: 16,
+      tileMargin: 1,
+      tileSpacing: 2,
     },
   };
   const generateTilesSet = (map, tilesValues) => {

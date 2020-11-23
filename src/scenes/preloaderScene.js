@@ -27,6 +27,7 @@ import wallsTileSet from '../assets/backgrounds/tile-walls-extruded.png';
 import emptySprite from '../assets/backgrounds/emptySprite.png';
 import mapData from '../assets/data/Town.json';
 import houseData from '../assets/data/dannyHouse.json';
+import schoolData from '../assets/data/School.json';
 import soundOff from '../assets/ui/soundOff.png';
 import soundOn from '../assets/ui/soundOn.png';
 import titleMusic from '../assets/sounds/titleMenu.wav';
@@ -143,6 +144,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('tiles', tileSet);
     this.load.tilemapTiledJSON('townMap', mapData);
     this.load.tilemapTiledJSON('houseMap', houseData);
+    this.load.tilemapTiledJSON('schoolMap', schoolData);
     this.load.spritesheet('introSleeping', introSleeping, {
       frameWidth: 152,
       frameHeight: 232,
