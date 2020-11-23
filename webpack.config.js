@@ -12,7 +12,7 @@ module.exports = {
   },
   performance: {
     maxEntrypointSize: 900000,
-    maxAssetSize: 900000, // These configure the file size limit // of your build, webpack send you warnings if it is exceeded
+    maxAssetSize: 900000,
   },
   module: {
     rules: [
