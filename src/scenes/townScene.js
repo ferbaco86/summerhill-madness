@@ -2,7 +2,6 @@ import Phaser from 'phaser';
 import generateMaps from '../utils/generateMaps';
 import characterMov from '../utils/characterMovement';
 import mainCharAnimInfo from '../assets/data/mainCharAnims.json';
-import utils from '../utils/utilsFunctions';
 
 
 export default class TownScene extends Phaser.Scene {
@@ -10,7 +9,7 @@ export default class TownScene extends Phaser.Scene {
     super('Town');
   }
 
-  create() {
+  create(data) {
     this.enterHouse = () => {
       this.scene.stop('Town');
       this.scene.start('House');
@@ -23,7 +22,13 @@ export default class TownScene extends Phaser.Scene {
     const staticLayersArr = generateMaps.generateStaticLayers(map, ['Ground', 'Above', 'World', 'Decorators'], tileSetArr, 0, 0);
     const spawnPoint = map.findObject('Objects', obj => obj.name === 'mainHouseSpawn');
     const houseEntrance = map.findObject('Objects', obj => obj.name === 'houseEntrance');
-    this.mainChar = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, 'mainDown', 1);
+    const houseEntranceSpawn = map.findObject('Objects', obj => obj.name === 'houseEntranceSpawnPoint');
+    if (data.fromHouse === true) {
+      this.mainChar = this.physics.add.sprite(houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1);
+    } else {
+      this.mainChar = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, 'mainDown', 1);
+    }
+
     generateMaps.generateCollision(this, this.mainChar, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
     generateMaps.generateDepth(staticLayersArr, 'Above', 10);
 

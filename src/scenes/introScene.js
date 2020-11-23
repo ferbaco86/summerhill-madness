@@ -14,6 +14,7 @@ export default class IntroScene extends Phaser.Scene {
   }
 
   create() {
+    this.fromIntro = true;
     this.cameras.main.setBackgroundColor('#000000');
     this.cameras.main.fadeIn(500, 0, 0, 0);
     this.sys.game.globals.bgMusic.stop();
