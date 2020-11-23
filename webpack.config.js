@@ -79,7 +79,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'styles/[name].css',
+      filename: '[name].css',
     }),
     new CssMinimizerPlugin(),
     new HtmlWebpackPlugin({
