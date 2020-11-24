@@ -12,6 +12,7 @@ import button1 from '../assets/ui/buttonDefault.png';
 import arrowRight from '../assets/ui/arrow_point_right.png';
 import button2 from '../assets/ui/buttonHover.png';
 import phaserLogo from '../assets/logo.png';
+import exclamationBalloon from '../assets/ui/exclamationBalloon.png';
 import introSleeping from '../assets/mainCharacter/sleepingSpriteAnim.png';
 import batPickUp from '../assets/mainCharacter/weaponPickupBase-sheet.png';
 import redHeadWalkUp from '../assets/redHeadCharacter/redHeadWalkUp.png';
@@ -139,6 +140,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('bgMenu', bgMenu);
     this.load.image('soundMenu', soundMenu);
     this.load.image('gameTitle', title);
+    this.load.image('exclamationMark', exclamationBalloon);
     this.load.image('lightWindow', redWindow);
     this.load.image('introBG', introBG);
     this.load.image('wallTiles', wallsTileSet);

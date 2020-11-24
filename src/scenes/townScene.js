@@ -10,6 +10,10 @@ export default class TownScene extends Phaser.Scene {
   }
 
   create(data) {
+    this.onMeetEnemy = () => {
+      this.cameras.main.shake(300, 0.02);
+    };
+    this.charSeen = 0;
     this.enterHouse = () => {
       this.scene.stop('Town');
       this.scene.start('House');
@@ -41,11 +45,12 @@ export default class TownScene extends Phaser.Scene {
 
     this.blueSlime = this.physics.add.sprite(monsterSpawn1.x, monsterSpawn1.y, 'blueSlimeDown', 1);
     this.blueSlime.anims.play('blueSlimeWalkDown');
-    this.blueSlime.moveTo = this.plugins.get('rexMoveTo').add(this.blueSlime, {
-      speed: 20,
-      rotateToTarget: false,
-    });
+    // this.blueSlime.moveTo = this.plugins.get('rexMoveTo').add(this.blueSlime, {
+    //   speed: 25,
+    //   rotateToTarget: false,
+    // });
 
+    generateMaps.generateCollision(this, this.blueSlime, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
     generateMaps.generateCollision(this, this.mainChar, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
     generateMaps.generateDepth(staticLayersArr, 'Above', 10);
 
@@ -61,21 +66,22 @@ export default class TownScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.physics.add.overlap(this.mainChar, houseDoorway, this.enterHouse, null, this);
     this.physics.add.overlap(this.mainChar, schoolDoorway, this.enterSchool, null, this);
+    this.physics.add.overlap(this.mainChar, this.blueSlime, this.onMeetEnemy, null, this);
 
 
-    // this.physics.world.createDebugGraphic();
+    this.physics.world.createDebugGraphic();
 
-    // // Create worldLayer collision graphic above the player, but below the help text
-    // const graphics = this.add
-    //   .graphics()
-    //   .setAlpha(0.75)
-    //   .setDepth(20);
-    // staticLayersArr[0].renderDebug(graphics, {
-    //   tileColor: null, // Color of non-colliding tiles
-    //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
-    //   // Color of colliding tiles
-    //   faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
-    // });
+    // Create worldLayer collision graphic above the player, but below the help text
+    const graphics = this.add
+      .graphics()
+      .setAlpha(0.75)
+      .setDepth(20);
+    staticLayersArr[2].renderDebug(graphics, {
+      tileColor: null, // Color of non-colliding tiles
+      collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
+      // Color of colliding tiles
+      faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
+    });
   }
 
   update() {
@@ -84,14 +90,8 @@ export default class TownScene extends Phaser.Scene {
 
     if (Phaser.Math.Distance.Between(this.mainChar.x, this.mainChar.y,
       this.blueSlime.x, this.blueSlime.y) < 80) {
-      // rotate enemy to face towards player
-      // this.blueSlime.rotation = Phaser.Math.Angle.Between(this.mainChar.x, this.mainChar.y,
-      //   this.blueSlime.x, this.blueSlime.y);
-      // move enemy towards player at 150px per second
-      this.blueSlime.moveTo.moveTo(this.mainChar.x, this.mainChar.y);
-
-      // physics.arcade.velocityFromRotation(enemy.rotation, 150, enemy.body.velocity);
-      // could add other code - make enemy fire weapon, etc.
+      // this.blueSlime.moveTo.moveTo(this.mainChar.x, this.mainChar.y);
+      this.physics.moveToObject(this.blueSlime, this.mainChar, 20);
     }
   }
 }
