@@ -27,6 +27,7 @@ import blueSlimeDown from '../assets/monsters/blueSlimeIdleWalkDown.png';
 import tileSet from '../assets/backgrounds/tileset-extruded.png';
 import wallsTileSet from '../assets/backgrounds/tile-walls-extruded.png';
 import emptySprite from '../assets/backgrounds/emptySprite.png';
+import battleUIBG from '../assets/ui/battleUI.png';
 import mapData from '../assets/data/Town.json';
 import houseData from '../assets/data/dannyHouse.json';
 import schoolData from '../assets/data/School.json';
@@ -144,6 +145,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('lightWindow', redWindow);
     this.load.image('introBG', introBG);
     this.load.image('wallTiles', wallsTileSet);
+    this.load.image('battleUIBG', battleUIBG);
     this.load.image('tiles', tileSet);
     this.load.tilemapTiledJSON('townMap', mapData);
     this.load.tilemapTiledJSON('houseMap', houseData);

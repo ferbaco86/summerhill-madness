@@ -6,10 +6,11 @@ export default class BattleUIScene extends Phaser.Scene {
   }
 
   create() {
-
+    this.cameras.main.fadeIn(1000, 0, 0, 0);
+    this.add.image(0, 385, 'battleUIBG').setOrigin(0, 0);
   }
 
   update() {
-    
+
   }
 }

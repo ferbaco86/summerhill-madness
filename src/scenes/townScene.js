@@ -11,7 +11,11 @@ export default class TownScene extends Phaser.Scene {
 
   create(data) {
     this.onMeetEnemy = () => {
+      this.startBattle = () => {
+        this.scene.switch('Battle');
+      };
       this.cameras.main.shake(300, 0.02);
+      this.time.delayedCall(300, this.startBattle, [], this);
     };
     this.charSeen = 0;
     this.enterHouse = () => {
