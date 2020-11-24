@@ -24,10 +24,14 @@ import mainWalkLeft from '../assets/mainCharacter/mainWalkLeft.png';
 import mainWalkRight from '../assets/mainCharacter/mainWalkRight.png';
 import mainWalkUp from '../assets/mainCharacter/mainWalkUp.png';
 import blueSlimeDown from '../assets/monsters/blueSlimeIdleWalkDown.png';
+import blueSlimeBattler from '../assets/monsters/blueSlimeBattler.png';
+import mainCharBattleStand from '../assets/mainCharacter/mainCharBattle_stand.png';
+import redHeadBattleStand from '../assets/redHeadCharacter/redHeadBattle_stand.png';
 import tileSet from '../assets/backgrounds/tileset-extruded.png';
 import wallsTileSet from '../assets/backgrounds/tile-walls-extruded.png';
 import emptySprite from '../assets/backgrounds/emptySprite.png';
 import battleUIBG from '../assets/ui/battleUI.png';
+import townBattleBG from '../assets/backgrounds/townBattle.png';
 import mapData from '../assets/data/Town.json';
 import houseData from '../assets/data/dannyHouse.json';
 import schoolData from '../assets/data/School.json';
@@ -140,6 +144,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.audio('textFX', [textFX]);
     this.load.image('bgMenu', bgMenu);
     this.load.image('soundMenu', soundMenu);
+    this.load.image('blueSlimeBattler', blueSlimeBattler);
     this.load.image('gameTitle', title);
     this.load.image('exclamationMark', exclamationBalloon);
     this.load.image('lightWindow', redWindow);
@@ -147,6 +152,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('wallTiles', wallsTileSet);
     this.load.image('battleUIBG', battleUIBG);
     this.load.image('tiles', tileSet);
+    this.load.image('townBattleBG', townBattleBG);
     this.load.tilemapTiledJSON('townMap', mapData);
     this.load.tilemapTiledJSON('houseMap', houseData);
     this.load.tilemapTiledJSON('schoolMap', schoolData);
@@ -194,6 +200,14 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 20,
       frameHeight: 20,
     });
+    this.load.spritesheet('mainCharBattleStand', mainCharBattleStand, {
+      frameWidth: 30,
+      frameHeight: 30,
+    });
+    this.load.spritesheet('redHeadBattleStand', redHeadBattleStand, {
+      frameWidth: 30,
+      frameHeight: 30,
+    });
   }
 
   create() {
@@ -205,10 +219,10 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   ready() {
-    this.scene.start('Town');
+    this.scene.start('Battle');
     this.readyCount += 1;
     if (this.readyCount === 2) {
-      this.scene.start('Town');
+      this.scene.start('Battle');
     }
   }
 }
