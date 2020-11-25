@@ -69,9 +69,13 @@ export default class BattleScene extends Phaser.Scene {
         }
       } while (!this.units[this.index].living);
 
+
       // if its player hero
       if (this.units[this.index] instanceof Player) {
-        this.units[this.index].setX(650);
+        this.unitsCopy = this.units.filter(unit => unit instanceof Player);
+        this.unitsCopy.forEach(unit => this.tweens.add({ targets: unit, duration: 500, x: 700 }));
+        // this.tweens.add({ targets: this.units, duration: 500, x: 700 });
+        this.tweens.add({ targets: this.units[this.index], duration: 500, x: 650 });
         this.events.emit('PlayerSelect', this.index);
       } else { // else if its enemy unit
         // pick random hero
