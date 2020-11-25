@@ -10,6 +10,13 @@ export default class TownScene extends Phaser.Scene {
   }
 
   create(data) {
+    this.wake = () => {
+      this.cursors.left.reset();
+      this.cursors.right.reset();
+      this.cursors.up.reset();
+      this.cursors.down.reset();
+    };
+
     this.onMeetEnemy = () => {
       this.startBattle = () => {
         this.scene.switch('Battle');
@@ -86,6 +93,8 @@ export default class TownScene extends Phaser.Scene {
       // Color of colliding tiles
       faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
     });
+
+    this.sys.events.on('wake', this.wake, this);
   }
 
   update() {

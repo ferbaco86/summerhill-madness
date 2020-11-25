@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import BattleMenuItem from './battleMenuItem';
 import BattleAvatar from './battleAvatar';
+import Player from './player';
 
 
 export default class BattleMenu extends Phaser.GameObjects.Container {
@@ -12,12 +13,14 @@ export default class BattleMenu extends Phaser.GameObjects.Container {
     this.heroes = heroes;
     this.x = x;
     this.y = y;
+    this.selected = false;
   }
 
   addMenuItem(action) {
     const menuItem = new BattleMenuItem(0, this.menuItems.length * 50, action, this.scene);
     this.menuItems.push(menuItem);
     this.add(menuItem);
+    return menuItem;
   }
 
   addAvatar(texture) {
@@ -28,15 +31,19 @@ export default class BattleMenu extends Phaser.GameObjects.Container {
 
   moveSelectionUp() {
     this.menuItems[this.menuItemIndex].deselect();
-    this.menuItemIndex -= 1;
-    if (this.menuItemIndex < 0) this.menuItemIndex = this.menuItems.length - 1;
+    do {
+      this.menuItemIndex -= 1;
+      if (this.menuItemIndex < 0) this.menuItemIndex = this.menuItems.length - 1;
+    } while (!this.menuItems[this.menuItemIndex].active);
     this.menuItems[this.menuItemIndex].select();
   }
 
   moveSelectionDown() {
     this.menuItems[this.menuItemIndex].deselect();
-    this.menuItemIndex += 1;
-    if (this.menuItemIndex >= this.menuItems.length) this.menuItemIndex = 0;
+    do {
+      this.menuItemIndex += 1;
+      if (this.menuItemIndex >= this.menuItems.length) this.menuItemIndex = 0;
+    } while (!this.menuItems[this.menuItemIndex].active);
     this.menuItems[this.menuItemIndex].select();
   }
 
@@ -44,16 +51,23 @@ export default class BattleMenu extends Phaser.GameObjects.Container {
     if (!index) index = 0;
     this.menuItems[this.menuItemIndex].deselect();
     this.menuItemIndex = index;
+    while (!this.menuItems[this.menuItemIndex].active) {
+      this.menuItemIndex += 1;
+      if (this.menuItemIndex >= this.menuItems.length) this.menuItemIndex = 0;
+      if (this.menuItemIndex === index) return;
+    }
     this.menuItems[this.menuItemIndex].select();
+    this.selected = true;
   }
 
   deselect() {
     this.menuItems[this.menuItemIndex].deselect();
     this.menuItemIndex = 0;
+    this.selected = false;
   }
 
   confirm() {
-    // when the player confirms his slection, do the action
+  // when the player confirms his slection, do the action
   }
 
   clear() {
@@ -71,8 +85,9 @@ export default class BattleMenu extends Phaser.GameObjects.Container {
     this.clear();
     for (let i = 0; i < units.length; i += 1) {
       const unit = units[i];
-      this.addMenuItem(unit.type);
-      this.addAvatar(unit.avatar);
+      unit.setMenuItem(this.addMenuItem(unit.type));
+      if (unit instanceof Player) unit.setMenuItem(this.addAvatar(unit.avatar));
     }
+    this.menuItemIndex = 0;
   }
 }

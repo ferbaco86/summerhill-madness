@@ -11,6 +11,7 @@ export default class BattleUIScene extends Phaser.Scene {
 
   create() {
     this.battleScene = this.scene.get('Battle');
+
     this.remapHeroes = () => {
       const { heroes } = this.battleScene;
       this.heroesMenu.remap(heroes);
@@ -22,7 +23,7 @@ export default class BattleUIScene extends Phaser.Scene {
     };
 
     this.onKeyInput = (event) => {
-      if (this.currentMenu) {
+      if (this.currentMenu && this.currentMenu.selected) {
         if (event.code === 'ArrowUp') {
           this.currentMenu.moveSelectionUp();
         } else if (event.code === 'ArrowDown') {
@@ -47,9 +48,15 @@ export default class BattleUIScene extends Phaser.Scene {
       this.battleScene.receivePlayerSelection('attack', index);
     };
 
-    this.onSelectEnemies = () => {
+    this.onSelectedAction = () => {
       this.currentMenu = this.enemiesMenu;
       this.enemiesMenu.select(0);
+    };
+
+    this.createMenu = () => {
+      this.remapHeroes();
+      this.remapEnemies();
+      this.battleScene.nextTurn();
     };
 
     this.cameras.main.fadeIn(1000, 0, 0, 0);
@@ -70,15 +77,15 @@ export default class BattleUIScene extends Phaser.Scene {
     this.menus.add(this.actionsMenu);
     this.menus.add(this.enemiesMenu);
 
-    this.remapHeroes();
-    this.remapEnemies();
 
     this.input.keyboard.on('keydown', this.onKeyInput, this);
 
     this.battleScene.events.on('PlayerSelect', this.onPlayerSelect, this);
-    this.events.on('SelectEnemies', this.onSelectEnemies, this);
+    this.events.on('SelectedAction', this.onSelectedAction, this);
     this.events.on('Enemy', this.onEnemy, this);
 
-    this.battleScene.nextTurn();
+    this.sys.events.on('wake', this.createMenu, this);
+
+    this.createMenu();
   }
 }

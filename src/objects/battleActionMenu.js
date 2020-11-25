@@ -8,6 +8,6 @@ export default class BattleActionMenu extends BattleMenu {
   }
 
   confirm() {
-    this.scene.events.emit('SelectEnemies');
+    this.scene.events.emit('SelectedAction');
   }
 }

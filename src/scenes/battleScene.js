@@ -9,37 +9,78 @@ export default class BattleScene extends Phaser.Scene {
   }
 
   create() {
-    this.cameras.main.fadeIn(1000, 0, 0, 0);
-    this.scene.launch('BattleUI');
-    this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
-    const mainChar = new Player(this, 700, 200, 'mainCharBattleStand', 1, 'Player', 100, 20, 'mainFace');
-    const redHead = new Player(this, 750, 330, 'redHeadBattleStand', 1, 'Ro', 100, 8, 'redHeadFace');
-    const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 50, 15);
+    this.checkEndBattle = () => {
+      let victory = true;
+      // if all enemies are dead we have victory
+      for (let i = 0; i < this.enemies.length; i += 1) {
+        if (this.enemies[i].living) victory = false;
+      }
+      let gameOver = true;
+      // if all heroes are dead we have game over
+      for (let i = 0; i < this.heroes.length; i += 1) {
+        if (this.heroes[i].living) gameOver = false;
+      }
+      return victory || gameOver;
+    };
 
-    this.heroes = [mainChar, redHead];
-    this.enemies = [blueSlime];
-    this.units = this.heroes.concat(this.enemies);
+    this.endBattle = () => {
+      // clear state, remove sprites
+      this.heroes.length = 0;
+      this.enemies.length = 0;
+      for (let i = 0; i < this.units.length; i += 1) {
+        // link item
+        this.units[i].destroy();
+      }
+      this.units.length = 0;
+      // sleep the UI
+      this.scene.sleep('BattleUI');
+      // return to WorldScene and sleep current BattleScene
+      this.scene.switch('Town');
+    };
 
-    this.index = -1;
+    this.startBattle = () => {
+      this.cameras.main.fadeIn(1000, 0, 0, 0);
+      this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
+      const mainChar = new Player(this, 700, 200, 'mainCharBattleStand', 1, 'Player', 100, 20, 'mainFace');
+      const redHead = new Player(this, 750, 330, 'redHeadBattleStand', 1, 'Ro', 100, 8, 'redHeadFace');
+      const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 50, 15);
+      const blueSlime2 = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Another Blue Slime', 50, 15);
+
+      this.heroes = [mainChar, redHead];
+      this.enemies = [blueSlime, blueSlime2];
+      this.units = this.heroes.concat(this.enemies);
+
+      this.index = -1;
+      this.scene.run('BattleUI');
+    };
+
 
     this.nextTurn = () => {
-      this.index += 1;
-      // if there are no more units, we start again from the first one
-      if (this.index >= this.units.length) {
-        this.index = 0;
+      if (this.checkEndBattle()) {
+        this.endBattle();
+        return;
       }
-      if (this.units[this.index]) {
-        // if its player hero
-        if (this.units[this.index] instanceof Player) {
-          this.events.emit('PlayerSelect', this.index);
-        } else { // else if its enemy unit
-          // pick random hero
-          const r = Math.floor(Math.random() * this.heroes.length);
-          // call the enemy's attack function
-          this.units[this.index].attack(this.heroes[r]);
-          // add timer for the next turn, so will have smooth gameplay
-          this.time.addEvent({ delay: 3000, callback: this.nextTurn, callbackScope: this });
+      do {
+        this.index += 1;
+        // if there are no more units, we start again from the first one
+        if (this.index >= this.units.length) {
+          this.index = 0;
         }
+      } while (!this.units[this.index].living);
+
+      // if its player hero
+      if (this.units[this.index] instanceof Player) {
+        this.events.emit('PlayerSelect', this.index);
+      } else { // else if its enemy unit
+        // pick random hero
+        let r;
+        do {
+          r = Math.floor(Math.random() * this.heroes.length);
+        } while (!this.heroes[r].living);
+        // call the enemy's attack function
+        this.units[this.index].attack(this.heroes[r]);
+        // add timer for the next turn, so will have smooth gameplay
+        this.time.addEvent({ delay: 3000, callback: this.nextTurn, callbackScope: this });
       }
     };
 
@@ -49,5 +90,12 @@ export default class BattleScene extends Phaser.Scene {
       }
       this.time.addEvent({ delay: 3000, callback: this.nextTurn, callbackScope: this });
     };
+
+    this.exitBattle = () => {
+      this.scene.sleep('BattleUI');
+      this.scene.switch('Town');
+    };
+    this.startBattle();
+    this.sys.events.on('wake', this.startBattle, this);
   }
 }
