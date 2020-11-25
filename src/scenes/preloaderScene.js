@@ -213,16 +213,19 @@ export default class PreloaderScene extends Phaser.Scene {
   create() {
     this.animKeys = ['introSleepingAnim', 'redHeadWalkUp', 'redHeadWalkDown', 'redHeadWalkLeft', 'redHeadWalkRight',
       'mainCharWalkDown', 'mainCharWalkLeft', 'mainCharWalkRight', 'mainCharWalkUp', 'batPickUp', 'blueSlimeWalkDown'];
+    this.battleAnimKeys = ['mainCharIdle', 'redHeadIdle'];
+    this.battleSpriteSheets = ['mainCharBattleStand', 'redHeadBattleStand'];
     this.spriteSheets = ['introSleeping', 'redHeadUp', 'redHeadDown', 'redHeadLeft', 'redHeadRight',
       'mainDown', 'mainLeft', 'mainRight', 'mainUp', 'mainBatPick', 'blueSlimeDown'];
     utils.createAnims(this, this.animKeys, this.spriteSheets, 10, -1);
+    utils.createAnims(this, this.battleAnimKeys, this.battleSpriteSheets, 4, -1);
   }
 
   ready() {
-    this.scene.start('Town');
+    this.scene.start('Battle');
     this.readyCount += 1;
     if (this.readyCount === 2) {
-      this.scene.start('Town');
+      this.scene.start('Battle');
     }
   }
 }

@@ -42,12 +42,13 @@ export default class BattleScene extends Phaser.Scene {
       this.cameras.main.fadeIn(1000, 0, 0, 0);
       this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
       const mainChar = new Player(this, 700, 200, 'mainCharBattleStand', 1, 'Player', 100, 20, 'mainFace');
-      const redHead = new Player(this, 750, 330, 'redHeadBattleStand', 1, 'Ro', 100, 8, 'redHeadFace');
+      const redHead = new Player(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 8, 'redHeadFace');
       const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 50, 15);
-      const blueSlime2 = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Another Blue Slime', 50, 15);
+      mainChar.anims.play('mainCharIdle');
+      redHead.anims.play('redHeadIdle');
 
       this.heroes = [mainChar, redHead];
-      this.enemies = [blueSlime, blueSlime2];
+      this.enemies = [blueSlime];
       this.units = this.heroes.concat(this.enemies);
 
       this.index = -1;
@@ -70,6 +71,7 @@ export default class BattleScene extends Phaser.Scene {
 
       // if its player hero
       if (this.units[this.index] instanceof Player) {
+        this.units[this.index].setX(650);
         this.events.emit('PlayerSelect', this.index);
       } else { // else if its enemy unit
         // pick random hero
