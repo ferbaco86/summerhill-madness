@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import BattleHeroesMenu from '../objects/battleHeroesMenu';
 import BattleActionMenu from '../objects/battleActionMenu';
 import BattleEnemiesMenu from '../objects/battleEnemiesMenu';
+import Message from '../objects/message';
 
 
 export default class BattleUIScene extends Phaser.Scene {
@@ -85,6 +86,9 @@ export default class BattleUIScene extends Phaser.Scene {
     this.events.on('Enemy', this.onEnemy, this);
 
     this.sys.events.on('wake', this.createMenu, this);
+
+    this.message = new Message(this, this.battleScene.events);
+    this.add.existing(this.message);
 
     this.createMenu();
   }

@@ -22,8 +22,8 @@ export default class Unit extends Phaser.GameObjects.Sprite {
       if (this.type === 'Player') {
         this.anims.play('batHitAnim');
       }
-      // this.scene.events.emit('Message',
-      // `${this.type} attacks ${target.type} for ${this.damage} damage`);
+      this.scene.events.emit('Message',
+        `Ouch! ${target.type} receives ${this.damage} damage!!`);
     }
   }
 
