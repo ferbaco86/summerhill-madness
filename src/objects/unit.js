@@ -19,6 +19,9 @@ export default class Unit extends Phaser.GameObjects.Sprite {
   attack(target) {
     if (target.living) {
       target.takeDamage(this.damage);
+      if (this.type === 'Player') {
+        this.anims.play('batHitAnim');
+      }
       // this.scene.events.emit('Message',
       // `${this.type} attacks ${target.type} for ${this.damage} damage`);
     }

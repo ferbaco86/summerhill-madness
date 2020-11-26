@@ -41,11 +41,9 @@ export default class BattleScene extends Phaser.Scene {
     this.startBattle = () => {
       this.cameras.main.fadeIn(1000, 0, 0, 0);
       this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
-      const mainChar = new Player(this, 700, 200, 'mainCharBattleStand', 1, 'Player', 100, 20, 'mainFace');
-      const redHead = new Player(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 8, 'redHeadFace');
-      const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 50, 15);
-      mainChar.anims.play('mainCharIdle');
-      redHead.anims.play('redHeadIdle');
+      const mainChar = new Player(this, 700, 200, 'mainCharBattleStand', 1, 'Player', 100, 20, 'mainFace', 'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim');
+      const redHead = new Player(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 8, 'redHeadFace', 'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim');
+      const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 150, 15, 'blueSlimeDamageAnim');
 
       this.heroes = [mainChar, redHead];
       this.enemies = [blueSlime];
@@ -68,6 +66,7 @@ export default class BattleScene extends Phaser.Scene {
           this.index = 0;
         }
       } while (!this.units[this.index].living);
+      this.heroes.forEach(hero => { hero.playIdleAnimation(); });
 
 
       // if its player hero
@@ -78,19 +77,15 @@ export default class BattleScene extends Phaser.Scene {
         this.events.emit('PlayerSelect', this.index);
       } else { // else if its enemy unit
         // pick random hero
-        this.unitsEnemies = this.units.filter(unit => unit instanceof Enemy);
-        this.unitsEnemies.forEach(unit => this.tweens.add({
-          targets: unit,
-          duration: 500,
-          x: 100,
-        }));
         let r;
         do {
           r = Math.floor(Math.random() * this.heroes.length);
         } while (!this.heroes[r].living);
         // call the enemy's attack function
 
-        this.tweens.add({ targets: this.units[this.index], duration: 500, x: 150 });
+        // this.tweens.add({ targets: this.units[this.index], duration: 500, x: 150 });
+        this.units[this.index].attackAnim();
+        this.heroes[r].playTakeDamage();
         this.units[this.index].attack(this.heroes[r]);
         // add timer for the next turn, so will have smooth gameplay
         this.time.addEvent({ delay: 3000, callback: this.nextTurn, callbackScope: this });
@@ -100,8 +95,10 @@ export default class BattleScene extends Phaser.Scene {
     this.receivePlayerSelection = (action, target) => {
       if (action === 'attack') {
         this.units[this.index].attack(this.enemies[target]);
+        this.units[this.index].playHitAnimation();
+        this.enemies[target].takeDamageAnim();
       }
-      this.time.addEvent({ delay: 3000, callback: this.nextTurn, callbackScope: this });
+      this.time.addEvent({ delay: 1000, callback: this.nextTurn, callbackScope: this });
     };
 
     this.exitBattle = () => {

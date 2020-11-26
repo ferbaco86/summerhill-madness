@@ -23,10 +23,15 @@ import mainWalkDown from '../assets/mainCharacter/mainWalkDown.png';
 import mainWalkLeft from '../assets/mainCharacter/mainWalkLeft.png';
 import mainWalkRight from '../assets/mainCharacter/mainWalkRight.png';
 import mainWalkUp from '../assets/mainCharacter/mainWalkUp.png';
+import batHit from '../assets/mainCharacter/BatHit.png';
+import tennisHit from '../assets/redHeadCharacter/tennisHit.png';
 import blueSlimeDown from '../assets/monsters/blueSlimeIdleWalkDown.png';
 import blueSlimeBattler from '../assets/monsters/blueSlimeBattler.png';
+import blueSlimeBattlerDamage from '../assets/monsters/blueSlimeBattlerDamage.png';
 import mainCharBattleStand from '../assets/mainCharacter/mainCharBattle_stand.png';
+import mainCharTakeDamage from '../assets/mainCharacter/mainTakeDamage.png';
 import redHeadBattleStand from '../assets/redHeadCharacter/redHeadBattle_stand.png';
+import redHeadTakeDamage from '../assets/redHeadCharacter/redHeadTakeDamage.png';
 import tileSet from '../assets/backgrounds/tileset-extruded.png';
 import wallsTileSet from '../assets/backgrounds/tile-walls-extruded.png';
 import emptySprite from '../assets/backgrounds/emptySprite.png';
@@ -151,7 +156,6 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('lightWindow', redWindow);
     this.load.image('introBG', introBG);
     this.load.image('wallTiles', wallsTileSet);
-    // this.load.image('maximize', maximize);
     this.load.image('battleUIBG', battleUIBG);
     this.load.image('tiles', tileSet);
     this.load.image('townBattleBG', townBattleBG);
@@ -214,17 +218,40 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 18,
       frameHeight: 18,
     });
+    this.load.spritesheet('batHit', batHit, {
+      frameWidth: 36,
+      frameHeight: 30,
+    });
+    this.load.spritesheet('tennisHit', tennisHit, {
+      frameWidth: 36,
+      frameHeight: 30,
+    });
+    this.load.spritesheet('blueSlimeDamage', blueSlimeBattlerDamage, {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet('mainTakeDamage', mainCharTakeDamage, {
+      frameWidth: 30,
+      frameHeight: 30,
+    });
+    this.load.spritesheet('redHeadTakeDamage', redHeadTakeDamage, {
+      frameWidth: 30,
+      frameHeight: 30,
+    });
   }
 
   create() {
     this.animKeys = ['introSleepingAnim', 'redHeadWalkUp', 'redHeadWalkDown', 'redHeadWalkLeft', 'redHeadWalkRight',
       'mainCharWalkDown', 'mainCharWalkLeft', 'mainCharWalkRight', 'mainCharWalkUp', 'batPickUp', 'blueSlimeWalkDown'];
     this.battleAnimKeys = ['mainCharIdle', 'redHeadIdle'];
+    this.hitAnimKeys = ['batHitAnim', 'tennisHitAnim', 'blueSlimeDamageAnim', 'mainTakeDamageAnim', 'redHeadTakeDamageAnim'];
+    this.hitSpriteSheets = ['batHit', 'tennisHit', 'blueSlimeDamage', 'mainTakeDamage', 'redHeadTakeDamage'];
     this.battleSpriteSheets = ['mainCharBattleStand', 'redHeadBattleStand'];
     this.spriteSheets = ['introSleeping', 'redHeadUp', 'redHeadDown', 'redHeadLeft', 'redHeadRight',
       'mainDown', 'mainLeft', 'mainRight', 'mainUp', 'mainBatPick', 'blueSlimeDown'];
     utils.createAnims(this, this.animKeys, this.spriteSheets, 10, -1);
     utils.createAnims(this, this.battleAnimKeys, this.battleSpriteSheets, 4, -1);
+    utils.createAnims(this, this.hitAnimKeys, this.hitSpriteSheets, 10, 1);
   }
 
   ready() {
