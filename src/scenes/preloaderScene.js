@@ -31,6 +31,7 @@ import tileSet from '../assets/backgrounds/tileset-extruded.png';
 import wallsTileSet from '../assets/backgrounds/tile-walls-extruded.png';
 import emptySprite from '../assets/backgrounds/emptySprite.png';
 import battleUIBG from '../assets/ui/battleUI.png';
+import maximize from '../assets/ui/maximize.png';
 import townBattleBG from '../assets/backgrounds/townBattle.png';
 import mapData from '../assets/data/Town.json';
 import houseData from '../assets/data/dannyHouse.json';
@@ -150,6 +151,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('lightWindow', redWindow);
     this.load.image('introBG', introBG);
     this.load.image('wallTiles', wallsTileSet);
+    // this.load.image('maximize', maximize);
     this.load.image('battleUIBG', battleUIBG);
     this.load.image('tiles', tileSet);
     this.load.image('townBattleBG', townBattleBG);
@@ -208,6 +210,10 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 30,
       frameHeight: 30,
     });
+    this.load.spritesheet('maximize', maximize, {
+      frameWidth: 18,
+      frameHeight: 18,
+    });
   }
 
   create() {
@@ -222,10 +228,10 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   ready() {
-    this.scene.start('Battle');
+    this.scene.start('Town');
     this.readyCount += 1;
     if (this.readyCount === 2) {
-      this.scene.start('Battle');
+      this.scene.start('Town');
     }
   }
 }

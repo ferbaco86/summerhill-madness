@@ -56,10 +56,6 @@ export default class TownScene extends Phaser.Scene {
 
     this.blueSlime = this.physics.add.sprite(monsterSpawn1.x, monsterSpawn1.y, 'blueSlimeDown', 1);
     this.blueSlime.anims.play('blueSlimeWalkDown');
-    // this.blueSlime.moveTo = this.plugins.get('rexMoveTo').add(this.blueSlime, {
-    //   speed: 25,
-    //   rotateToTarget: false,
-    // });
 
     generateMaps.generateCollision(this, this.blueSlime, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
     generateMaps.generateCollision(this, this.mainChar, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
@@ -80,21 +76,36 @@ export default class TownScene extends Phaser.Scene {
     this.physics.add.overlap(this.mainChar, this.blueSlime, this.onMeetEnemy, null, this);
 
 
-    this.physics.world.createDebugGraphic();
+    // this.physics.world.createDebugGraphic();
 
-    // Create worldLayer collision graphic above the player, but below the help text
-    const graphics = this.add
-      .graphics()
-      .setAlpha(0.75)
-      .setDepth(20);
-    staticLayersArr[2].renderDebug(graphics, {
-      tileColor: null, // Color of non-colliding tiles
-      collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
-      // Color of colliding tiles
-      faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
-    });
+    // // Create worldLayer collision graphic above the player, but below the help text
+    // const graphics = this.add
+    //   .graphics()
+    //   .setAlpha(0.75)
+    //   .setDepth(20);
+    // staticLayersArr[2].renderDebug(graphics, {
+    //   tileColor: null, // Color of non-colliding tiles
+    //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
+    //   // Color of colliding tiles
+    //   faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
+    // });
 
     this.sys.events.on('wake', this.wake, this);
+    const button = this.add.image(620, 390, 'maximize', 0).setScrollFactor(0);
+    button.setInteractive();
+    button.setDepth(30);
+
+    button.on('pointerup', () => {
+      if (this.scale.isFullscreen) {
+        button.setFrame(0);
+
+        this.scale.stopFullscreen();
+      } else {
+        button.setFrame(1);
+
+        this.scale.startFullscreen();
+      }
+    }, this);
   }
 
   update() {
@@ -103,7 +114,6 @@ export default class TownScene extends Phaser.Scene {
 
     if (Phaser.Math.Distance.Between(this.mainChar.x, this.mainChar.y,
       this.blueSlime.x, this.blueSlime.y) < 80) {
-      // this.blueSlime.moveTo.moveTo(this.mainChar.x, this.mainChar.y);
       this.physics.moveToObject(this.blueSlime, this.mainChar, 20);
     }
   }

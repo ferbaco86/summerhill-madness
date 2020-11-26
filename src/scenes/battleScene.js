@@ -72,18 +72,25 @@ export default class BattleScene extends Phaser.Scene {
 
       // if its player hero
       if (this.units[this.index] instanceof Player) {
-        this.unitsCopy = this.units.filter(unit => unit instanceof Player);
-        this.unitsCopy.forEach(unit => this.tweens.add({ targets: unit, duration: 500, x: 700 }));
-        // this.tweens.add({ targets: this.units, duration: 500, x: 700 });
+        this.unitsHeroes = this.units.filter(unit => unit instanceof Player);
+        this.unitsHeroes.forEach(unit => this.tweens.add({ targets: unit, duration: 500, x: 700 }));
         this.tweens.add({ targets: this.units[this.index], duration: 500, x: 650 });
         this.events.emit('PlayerSelect', this.index);
       } else { // else if its enemy unit
         // pick random hero
+        this.unitsEnemies = this.units.filter(unit => unit instanceof Enemy);
+        this.unitsEnemies.forEach(unit => this.tweens.add({
+          targets: unit,
+          duration: 500,
+          x: 100,
+        }));
         let r;
         do {
           r = Math.floor(Math.random() * this.heroes.length);
         } while (!this.heroes[r].living);
         // call the enemy's attack function
+
+        this.tweens.add({ targets: this.units[this.index], duration: 500, x: 150 });
         this.units[this.index].attack(this.heroes[r]);
         // add timer for the next turn, so will have smooth gameplay
         this.time.addEvent({ delay: 3000, callback: this.nextTurn, callbackScope: this });

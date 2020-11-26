@@ -4,7 +4,13 @@ import MoveToPlugin from 'phaser3-rex-plugins/plugins/moveto-plugin';
 
 export default {
   type: Phaser.AUTO,
-  parent: 'content',
+  scale: {
+    mode: Phaser.Scale.FIT,
+    parent: 'content',
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    width: 960,
+    height: 608,
+  },
   plugins: {
     scene: [{
       key: 'rexUI',
@@ -23,9 +29,6 @@ export default {
   render: {
     pixelArt: true, antialias: false,
   },
-  autoCenter: Phaser.Scale.CENTER_BOTH,
-  width: 960,
-  height: 608,
   physics: {
     default: 'arcade',
     arcade: {
