@@ -36,6 +36,7 @@ import tileSet from '../assets/backgrounds/tileset-extruded.png';
 import wallsTileSet from '../assets/backgrounds/tile-walls-extruded.png';
 import emptySprite from '../assets/backgrounds/emptySprite.png';
 import battleUIBG from '../assets/ui/battleUI.png';
+import battleMessageUI from '../assets/ui/messageFrame.png';
 import maximize from '../assets/ui/maximize.png';
 import townBattleBG from '../assets/backgrounds/townBattle.png';
 import mapData from '../assets/data/Town.json';
@@ -157,6 +158,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('introBG', introBG);
     this.load.image('wallTiles', wallsTileSet);
     this.load.image('battleUIBG', battleUIBG);
+    this.load.image('messageBattleUI', battleMessageUI);
     this.load.image('tiles', tileSet);
     this.load.image('townBattleBG', townBattleBG);
     this.load.tilemapTiledJSON('townMap', mapData);
