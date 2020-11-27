@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Enemy from '../objects/enemy';
+import HealthDisplay from '../objects/healthDisplay';
 import Player from '../objects/player';
 
 
@@ -43,8 +44,8 @@ export default class BattleScene extends Phaser.Scene {
       this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
       const mainChar = new Player(this, 700, 200, 'mainCharBattleStand', 1, 'Player', 100, 20, 'mainFace', 'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim');
       const redHead = new Player(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 8, 'redHeadFace', 'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim');
-      const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 150, 15, 'blueSlimeDamageAnim');
-
+      const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 150, 75, 'blueSlimeDamageAnim');
+      this.healthText = new HealthDisplay(this, mainChar.x, mainChar.y, 'heartIcon', 'Test test');
       this.heroes = [mainChar, redHead];
       this.enemies = [blueSlime];
       this.units = this.heroes.concat(this.enemies);
@@ -75,6 +76,8 @@ export default class BattleScene extends Phaser.Scene {
         this.unitsHeroes.forEach(unit => this.tweens.add({ targets: unit, duration: 500, x: 700 }));
         this.tweens.add({ targets: this.units[this.index], duration: 500, x: 650 });
         this.events.emit('PlayerSelect', this.index);
+        this.healthText.setPosition(this.units[this.index].x - 50, this.units[this.index].y - 50);
+        this.healthText.setHealthText(`${this.units[this.index].hp} / ${this.units[this.index].maxHP}`);
       } else { // else if its enemy unit
         // pick random hero
         let r;

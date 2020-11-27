@@ -17,6 +17,7 @@ export default class TownScene extends Phaser.Scene {
       this.cursors.down.reset();
     };
 
+
     this.onMeetEnemy = () => {
       this.startBattle = () => {
         this.scene.switch('Battle');

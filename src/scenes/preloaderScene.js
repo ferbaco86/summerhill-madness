@@ -36,7 +36,10 @@ import tileSet from '../assets/backgrounds/tileset-extruded.png';
 import wallsTileSet from '../assets/backgrounds/tile-walls-extruded.png';
 import emptySprite from '../assets/backgrounds/emptySprite.png';
 import battleUIBG from '../assets/ui/battleUI.png';
+import heart from '../assets/ui/heart.png';
 import battleMessageUI from '../assets/ui/messageFrame.png';
+import healthFull from '../assets/ui/healthFull.png';
+import healthEmpty from '../assets/ui/healthEmpty.png';
 import maximize from '../assets/ui/maximize.png';
 import townBattleBG from '../assets/backgrounds/townBattle.png';
 import mapData from '../assets/data/Town.json';
@@ -150,6 +153,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.audio('wowFX', [wowFX]);
     this.load.audio('textFX', [textFX]);
     this.load.image('bgMenu', bgMenu);
+    this.load.image('heartIcon', heart);
     this.load.image('soundMenu', soundMenu);
     this.load.image('blueSlimeBattler', blueSlimeBattler);
     this.load.image('gameTitle', title);
@@ -158,6 +162,8 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('introBG', introBG);
     this.load.image('wallTiles', wallsTileSet);
     this.load.image('battleUIBG', battleUIBG);
+    this.load.image('healthBarEmpty', healthEmpty);
+    this.load.image('healthBarFull', healthFull);
     this.load.image('messageBattleUI', battleMessageUI);
     this.load.image('tiles', tileSet);
     this.load.image('townBattleBG', townBattleBG);
