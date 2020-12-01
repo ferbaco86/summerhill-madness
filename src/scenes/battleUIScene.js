@@ -49,9 +49,13 @@ export default class BattleUIScene extends Phaser.Scene {
       this.battleScene.receivePlayerSelection('attack', index);
     };
 
-    this.onSelectedAction = () => {
-      this.currentMenu = this.enemiesMenu;
-      this.enemiesMenu.select(0);
+    this.onSelectedAction = (index) => {
+      if (index === 1) {
+        this.battleScene.exitBattle();
+      } else {
+        this.currentMenu = this.enemiesMenu;
+        this.enemiesMenu.select(0);
+      }
     };
 
     this.createMenu = () => {
