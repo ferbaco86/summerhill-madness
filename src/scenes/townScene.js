@@ -17,16 +17,6 @@ export default class TownScene extends Phaser.Scene {
       this.cursors.down.reset();
     };
 
-
-    this.onMeetEnemy = () => {
-      this.startBattle = () => {
-        this.scene.stop('Town');
-        this.scene.start('Battle');
-      };
-      this.cameras.main.shake(300, 0.02);
-      this.time.delayedCall(300, this.startBattle, [], this);
-    };
-    this.charSeen = 0;
     this.enterHouse = () => {
       this.scene.stop('Town');
       this.scene.start('House');
@@ -48,13 +38,25 @@ export default class TownScene extends Phaser.Scene {
     const schoolEntranceSpawn = map.findObject('Objects', obj => obj.name === 'schoolEntrancesSpawn');
     const monsterSpawn1 = map.findObject('Objects', obj => obj.name === 'enemyTownSpawn1');
 
+
     if (data.fromHouse === true) {
       this.mainChar = this.physics.add.sprite(houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1);
     } else if (data.fromSchool === true) {
       this.mainChar = this.physics.add.sprite(schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1);
+    } else if (data.fromBattle === true) {
+      this.mainChar = this.physics.add.sprite(data.charPosX - 30, data.charPosY - 30, 'mainDown', 1);
     } else {
       this.mainChar = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, 'mainDown', 1);
     }
+
+    this.onMeetEnemy = () => {
+      this.startBattle = () => {
+        this.scene.stop('Town');
+        this.scene.start('Battle', { posX: this.mainChar.x, posY: this.mainChar.y });
+      };
+      this.cameras.main.shake(300, 0.02);
+      this.time.delayedCall(300, this.startBattle, [], this);
+    };
 
     this.blueSlime = this.physics.add.sprite(monsterSpawn1.x, monsterSpawn1.y, 'blueSlimeDown', 1);
     this.blueSlime.anims.play('blueSlimeWalkDown');

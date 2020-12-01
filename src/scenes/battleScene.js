@@ -9,7 +9,10 @@ export default class BattleScene extends Phaser.Scene {
     super('Battle');
   }
 
-  create() {
+  create(data) {
+    const { posX } = data;
+    const { posY } = data;
+
     this.checkEndBattle = () => {
       let victory = true;
       // if all enemies are dead we have victory
@@ -114,7 +117,7 @@ export default class BattleScene extends Phaser.Scene {
     this.exitBattle = () => {
       this.scene.sleep('BattleUI');
       this.scene.stop('Battle');
-      this.scene.start('Town');
+      this.scene.start('Town', { fromBattle: true, charPosX: posX, charPosY: posY });
     };
     this.startBattle();
     this.sys.events.on('wake', this.startBattle, this);
