@@ -36,7 +36,8 @@ export default class BattleScene extends Phaser.Scene {
       // sleep the UI
       this.scene.sleep('BattleUI');
       // return to WorldScene and sleep current BattleScene
-      this.scene.switch('Town');
+      this.scene.stop('Battle');
+      this.scene.start('Town');
     };
 
     this.startBattle = () => {
@@ -44,10 +45,11 @@ export default class BattleScene extends Phaser.Scene {
       this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
       const mainChar = new Player(this, 700, 200, 'mainCharBattleStand', 1, 'Player', 100, 20, 'mainFace', 'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim');
       const redHead = new Player(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 8, 'redHeadFace', 'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim');
-      const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 150, 75, 'blueSlimeDamageAnim');
+      const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 50, 75, 'blueSlimeDamageAnim');
+      const blueSlime2 = new Enemy(this, 100, 300, 'blueSlimeBattler', 0, 'Blue Slime 2', 50, 75, 'blueSlimeDamageAnim');
       this.healthText = new HealthDisplay(this, mainChar.x, mainChar.y, 'heartIcon', 'Test test');
       this.heroes = [mainChar, redHead];
-      this.enemies = [blueSlime];
+      this.enemies = [blueSlime, blueSlime2];
       this.units = this.heroes.concat(this.enemies);
 
       this.index = -1;
@@ -86,7 +88,6 @@ export default class BattleScene extends Phaser.Scene {
         } while (!this.heroes[r].living);
         // call the enemy's attack function
 
-        // this.tweens.add({ targets: this.units[this.index], duration: 500, x: 150 });
         this.units[this.index].attackAnim();
         this.heroes[r].playTakeDamage();
         this.units[this.index].attack(this.heroes[r]);
@@ -106,7 +107,8 @@ export default class BattleScene extends Phaser.Scene {
 
     this.exitBattle = () => {
       this.scene.sleep('BattleUI');
-      this.scene.switch('Town');
+      this.scene.stop('Battle');
+      this.scene.start('Town');
     };
     this.startBattle();
     this.sys.events.on('wake', this.startBattle, this);

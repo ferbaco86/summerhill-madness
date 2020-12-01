@@ -86,9 +86,9 @@ export default class BattleMenu extends Phaser.GameObjects.Container {
     for (let i = 0; i < units.length; i += 1) {
       const unit = units[i];
       unit.setMenuItem(this.addMenuItem(unit.type));
-      if (unit instanceof Player) {
-        unit.setMenuItem(this.addAvatar(unit.avatar));
-      }
+      // if (unit instanceof Player) {
+      //   unit.setMenuItem(this.addAvatar(unit.avatar));
+      // }
     }
     this.menuItemIndex = 0;
   }
