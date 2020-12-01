@@ -45,8 +45,8 @@ export default class BattleScene extends Phaser.Scene {
       this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
       const mainChar = new Player(this, 700, 200, 'mainCharBattleStand', 1, 'Player', 100, 20, 'mainFace', 'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim');
       const redHead = new Player(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 8, 'redHeadFace', 'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim');
-      const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 50, 75, 'blueSlimeDamageAnim');
-      const blueSlime2 = new Enemy(this, 100, 300, 'blueSlimeBattler', 0, 'Blue Slime 2', 50, 75, 'blueSlimeDamageAnim');
+      const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 50, 35, 'blueSlimeDamageAnim');
+      const blueSlime2 = new Enemy(this, 100, 300, 'blueSlimeBattler', 0, 'Blue Slime 2', 50, 35, 'blueSlimeDamageAnim');
       this.healthText = new HealthDisplay(this, mainChar.x, mainChar.y, 'heartIcon', 'Test test');
       this.heroes = [mainChar, redHead];
       this.enemies = [blueSlime, blueSlime2];
@@ -90,7 +90,10 @@ export default class BattleScene extends Phaser.Scene {
 
         this.units[this.index].attackAnim();
         this.heroes[r].playTakeDamage();
-        this.units[this.index].attack(this.heroes[r]);
+        this.attackHeroes = () => {
+          this.units[this.index].attack(this.heroes[r]);
+        };
+        this.time.delayedCall(600, this.attackHeroes, [], this);
         // add timer for the next turn, so will have smooth gameplay
         this.time.addEvent({ delay: 3000, callback: this.nextTurn, callbackScope: this });
       }
@@ -98,9 +101,12 @@ export default class BattleScene extends Phaser.Scene {
 
     this.receivePlayerSelection = (action, target) => {
       if (action === 'attack') {
-        this.units[this.index].attack(this.enemies[target]);
         this.units[this.index].playHitAnimation();
         this.enemies[target].takeDamageAnim();
+        this.attackEnemies = () => {
+          this.units[this.index].attack(this.enemies[target]);
+        };
+        this.time.delayedCall(600, this.attackEnemies, [], this);
       }
       this.time.addEvent({ delay: 1000, callback: this.nextTurn, callbackScope: this });
     };
