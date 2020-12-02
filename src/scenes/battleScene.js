@@ -24,6 +24,7 @@ export default class BattleScene extends Phaser.Scene {
       for (let i = 0; i < this.heroes.length; i += 1) {
         if (this.heroes[i].living) gameOver = false;
       }
+
       return victory || gameOver;
     };
 
@@ -62,6 +63,7 @@ export default class BattleScene extends Phaser.Scene {
 
     this.nextTurn = () => {
       if (this.checkEndBattle()) {
+        this.sys.game.globals.enemiesDefeated.push(data.enemyKilled);
         this.endBattle();
         return;
       }
@@ -117,7 +119,9 @@ export default class BattleScene extends Phaser.Scene {
     this.exitBattle = () => {
       this.scene.sleep('BattleUI');
       this.scene.stop('Battle');
-      this.scene.start('Town', { fromBattle: true, charPosX: posX, charPosY: posY });
+      this.scene.start('Town', {
+        fromBattle: true, charPosX: posX, charPosY: posY, runAway: true,
+      });
     };
     this.startBattle();
     this.sys.events.on('wake', this.startBattle, this);
