@@ -40,16 +40,16 @@ export default class BattleScene extends Phaser.Scene {
       this.scene.sleep('BattleUI');
       // return to WorldScene and sleep current BattleScene
       this.scene.stop('Battle');
-      this.scene.start('Town');
+      this.scene.start('Town', { fromBattle: true, charPosX: posX, charPosY: posY });
     };
 
     this.startBattle = () => {
       this.cameras.main.fadeIn(1000, 0, 0, 0);
       this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
       const mainChar = new Player(this, 700, 200, 'mainCharBattleStand', 1, 'Player', 100, 20, 'mainFace', 'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim');
-      const redHead = new Player(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 8, 'redHeadFace', 'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim');
-      const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 50, 35, 'blueSlimeDamageAnim');
-      const blueSlime2 = new Enemy(this, 100, 300, 'blueSlimeBattler', 0, 'Blue Slime 2', 50, 35, 'blueSlimeDamageAnim');
+      const redHead = new Player(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 10, 'redHeadFace', 'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim');
+      const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 5, 35, 'blueSlimeDamageAnim');
+      const blueSlime2 = new Enemy(this, 100, 300, 'blueSlimeBattler', 0, 'Blue Slime 2', 5, 35, 'blueSlimeDamageAnim');
       this.healthText = new HealthDisplay(this, mainChar.x, mainChar.y, 'heartIcon', 'Test test');
       this.heroes = [mainChar, redHead];
       this.enemies = [blueSlime, blueSlime2];
