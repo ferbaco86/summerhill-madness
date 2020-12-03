@@ -1,7 +1,5 @@
 import Phaser from 'phaser';
 import BattleMenuItem from './battleMenuItem';
-import BattleAvatar from './battleAvatar';
-import Player from './player';
 
 
 export default class BattleMenu extends Phaser.GameObjects.Container {
@@ -21,12 +19,6 @@ export default class BattleMenu extends Phaser.GameObjects.Container {
     this.menuItems.push(menuItem);
     this.add(menuItem);
     return menuItem;
-  }
-
-  addAvatar(texture) {
-    const avatar = new BattleAvatar(this.scene, 220, this.heroesAvatar.length * 50, texture, 0, 0);
-    this.heroesAvatar.push(avatar);
-    this.add(avatar);
   }
 
   moveSelectionUp() {
@@ -86,9 +78,6 @@ export default class BattleMenu extends Phaser.GameObjects.Container {
     for (let i = 0; i < units.length; i += 1) {
       const unit = units[i];
       unit.setMenuItem(this.addMenuItem(unit.type));
-      // if (unit instanceof Player) {
-      //   unit.setMenuItem(this.addAvatar(unit.avatar));
-      // }
     }
     this.menuItemIndex = 0;
   }

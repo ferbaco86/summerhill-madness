@@ -12,6 +12,8 @@ export default class BattleUIScene extends Phaser.Scene {
 
   create() {
     this.battleScene = this.scene.get('Battle');
+    this.charID = null;
+    this.selectedActionIndex = null;
 
     this.remapHeroes = () => {
       const { heroes } = this.battleScene;
@@ -36,9 +38,29 @@ export default class BattleUIScene extends Phaser.Scene {
     };
 
     this.onPlayerSelect = (id) => {
+      console.log(`this is the onPlayerSelect id: ${id}`);
+      this.charID = id;
       this.heroesMenu.select(id);
       this.actionsMenu.select(0);
       this.currentMenu = this.actionsMenu;
+    };
+
+    this.onSelectedAction = (index) => {
+      this.selectedActionIndex = index;
+      console.log(`this is the onSelectedAction index: ${index}`);
+      if (index === 1) {
+        if (this.charID === 0) {
+          console.log('Home Run Attack');
+        } else if (this.charID === 1) {
+          console.log('Smash point');
+        }
+      }
+      if (index === 2) {
+        this.battleScene.exitBattle();
+      } else {
+        this.currentMenu = this.enemiesMenu;
+        this.enemiesMenu.select(0);
+      }
     };
 
     this.onEnemy = (index) => {
@@ -46,17 +68,14 @@ export default class BattleUIScene extends Phaser.Scene {
       this.actionsMenu.deselect();
       this.enemiesMenu.deselect();
       this.currentMenu = null;
-      this.battleScene.receivePlayerSelection('attack', index);
-    };
-
-    this.onSelectedAction = (index) => {
-      if (index === 1) {
-        this.battleScene.exitBattle();
-      } else {
-        this.currentMenu = this.enemiesMenu;
-        this.enemiesMenu.select(0);
+      console.log(`this is the onEnemy index: ${index}`);
+      if (this.selectedActionIndex === 0) {
+        this.battleScene.receivePlayerSelection('attack', index);
+      } else if (this.selectedActionIndex === 1) {
+        this.battleScene.receivePlayerSelection('ability', index);
       }
     };
+
 
     this.createMenu = () => {
       this.remapHeroes();
@@ -71,7 +90,7 @@ export default class BattleUIScene extends Phaser.Scene {
     this.menus = this.add.container();
 
     this.heroesMenu = new BattleHeroesMenu(650, 410, this);
-    this.actionsMenu = new BattleActionMenu(380, 410, this);
+    this.actionsMenu = new BattleActionMenu(375, 410, this);
     this.enemiesMenu = new BattleEnemiesMenu(50, 410, this);
 
     // the currently selected menu
