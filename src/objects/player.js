@@ -2,8 +2,8 @@ import Unit from './unit';
 
 export default class Player extends Unit {
   constructor(scene, x, y, texture, frame, type, hp,
-    damage, abilityDamage, idleAnim, hitAnim, damageAnim) {
-    super(scene, x, y, texture, frame, type, hp, damage, abilityDamage);
+    damage, abilityDamage, ap, apCost, idleAnim, hitAnim, damageAnim) {
+    super(scene, x, y, texture, frame, type, hp, damage, abilityDamage, ap, apCost);
     this.setScale(3);
     scene.add.existing(this);
     this.type = type;

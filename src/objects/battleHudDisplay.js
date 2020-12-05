@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-export default class HealthDisplay extends Phaser.GameObjects.Container {
+export default class BattleHudDisplay extends Phaser.GameObjects.Container {
   constructor(scene, x, y, iconTexture, text) {
     super(scene, x, y);
     this.iconTexture = iconTexture;

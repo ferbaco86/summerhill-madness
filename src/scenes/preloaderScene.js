@@ -37,6 +37,7 @@ import wallsTileSet from '../assets/backgrounds/tile-walls-extruded.png';
 import emptySprite from '../assets/backgrounds/emptySprite.png';
 import battleUIBG from '../assets/ui/battleUI.png';
 import heart from '../assets/ui/heart.png';
+import star from '../assets/ui/star.png';
 import battleMessageUI from '../assets/ui/messageFrame.png';
 import healthFull from '../assets/ui/healthFull.png';
 import healthEmpty from '../assets/ui/healthEmpty.png';
@@ -154,6 +155,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.audio('textFX', [textFX]);
     this.load.image('bgMenu', bgMenu);
     this.load.image('heartIcon', heart);
+    this.load.image('starIcon', star);
     this.load.image('soundMenu', soundMenu);
     this.load.image('blueSlimeBattler', blueSlimeBattler);
     this.load.image('gameTitle', title);

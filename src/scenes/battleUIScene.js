@@ -38,7 +38,6 @@ export default class BattleUIScene extends Phaser.Scene {
     };
 
     this.onPlayerSelect = (id) => {
-      console.log(`this is the onPlayerSelect id: ${id}`);
       this.charID = id;
       this.heroesMenu.select(id);
       this.actionsMenu.select(0);
@@ -47,17 +46,16 @@ export default class BattleUIScene extends Phaser.Scene {
 
     this.onSelectedAction = (index) => {
       this.selectedActionIndex = index;
-      console.log(`this is the onSelectedAction index: ${index}`);
       if (index === 1) {
-        if (this.charID === 0) {
-          console.log('Home Run Attack');
-        } else if (this.charID === 1) {
-          console.log('Smash point');
+        if (this.battleScene.heroes[this.charID].ap <= 0) {
+          this.battleScene.heroes[this.charID].noMoreAp();
+        } else {
+          this.currentMenu = this.enemiesMenu;
+          this.enemiesMenu.select(0);
         }
-      }
-      if (index === 2) {
+      } else if (index === 2) {
         this.battleScene.exitBattle();
-      } else {
+      } else if (index === 0) {
         this.currentMenu = this.enemiesMenu;
         this.enemiesMenu.select(0);
       }
@@ -68,7 +66,6 @@ export default class BattleUIScene extends Phaser.Scene {
       this.actionsMenu.deselect();
       this.enemiesMenu.deselect();
       this.currentMenu = null;
-      console.log(`this is the onEnemy index: ${index}`);
       if (this.selectedActionIndex === 0) {
         this.battleScene.receivePlayerSelection('attack', index);
       } else if (this.selectedActionIndex === 1) {
