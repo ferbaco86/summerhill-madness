@@ -15,6 +15,8 @@ import phaserLogo from '../assets/logo.png';
 import exclamationBalloon from '../assets/ui/exclamationBalloon.png';
 import introSleeping from '../assets/mainCharacter/sleepingSpriteAnim.png';
 import batPickUp from '../assets/mainCharacter/weaponPickupBase-sheet.png';
+import homeRun from '../assets/mainCharacter/HomeRun.png';
+import smash from '../assets/redHeadCharacter/Smash.png';
 import redHeadWalkUp from '../assets/redHeadCharacter/redHeadWalkUp.png';
 import redHeadWalkRight from '../assets/redHeadCharacter/redHeadWalkRight.png';
 import redHeadWalkDown from '../assets/redHeadCharacter/redHeadWalkDown.png';
@@ -156,6 +158,8 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('bgMenu', bgMenu);
     this.load.image('heartIcon', heart);
     this.load.image('starIcon', star);
+    this.load.image('homeRun', homeRun);
+    this.load.image('smash', smash);
     this.load.image('soundMenu', soundMenu);
     this.load.image('blueSlimeBattler', blueSlimeBattler);
     this.load.image('gameTitle', title);

@@ -2,8 +2,9 @@ import Phaser from 'phaser';
 
 export default class Unit extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, texture, frame, type, hp, damage, abilityDamage = null, ap = null,
-    apCost = null) {
+    apCost = null, abilityPic = null) {
     super(scene, x, y, texture, frame);
+    this.scene = scene;
     this.type = type;
     this.hp = hp;
     this.maxHP = this.hp;
@@ -14,6 +15,7 @@ export default class Unit extends Phaser.GameObjects.Sprite {
     this.ap = ap;
     this.apCost = apCost;
     this.maxAP = this.ap;
+    this.abilityPic = abilityPic;
   }
 
   // we will use this to notify the menu item when the unit is dead
@@ -32,10 +34,20 @@ export default class Unit extends Phaser.GameObjects.Sprite {
   ability(target) {
     if (target.living) {
       target.takeDamage(this.abilityDamage);
+      this.showAbilityPic(target);
       this.reduceAP(this.apCost);
       this.scene.events.emit('Message',
         `Woow! ${target.type} suffers ${this.abilityDamage} damage!!`);
     }
+  }
+
+  showAbilityPic(target) {
+    const pic = this.scene.add.image(target.x + 20, target.y, this.abilityPic);
+    pic.setScale(3);
+    this.destroyPic = () => {
+      pic.destroy();
+    };
+    this.scene.time.delayedCall(500, this.destroyPic, [], this);
   }
 
   takeDamage(damage) {
@@ -56,5 +68,16 @@ export default class Unit extends Phaser.GameObjects.Sprite {
 
   reduceAP(amount) {
     this.ap -= amount;
+  }
+
+  healHP(amount) {
+    if (this.hp === this.maxHP) {
+      this.scene.events.emit('Message',
+        `${this.type} has full health`);
+    } else {
+      this.hp += amount;
+      this.scene.events.emit('Message',
+        `${this.type} healed ${amount} HP`);
+    }
   }
 }

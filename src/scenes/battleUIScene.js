@@ -46,19 +46,46 @@ export default class BattleUIScene extends Phaser.Scene {
 
     this.onSelectedAction = (index) => {
       this.selectedActionIndex = index;
-      if (index === 1) {
-        if (this.battleScene.heroes[this.charID].ap <= 0) {
-          this.battleScene.heroes[this.charID].noMoreAp();
-        } else {
+
+      switch (index) {
+        case 0:
           this.currentMenu = this.enemiesMenu;
           this.enemiesMenu.select(0);
-        }
-      } else if (index === 2) {
-        this.battleScene.exitBattle();
-      } else if (index === 0) {
-        this.currentMenu = this.enemiesMenu;
-        this.enemiesMenu.select(0);
+          console.log('HIIIIIIIIIITTT');
+          break;
+        case 1:
+          if (this.battleScene.heroes[this.charID].ap <= 0) {
+            this.battleScene.heroes[this.charID].noMoreAp();
+          } else {
+            this.currentMenu = this.enemiesMenu;
+            this.enemiesMenu.select(0);
+          }
+          break;
+        case 2:
+          this.battleScene.heroes[this.charID].healHP(20);
+          break;
+        case 3:
+          this.battleScene.exitBattle();
+          break;
+
+        default:
+          break;
       }
+      // if (index === 1) {
+      //   if (this.battleScene.heroes[this.charID].ap <= 0) {
+      //     this.battleScene.heroes[this.charID].noMoreAp();
+      //   } else {
+      //     this.currentMenu = this.enemiesMenu;
+      //     this.enemiesMenu.select(0);
+      //   }
+      // } else if (index === 3) {
+      //   this.battleScene.exitBattle();
+      // } else if (index === 0) {
+      //   this.currentMenu = this.enemiesMenu;
+      //   this.enemiesMenu.select(0);
+      // } else if (index === 2) {
+      //   this.battleScene.heroes[this.charID].healHP(20);
+      // }
     };
 
     this.onEnemy = (index) => {

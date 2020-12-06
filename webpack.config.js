@@ -1,7 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
@@ -9,10 +8,6 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist/'),
-  },
-  performance: {
-    maxEntrypointSize: 900000,
-    maxAssetSize: 900000,
   },
   module: {
     rules: [
@@ -85,11 +80,5 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './index.html',
     }),
-    new webpack.DefinePlugin({
-      CANVAS_RENDERER: JSON.stringify(true),
-      WEBGL_RENDERER: JSON.stringify(true),
-    }),
-
-
   ],
 };
