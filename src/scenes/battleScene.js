@@ -47,8 +47,10 @@ export default class BattleScene extends Phaser.Scene {
     this.startBattle = () => {
       this.cameras.main.fadeIn(1000, 0, 0, 0);
       this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
-      const mainChar = new Player(this, 700, 200, 'mainCharBattleStand', 1, 'Player', 100, 20, 50, 10, 10, 'homeRun', 'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim');
-      const redHead = new Player(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 10, 40, 8, 8, 'smash', 'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim');
+      const mainChar = new Player(this, 700, 200, 'mainCharBattleStand', 1, 'Player', 100, 20, 50, 10, 10, 'homeRun',
+        'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim', 'mainEatAnim');
+      const redHead = new Player(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 10, 40, 8, 8, 'smash',
+        'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim', 'redHeadEatAnim');
       const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 400, 1, 'blueSlimeDamageAnim');
       const blueSlime2 = new Enemy(this, 100, 300, 'blueSlimeBattler', 0, 'Blue Slime 2', 400, 1, 'blueSlimeDamageAnim');
       this.healthText = new BattleHudDisplay(this, mainChar.x, mainChar.y, 'heartIcon', '');

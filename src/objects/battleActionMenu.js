@@ -6,7 +6,7 @@ export default class BattleActionMenu extends BattleMenu {
     super(x, y, scene);
     this.addMenuItem('Attack');
     this.addMenuItem('Abilities');
-    this.addMenuItem('Eat Food');
+    this.addMenuItem('Eat Candy');
     this.addMenuItem('Run Away');
   }
 

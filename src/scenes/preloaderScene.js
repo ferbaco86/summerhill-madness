@@ -16,6 +16,8 @@ import exclamationBalloon from '../assets/ui/exclamationBalloon.png';
 import introSleeping from '../assets/mainCharacter/sleepingSpriteAnim.png';
 import batPickUp from '../assets/mainCharacter/weaponPickupBase-sheet.png';
 import homeRun from '../assets/mainCharacter/HomeRun.png';
+import mainEat from '../assets/mainCharacter/mainCharEatCandy.png';
+import redHeadEat from '../assets/redHeadCharacter/redHeadEatCandy.png';
 import smash from '../assets/redHeadCharacter/Smash.png';
 import redHeadWalkUp from '../assets/redHeadCharacter/redHeadWalkUp.png';
 import redHeadWalkRight from '../assets/redHeadCharacter/redHeadWalkRight.png';
@@ -252,14 +254,22 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 30,
       frameHeight: 30,
     });
+    this.load.spritesheet('mainEat', mainEat, {
+      frameWidth: 30,
+      frameHeight: 30,
+    });
+    this.load.spritesheet('redHeadEat', redHeadEat, {
+      frameWidth: 30,
+      frameHeight: 30,
+    });
   }
 
   create() {
     this.animKeys = ['introSleepingAnim', 'redHeadWalkUp', 'redHeadWalkDown', 'redHeadWalkLeft', 'redHeadWalkRight',
       'mainCharWalkDown', 'mainCharWalkLeft', 'mainCharWalkRight', 'mainCharWalkUp', 'batPickUp', 'blueSlimeWalkDown'];
     this.battleAnimKeys = ['mainCharIdle', 'redHeadIdle'];
-    this.hitAnimKeys = ['batHitAnim', 'tennisHitAnim', 'blueSlimeDamageAnim', 'mainTakeDamageAnim', 'redHeadTakeDamageAnim'];
-    this.hitSpriteSheets = ['batHit', 'tennisHit', 'blueSlimeDamage', 'mainTakeDamage', 'redHeadTakeDamage'];
+    this.hitAnimKeys = ['batHitAnim', 'tennisHitAnim', 'blueSlimeDamageAnim', 'mainTakeDamageAnim', 'redHeadTakeDamageAnim', 'mainEatAnim', 'redHeadEatAnim'];
+    this.hitSpriteSheets = ['batHit', 'tennisHit', 'blueSlimeDamage', 'mainTakeDamage', 'redHeadTakeDamage', 'mainEat', 'redHeadEat'];
     this.battleSpriteSheets = ['mainCharBattleStand', 'redHeadBattleStand'];
     this.spriteSheets = ['introSleeping', 'redHeadUp', 'redHeadDown', 'redHeadLeft', 'redHeadRight',
       'mainDown', 'mainLeft', 'mainRight', 'mainUp', 'mainBatPick', 'blueSlimeDown'];

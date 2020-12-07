@@ -46,23 +46,29 @@ export default class BattleUIScene extends Phaser.Scene {
 
     this.onSelectedAction = (index) => {
       this.selectedActionIndex = index;
+      this.char = this.battleScene.heroes[this.charID];
 
       switch (index) {
         case 0:
           this.currentMenu = this.enemiesMenu;
           this.enemiesMenu.select(0);
-          console.log('HIIIIIIIIIITTT');
           break;
         case 1:
-          if (this.battleScene.heroes[this.charID].ap <= 0) {
-            this.battleScene.heroes[this.charID].noMoreAp();
+          if (this.char.ap <= 0) {
+            this.char.noMoreAp();
           } else {
             this.currentMenu = this.enemiesMenu;
             this.enemiesMenu.select(0);
           }
           break;
         case 2:
-          this.battleScene.heroes[this.charID].healHP(20);
+          this.char.healHP(20);
+          this.char.playEatAnimation();
+          this.stopEating = () => {
+            this.char.anims.stop();
+            this.char.playIdleAnimation();
+          };
+          this.time.delayedCall(1000, this.stopEating, [], this);
           break;
         case 3:
           this.battleScene.exitBattle();
