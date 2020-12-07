@@ -18,8 +18,8 @@ export default class IntroScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor('#000000');
     this.cameras.main.fadeIn(500, 0, 0, 0);
     this.sys.game.globals.bgMusic.stop();
-    const xPos = config.width / 2;
-    const yPos = config.height / 2;
+    const xPos = 500;
+    const yPos = 300;
 
     // Background
     this.add.image(xPos, yPos, 'introBG');

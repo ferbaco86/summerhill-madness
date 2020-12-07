@@ -39,7 +39,7 @@ export default class BattleScene extends Phaser.Scene {
       this.units.length = 0;
       // sleep the UI
       this.scene.sleep('BattleUI');
-      // return to WorldScene and sleep current BattleScene
+      // return to WorldScene and stop current Battle
       this.scene.stop('Battle');
       this.scene.start('Town', { fromBattle: true, charPosX: posX, charPosY: posY });
     };
@@ -51,8 +51,8 @@ export default class BattleScene extends Phaser.Scene {
         'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim', 'mainEatAnim');
       const redHead = new Player(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 10, 40, 8, 8, 'smash',
         'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim', 'redHeadEatAnim');
-      const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 400, 1, 'blueSlimeDamageAnim');
-      const blueSlime2 = new Enemy(this, 100, 300, 'blueSlimeBattler', 0, 'Blue Slime 2', 400, 1, 'blueSlimeDamageAnim');
+      const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 400, 10, 'blueSlimeDamageAnim', 50, 100);
+      const blueSlime2 = new Enemy(this, 100, 300, 'blueSlimeBattler', 0, 'Blue Slime 2', 400, 10, 'blueSlimeDamageAnim', 50, 100);
       this.healthText = new BattleHudDisplay(this, mainChar.x, mainChar.y, 'heartIcon', '');
       this.actionPointsText = new BattleHudDisplay(this, mainChar.x, mainChar.y, 'starIcon', '');
       this.heroes = [mainChar, redHead];

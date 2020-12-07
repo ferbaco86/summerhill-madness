@@ -77,21 +77,6 @@ export default class BattleUIScene extends Phaser.Scene {
         default:
           break;
       }
-      // if (index === 1) {
-      //   if (this.battleScene.heroes[this.charID].ap <= 0) {
-      //     this.battleScene.heroes[this.charID].noMoreAp();
-      //   } else {
-      //     this.currentMenu = this.enemiesMenu;
-      //     this.enemiesMenu.select(0);
-      //   }
-      // } else if (index === 3) {
-      //   this.battleScene.exitBattle();
-      // } else if (index === 0) {
-      //   this.currentMenu = this.enemiesMenu;
-      //   this.enemiesMenu.select(0);
-      // } else if (index === 2) {
-      //   this.battleScene.heroes[this.charID].healHP(20);
-      // }
     };
 
     this.onEnemy = (index) => {

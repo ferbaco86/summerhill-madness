@@ -9,7 +9,7 @@ export default class Button extends Phaser.GameObjects.Container {
     this.x = x;
     this.y = y;
 
-    this.button = this.scene.add.sprite(0, 0, key1).setInteractive();
+    this.button = this.scene.add.sprite(0, 0, key1).setInteractive().setOrigin(0);
     this.text = this.scene.add.text(0, 0, text, { font: '28px pixelFont', fill: '#fff' });
     Phaser.Display.Align.In.Center(this.text, this.button);
 
