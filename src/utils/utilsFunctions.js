@@ -97,10 +97,25 @@ const utils = (() => {
     }
   };
 
+  const setFullScreen = (scene, button) => {
+    button.on('pointerup', () => {
+      if (scene.scale.isFullscreen) {
+        button.setFrame(0);
+
+        scene.scale.stopFullscreen();
+      } else {
+        button.setFrame(1);
+
+        scene.scale.startFullscreen();
+      }
+    }, scene);
+  };
+
   return {
     createTextBox,
     fadeOutScene,
     createAnims,
+    setFullScreen,
   };
 })();
 

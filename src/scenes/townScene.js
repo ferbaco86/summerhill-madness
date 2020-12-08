@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import generateMaps from '../utils/generateMaps';
 import characterMov from '../utils/characterMovement';
 import mainCharAnimInfo from '../assets/data/mainCharAnims.json';
+import utils from '../utils/utilsFunctions';
 
 
 export default class TownScene extends Phaser.Scene {
@@ -26,9 +27,11 @@ export default class TownScene extends Phaser.Scene {
       this.scene.stop('Town');
       this.scene.start('School');
     };
+    const button = this.add.image(620, 390, 'maximize', 0).setScrollFactor(0);
+    button.setInteractive();
+    button.setDepth(30);
     this.cameras.main.fadeIn(1000, 0, 0, 0);
     const map = this.make.tilemap({ key: 'townMap' });
-
     const tileSet = map.addTilesetImage('tileset_master', 'tiles', 16, 16, 1, 2);
     const tileSetArr = [tileSet];
     const staticLayersArr = generateMaps.generateStaticLayers(map, ['Ground', 'Above', 'World', 'Decorators'], tileSetArr, 0, 0);
@@ -109,21 +112,7 @@ export default class TownScene extends Phaser.Scene {
     // });
 
     this.sys.events.on('wake', this.wake, this);
-    const button = this.add.image(620, 390, 'maximize', 0).setScrollFactor(0);
-    button.setInteractive();
-    button.setDepth(30);
-
-    button.on('pointerup', () => {
-      if (this.scale.isFullscreen) {
-        button.setFrame(0);
-
-        this.scale.stopFullscreen();
-      } else {
-        button.setFrame(1);
-
-        this.scale.startFullscreen();
-      }
-    }, this);
+    utils.setFullScreen(this, button);
   }
 
   update() {

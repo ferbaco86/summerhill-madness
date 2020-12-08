@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import generateMaps from '../utils/generateMaps';
 import characterMov from '../utils/characterMovement';
 import mainCharAnimInfo from '../assets/data/mainCharAnims.json';
+import utils from '../utils/utilsFunctions';
 
 export default class HouseScene extends Phaser.Scene {
   constructor() {
@@ -15,6 +16,9 @@ export default class HouseScene extends Phaser.Scene {
     };
     this.cameras.main.fadeIn(1000, 0, 0, 0);
     const mapHouse = this.make.tilemap({ key: 'houseMap' });
+    const button = this.add.image(620, 390, 'maximize', 0).setScrollFactor(0);
+    button.setInteractive();
+    button.setDepth(30);
 
     const arrayTiles = generateMaps.generateTilesSet(mapHouse, generateMaps.tilesParams);
     const arrayLayers = generateMaps.generateStaticLayers(mapHouse, ['Ground', 'World', 'Above', 'Decorators'], arrayTiles, 0, 0);
@@ -51,6 +55,7 @@ export default class HouseScene extends Phaser.Scene {
     //   // Color of colliding tiles
     //   faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
     // });
+    utils.setFullScreen(this, button);
   }
 
   update() {

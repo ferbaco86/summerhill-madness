@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import generateMaps from '../utils/generateMaps';
 import characterMov from '../utils/characterMovement';
 import mainCharAnimInfo from '../assets/data/mainCharAnims.json';
+import utils from '../utils/utilsFunctions';
 
 export default class SchoolScene extends Phaser.Scene {
   constructor() {
@@ -14,6 +15,10 @@ export default class SchoolScene extends Phaser.Scene {
       this.scene.start('Town', { fromSchool: true });
     };
     this.cameras.main.fadeIn(1000, 0, 0, 0);
+
+    const button = this.add.image(620, 390, 'maximize', 0).setScrollFactor(0);
+    button.setInteractive();
+    button.setDepth(30);
     const mapSchool = this.make.tilemap({ key: 'schoolMap' });
 
     const arrayTiles = generateMaps.generateTilesSet(mapSchool, generateMaps.tilesParams);
@@ -51,6 +56,7 @@ export default class SchoolScene extends Phaser.Scene {
     //   // Color of colliding tiles
     //   faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
     // });
+    utils.setFullScreen(this, button);
   }
 
   update() {

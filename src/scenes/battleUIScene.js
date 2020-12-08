@@ -3,6 +3,7 @@ import BattleHeroesMenu from '../objects/battleHeroesMenu';
 import BattleActionMenu from '../objects/battleActionMenu';
 import BattleEnemiesMenu from '../objects/battleEnemiesMenu';
 import Message from '../objects/message';
+import utils from '../utils/utilsFunctions';
 
 
 export default class BattleUIScene extends Phaser.Scene {
@@ -14,6 +15,10 @@ export default class BattleUIScene extends Phaser.Scene {
     this.battleScene = this.scene.get('Battle');
     this.charID = null;
     this.selectedActionIndex = null;
+    const button = this.add.image(880, 550, 'maximize', 0).setScrollFactor(0);
+    button.setInteractive();
+    button.setDepth(30);
+    button.setScale(3);
 
     this.remapHeroes = () => {
       const { heroes } = this.battleScene;
@@ -129,5 +134,6 @@ export default class BattleUIScene extends Phaser.Scene {
     this.add.existing(this.message);
 
     this.createMenu();
+    utils.setFullScreen(this, button);
   }
 }
