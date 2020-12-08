@@ -1,5 +1,4 @@
 import Phaser from 'phaser';
-import config from '../config/config';
 import EventDispatcher from '../utils/eventDispatcher';
 import utils from '../utils/utilsFunctions';
 

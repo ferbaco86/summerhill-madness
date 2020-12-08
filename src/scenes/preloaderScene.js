@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import utils from '../utils/utilsFunctions';
 import bgMenu from '../assets/backgrounds/titleMenu.png';
+import winWindow from '../assets/backgrounds/win.png';
 import soundMenu from '../assets/backgrounds/soundMenu.png';
 import introBG from '../assets/backgrounds/introScene.png';
 import title from '../assets/title.png';
@@ -146,6 +147,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('nextPage', arrowRight);
     this.load.image('phaserLogo', phaserLogo);
     this.load.image('purpleSquare', purpleSquare);
+    this.load.image('winWindow', winWindow);
     this.load.image('redHeadFace', redHeadFace);
     this.load.image('mainFace', mainFace);
     this.load.image('emptySprite', emptySprite);
@@ -279,10 +281,10 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   ready() {
-    this.scene.start('Title');
+    this.scene.start('Town');
     this.readyCount += 1;
     if (this.readyCount === 2) {
-      this.scene.start('Title');
+      this.scene.start('Town');
     }
   }
 }

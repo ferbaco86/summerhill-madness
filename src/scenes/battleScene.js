@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
-import Enemy from '../objects/enemy';
+import BattleEnemy from '../objects/battleEnemy';
 import BattleHudDisplay from '../objects/battleHudDisplay';
-import Player from '../objects/player';
+import BattlePlayer from '../objects/battlePlayer';
+import BattleEndWindow from '../objects/battleEndWindow';
 
 
 export default class BattleScene extends Phaser.Scene {
@@ -12,20 +13,22 @@ export default class BattleScene extends Phaser.Scene {
   create(data) {
     const { posX } = data;
     const { posY } = data;
+    this.victory = true;
+    this.gameOver = true;
 
     this.checkEndBattle = () => {
-      let victory = true;
+      this.victory = true;
+      this.gameOver = true;
       // if all enemies are dead we have victory
       for (let i = 0; i < this.enemies.length; i += 1) {
-        if (this.enemies[i].living) victory = false;
+        if (this.enemies[i].living) this.victory = false;
       }
-      let gameOver = true;
       // if all heroes are dead we have game over
       for (let i = 0; i < this.heroes.length; i += 1) {
-        if (this.heroes[i].living) gameOver = false;
+        if (this.heroes[i].living) this.gameOver = false;
       }
 
-      return victory || gameOver;
+      return this.victory || this.gameOver;
     };
 
     this.endBattle = () => {
@@ -36,23 +39,40 @@ export default class BattleScene extends Phaser.Scene {
         // link item
         this.units[i].destroy();
       }
+      this.healthText.destroy();
+      this.actionPointsText.destroy();
       this.units.length = 0;
       // sleep the UI
       this.scene.sleep('BattleUI');
       // return to WorldScene and stop current Battle
-      this.scene.stop('Battle');
-      this.scene.start('Town', { fromBattle: true, charPosX: posX, charPosY: posY });
+      if (this.victory) {
+        this.victoryWindow = new BattleEndWindow(this, 350, 100, 100, 200);
+        this.onKeyInput = (event) => {
+          if (event.code === 'Space') {
+            this.endScene();
+          }
+        };
+        this.input.keyboard.on('keydown', this.onKeyInput, this);
+
+        // this.time.delayedCall(3000, this.endScene, [], this);
+      } else {
+        console.log('Game Over');
+      }
+      this.endScene = () => {
+        this.scene.stop('Battle');
+        this.scene.start('Town', { fromBattle: true, charPosX: posX, charPosY: posY });
+      };
     };
 
     this.startBattle = () => {
       this.cameras.main.fadeIn(1000, 0, 0, 0);
       this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
-      const mainChar = new Player(this, 700, 200, 'mainCharBattleStand', 1, 'Player', 100, 20, 50, 10, 10, 'homeRun',
+      const mainChar = new BattlePlayer(this, 700, 200, 'mainCharBattleStand', 1, 'Player', 100, 20, 50, 10, 10, 'homeRun',
         'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim', 'mainEatAnim');
-      const redHead = new Player(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 10, 40, 8, 8, 'smash',
+      const redHead = new BattlePlayer(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 10, 40, 8, 8, 'smash',
         'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim', 'redHeadEatAnim');
-      const blueSlime = new Enemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 400, 10, 'blueSlimeDamageAnim', 50, 100);
-      const blueSlime2 = new Enemy(this, 100, 300, 'blueSlimeBattler', 0, 'Blue Slime 2', 400, 10, 'blueSlimeDamageAnim', 50, 100);
+      const blueSlime = new BattleEnemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 40, 10, 'blueSlimeDamageAnim', 50, 100);
+      const blueSlime2 = new BattleEnemy(this, 100, 300, 'blueSlimeBattler', 0, 'Blue Slime 2', 40, 10, 'blueSlimeDamageAnim', 50, 100);
       this.healthText = new BattleHudDisplay(this, mainChar.x, mainChar.y, 'heartIcon', '');
       this.actionPointsText = new BattleHudDisplay(this, mainChar.x, mainChar.y, 'starIcon', '');
       this.heroes = [mainChar, redHead];
@@ -81,8 +101,8 @@ export default class BattleScene extends Phaser.Scene {
 
 
       // if its player hero
-      if (this.units[this.index] instanceof Player) {
-        this.unitsHeroes = this.units.filter(unit => unit instanceof Player);
+      if (this.units[this.index] instanceof BattlePlayer) {
+        this.unitsHeroes = this.units.filter(unit => unit instanceof BattlePlayer);
         this.unitsHeroes.forEach(unit => this.tweens.add({ targets: unit, duration: 500, x: 700 }));
         this.tweens.add({ targets: this.units[this.index], duration: 500, x: 650 });
         this.events.emit('PlayerSelect', this.index);

@@ -1,6 +1,6 @@
 import Unit from './unit';
 
-export default class Player extends Unit {
+export default class BattlePlayer extends Unit {
   constructor(scene, x, y, texture, frame, type, hp,
     damage, abilityDamage, ap, apCost, abilityPic, idleAnim, hitAnim, damageAnim, eatAnim) {
     super(scene, x, y, texture, frame, type, hp, damage, abilityDamage,

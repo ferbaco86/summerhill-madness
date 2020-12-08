@@ -1,6 +1,6 @@
 import Unit from './unit';
 
-export default class Enemy extends Unit {
+export default class BattleEnemy extends Unit {
   constructor(scene, x, y, texture, frame, type, hp, damage, damageAnim, xp, coins) {
     super(scene, x, y, texture, frame, type, hp, damage);
     this.setScale(3);
