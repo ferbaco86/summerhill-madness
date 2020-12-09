@@ -34,6 +34,13 @@ export default class TownScene extends Phaser.Scene {
     this.cameras.main.fadeIn(1000, 0, 0, 0);
     this.hudDisplay = new HudDisplay(this, 320, 207, 'mainFace', 'heartIcon', '100', 'starIcon', '10', 1);
     this.hudDisplay = new HudDisplay(this, 320, 237, 'redHeadFace', 'heartIcon', '100', 'starIcon', '10', 1);
+    this.money = 0;
+    this.candy = 0;
+    this.add.rectangle(330, 390, 120, 20, '0x00000').setScrollFactor(0).setDepth(30).setAlpha(0.5);
+    this.add.image(330, 390, 'moneyIcon').setDepth(30).setScrollFactor(0);
+    this.add.text(340, 383, this.money, { font: '12px pixelFont' }).setDepth(40).setScrollFactor(0);
+    this.add.image(360, 390, 'candyIcon').setDepth(30).setScrollFactor(0);
+    this.add.text(370, 383, this.candy, { font: '12px pixelFont' }).setDepth(40).setScrollFactor(0);
     const map = this.make.tilemap({ key: 'townMap' });
     const tileSet = map.addTilesetImage('tileset_master', 'tiles', 16, 16, 1, 2);
     const tileSetArr = [tileSet];
