@@ -32,9 +32,8 @@ export default class TownScene extends Phaser.Scene {
     button.setInteractive();
     button.setDepth(30);
     this.cameras.main.fadeIn(1000, 0, 0, 0);
-    this.hudDisplay = new HudDisplay(this, 330, 220, 'mainFace', 'heartIcon', '100', 'starIcon', '10', 1);
-    this.hudDisplay.setDepth(30);
-    this.hudDisplay.setScrollFactor(0);
+    this.hudDisplay = new HudDisplay(this, 320, 207, 'mainFace', 'heartIcon', '100', 'starIcon', '10', 1);
+    this.hudDisplay = new HudDisplay(this, 320, 237, 'redHeadFace', 'heartIcon', '100', 'starIcon', '10', 1);
     const map = this.make.tilemap({ key: 'townMap' });
     const tileSet = map.addTilesetImage('tileset_master', 'tiles', 16, 16, 1, 2);
     const tileSetArr = [tileSet];

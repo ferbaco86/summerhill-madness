@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import utils from '../utils/utilsFunctions';
 import bgMenu from '../assets/backgrounds/titleMenu.png';
 import winWindow from '../assets/backgrounds/win.png';
+import hudBG from '../assets/backgrounds/hudBG.png';
 import soundMenu from '../assets/backgrounds/soundMenu.png';
 import introBG from '../assets/backgrounds/introScene.png';
 import title from '../assets/title.png';
@@ -152,6 +153,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('mainFace', mainFace);
     this.load.image('emptySprite', emptySprite);
     this.load.image('soundOn', soundOn);
+    this.load.image('hudBG', hudBG);
     this.load.image('soundOff', soundOff);
     this.load.audio('bgMusic', [titleMusic]);
     this.load.audio('doorOpen', [doorOpenFX]);

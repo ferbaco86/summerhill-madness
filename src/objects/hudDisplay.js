@@ -11,6 +11,7 @@ export default class HudDisplay extends Phaser.GameObjects.Container {
     this.level = level;
     this.x = x;
     this.y = y;
+    this.hudBG = new Phaser.GameObjects.Image(scene, 10, 12, 'hudBG');
     this.charPortrait = new Phaser.GameObjects.Image(scene, 10, 10, this.portrait);
     this.healthIcon = new Phaser.GameObjects.Image(scene, 20, 0, this.hpIcon);
     this.healthText = new Phaser.GameObjects.Text(scene, 30, 0, this.hpText,
@@ -23,6 +24,9 @@ export default class HudDisplay extends Phaser.GameObjects.Container {
       });
     this.charPortrait.setScale(0.3);
     this.healthIcon.setScale(0.6);
+    this.hudBG.setScale(0.2);
+    this.hudBG.setAlpha(0.7);
+    this.add(this.hudBG);
     this.add(this.levelText);
     this.add(this.charPortrait);
     this.add(this.healthText);
@@ -40,6 +44,8 @@ export default class HudDisplay extends Phaser.GameObjects.Container {
     this.actionPointsIcon.setOrigin(0);
     this.actionPointsText.setOrigin(0);
     scene.add.existing(this);
+    this.setDepth(30);
+    this.setScrollFactor(0);
   }
 
   setHealthText(text) {
