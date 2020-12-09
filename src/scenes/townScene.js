@@ -3,6 +3,7 @@ import generateMaps from '../utils/generateMaps';
 import characterMov from '../utils/characterMovement';
 import mainCharAnimInfo from '../assets/data/mainCharAnims.json';
 import utils from '../utils/utilsFunctions';
+import HudDisplay from '../objects/hudDisplay';
 
 
 export default class TownScene extends Phaser.Scene {
@@ -31,6 +32,9 @@ export default class TownScene extends Phaser.Scene {
     button.setInteractive();
     button.setDepth(30);
     this.cameras.main.fadeIn(1000, 0, 0, 0);
+    this.hudDisplay = new HudDisplay(this, 330, 220, 'mainFace', 'heartIcon', '100', 'starIcon', '10', 1);
+    this.hudDisplay.setDepth(30);
+    this.hudDisplay.setScrollFactor(0);
     const map = this.make.tilemap({ key: 'townMap' });
     const tileSet = map.addTilesetImage('tileset_master', 'tiles', 16, 16, 1, 2);
     const tileSetArr = [tileSet];
