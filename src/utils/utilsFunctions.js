@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import HudDisplay from '../objects/hudDisplay';
 
 
 const utils = (() => {
@@ -111,11 +112,34 @@ const utils = (() => {
     }, scene);
   };
 
+  const displayHudElements = (scene, money, candy, charStats) => {
+    scene.hudDisplay = new HudDisplay(scene, 320, 207, 'mainFace', 'heartIcon', charStats.mainHP, 'starIcon', charStats.mainAP,
+      charStats.mainLevel);
+    scene.hudDisplay = new HudDisplay(scene, 320, 237, 'redHeadFace', 'heartIcon', charStats.redHeadHP, 'starIcon',
+      charStats.redHeadAP, charStats.redHeadLevel);
+    const alphaBG = scene.add.rectangle(330, 390, 120, 20, '0x00000');
+    alphaBG.setScrollFactor(0).setDepth(30).setAlpha(0.5);
+    const moneyIcon = scene.add.image(330, 390, 'moneyIcon');
+    const moneyAmount = scene.add.text(340, 383, money, { font: '12px pixelFont' });
+    const candyIcon = scene.add.image(360, 390, 'candyIcon');
+    const candyAmount = scene.add.text(370, 383, candy, { font: '12px pixelFont' });
+    const hudGroup = scene.add.group();
+    hudGroup.add(moneyIcon);
+    hudGroup.add(moneyAmount);
+    hudGroup.add(candyIcon);
+    hudGroup.add(candyAmount);
+    const groupChildren = hudGroup.getChildren();
+    groupChildren.forEach(child => {
+      child.setDepth(30).setScrollFactor(0);
+    });
+  };
+
   return {
     createTextBox,
     fadeOutScene,
     createAnims,
     setFullScreen,
+    displayHudElements,
   };
 })();
 

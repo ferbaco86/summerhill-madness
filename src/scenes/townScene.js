@@ -3,7 +3,6 @@ import generateMaps from '../utils/generateMaps';
 import characterMov from '../utils/characterMovement';
 import mainCharAnimInfo from '../assets/data/mainCharAnims.json';
 import utils from '../utils/utilsFunctions';
-import HudDisplay from '../objects/hudDisplay';
 
 
 export default class TownScene extends Phaser.Scene {
@@ -31,16 +30,18 @@ export default class TownScene extends Phaser.Scene {
     const button = this.add.image(620, 390, 'maximize', 0).setScrollFactor(0);
     button.setInteractive();
     button.setDepth(30);
-    this.cameras.main.fadeIn(1000, 0, 0, 0);
-    this.hudDisplay = new HudDisplay(this, 320, 207, 'mainFace', 'heartIcon', '100', 'starIcon', '10', 1);
-    this.hudDisplay = new HudDisplay(this, 320, 237, 'redHeadFace', 'heartIcon', '100', 'starIcon', '10', 1);
     this.money = 0;
     this.candy = 0;
-    this.add.rectangle(330, 390, 120, 20, '0x00000').setScrollFactor(0).setDepth(30).setAlpha(0.5);
-    this.add.image(330, 390, 'moneyIcon').setDepth(30).setScrollFactor(0);
-    this.add.text(340, 383, this.money, { font: '12px pixelFont' }).setDepth(40).setScrollFactor(0);
-    this.add.image(360, 390, 'candyIcon').setDepth(30).setScrollFactor(0);
-    this.add.text(370, 383, this.candy, { font: '12px pixelFont' }).setDepth(40).setScrollFactor(0);
+    this.charStats = {
+      mainHP: 100,
+      mainAP: 10,
+      mainLevel: 1,
+      redHeadHP: 100,
+      redHeadAP: 10,
+      redHeadLevel: 1,
+    };
+    utils.displayHudElements(this, this.money, this.candy, this.charStats);
+    this.cameras.main.fadeIn(1000, 0, 0, 0);
     const map = this.make.tilemap({ key: 'townMap' });
     const tileSet = map.addTilesetImage('tileset_master', 'tiles', 16, 16, 1, 2);
     const tileSetArr = [tileSet];
