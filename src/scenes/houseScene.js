@@ -15,6 +15,17 @@ export default class HouseScene extends Phaser.Scene {
       this.scene.start('Town', { fromHouse: true });
     };
     this.cameras.main.fadeIn(1000, 0, 0, 0);
+    this.money = 0;
+    this.candy = 0;
+    this.charStats = {
+      mainHP: 100,
+      mainAP: 10,
+      mainLevel: 1,
+      redHeadHP: 100,
+      redHeadAP: 10,
+      redHeadLevel: 1,
+    };
+    utils.displayHudElements(this, this.money, this.candy, this.charStats);
     const mapHouse = this.make.tilemap({ key: 'houseMap' });
     const button = this.add.image(620, 390, 'maximize', 0).setScrollFactor(0);
     button.setInteractive();
