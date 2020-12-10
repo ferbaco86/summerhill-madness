@@ -134,12 +134,20 @@ const utils = (() => {
     });
   };
 
+  const createMonster = (scene, spawnX, spawnY, texture, frame, name, animToPlay) => {
+    const enemy = scene.physics.add.sprite(spawnX, spawnY, texture, frame);
+    enemy.setName(name);
+    enemy.anims.play(animToPlay);
+    return enemy;
+  };
+
   return {
     createTextBox,
     fadeOutScene,
     createAnims,
     setFullScreen,
     displayHudElements,
+    createMonster,
   };
 })();
 

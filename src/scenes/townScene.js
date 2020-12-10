@@ -41,6 +41,7 @@ export default class TownScene extends Phaser.Scene {
     const houseEntranceSpawn = map.findObject('Objects', obj => obj.name === 'houseEntranceSpawnPoint');
     const schoolEntranceSpawn = map.findObject('Objects', obj => obj.name === 'schoolEntrancesSpawn');
     const monsterSpawn1 = map.findObject('Objects', obj => obj.name === 'enemyTownSpawn1');
+    const monsterSpawn2 = map.findObject('Objects', obj => obj.name === 'enemyTownSpawn2');
     this.moveEnemy = false;
 
 
@@ -109,9 +110,8 @@ export default class TownScene extends Phaser.Scene {
       this.time.delayedCall(300, this.startBattle, [], this);
     };
 
-    this.blueSlime = this.physics.add.sprite(monsterSpawn1.x, monsterSpawn1.y, 'blueSlimeDown', 1);
-    this.blueSlime.setName('blueSlime1');
-    this.blueSlime.anims.play('blueSlimeWalkDown');
+    this.blueSlime = utils.createMonster(this, monsterSpawn1.x, monsterSpawn1.y, 'blueSlimeDown', 1, 'blueSlime1', 'blueSlimeWalkDown');
+    this.redSlime = utils.createMonster(this, monsterSpawn2.x, monsterSpawn2.y, 'redSlimeDown', 1, 'redSlime1', 'redSlimeWalkDown');
 
     generateMaps.generateCollision(this, this.blueSlime, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
     generateMaps.generateCollision(this, this.mainChar, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
