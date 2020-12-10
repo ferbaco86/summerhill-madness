@@ -3,6 +3,7 @@ import generateMaps from '../utils/generateMaps';
 import characterMov from '../utils/characterMovement';
 import mainCharAnimInfo from '../assets/data/mainCharAnims.json';
 import utils from '../utils/utilsFunctions';
+import Character from '../objects/character';
 
 
 export default class TownScene extends Phaser.Scene {
@@ -17,7 +18,6 @@ export default class TownScene extends Phaser.Scene {
       this.cursors.up.reset();
       this.cursors.down.reset();
     };
-
     this.fromBattle = data.fromBattle;
     this.enterHouse = () => {
       this.scene.stop('Town');
@@ -30,17 +30,6 @@ export default class TownScene extends Phaser.Scene {
     const button = this.add.image(620, 390, 'maximize', 0).setScrollFactor(0);
     button.setInteractive();
     button.setDepth(30);
-    this.money = 0;
-    this.candy = 0;
-    this.charStats = {
-      mainHP: 100,
-      mainAP: 10,
-      mainLevel: 1,
-      redHeadHP: 100,
-      redHeadAP: 10,
-      redHeadLevel: 1,
-    };
-    utils.displayHudElements(this, this.money, this.candy, this.charStats);
     this.cameras.main.fadeIn(1000, 0, 0, 0);
     const map = this.make.tilemap({ key: 'townMap' });
     const tileSet = map.addTilesetImage('tileset_master', 'tiles', 16, 16, 1, 2);
@@ -56,19 +45,65 @@ export default class TownScene extends Phaser.Scene {
 
 
     if (data.fromHouse === true) {
-      this.mainChar = this.physics.add.sprite(houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1);
+      // this.mainChar = this.physics.add.sprite(houseEntranceSpawn.x,
+      // houseEntranceSpawn.y, 'mainDown', 1);
+      this.mainChar = new Character(this, houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1, 'mainFace',
+        data.mainHP, data.mainAP, data.mainXP, 'Player', data.damage, data.superDamage);
     } else if (data.fromSchool === true) {
-      this.mainChar = this.physics.add.sprite(schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1);
+      // this.mainChar = this.physics.add.sprite(schoolEntranceSpawn.x,
+      // schoolEntranceSpawn.y, 'mainDown', 1);
+      this.mainChar = new Character(this, schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1, 'mainFace',
+        data.mainHP, data.mainAP, data.mainXP, 'Player', data.damage, data.superDamage);
     } else if (data.fromBattle === true) {
-      this.mainChar = this.physics.add.sprite(data.charPosX - 30, data.charPosY - 30, 'mainDown', 1);
+      this.mainChar = new Character(this, data.charPosX - 30, data.charPosY - 30, 'mainDown', 1, 'mainFace',
+        data.mainHP, data.mainAP, data.mainXP, 'Player', data.damage, data.superDamage);
+      // this.mainChar = this.physics.add.sprite(data.charPosX - 30, data.charPosY - 30, 'mainDown', 1);
     } else {
-      this.mainChar = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, 'mainDown', 1);
+      // this.mainChar = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, 'mainDown', 1);
+      this.mainChar = new Character(this, spawnPoint.x, spawnPoint.y, 'mainDown', 1, 'mainFace', 100, 0, 0, 'Player', 20, 40);
     }
-
+    if (data.fromHouse || data.fromBattle || data.fromSchool) {
+      this.money = data.money;
+      // this.candy = data.candy;
+      this.charStats = {
+        mainHP: data.mainHP,
+        mainAP: data.mainAP,
+        mainLevel: this.mainChar.level,
+        // redHeadHP: data.redHeadHP,
+        redHeadHP: 100,
+        // redHeadAP: data.redHeadAP,
+        redHeadAP: 10,
+        redHeadLevel: 1,
+      };
+    } else {
+      this.money = 0;
+      this.sys.game.globals.candies = 0;
+      // this.candy = 0;
+      this.charStats = {
+        mainHP: 100,
+        mainAP: 0,
+        mainLevel: 1,
+        redHeadHP: 100,
+        redHeadAP: 0,
+        redHeadLevel: 1,
+      };
+    }
+    utils.displayHudElements(this, this.money, this.sys.game.globals.candies, this.charStats);
+    this.physics.world.enable(this.mainChar);
     this.onMeetEnemy = (player, enemy) => {
       this.startBattle = () => {
         this.scene.stop('Town');
-        this.scene.start('Battle', { posX: this.mainChar.x, posY: this.mainChar.y, enemyKilled: enemy.name });
+        this.scene.start('Battle', {
+          posX: this.mainChar.x,
+          posY: this.mainChar.y,
+          enemyKilled: enemy.name,
+          mainHP: this.mainChar.hp,
+          mainAP: this.mainChar.ap,
+          mainName: this.mainChar.name,
+          mainDamage: this.mainChar.damage,
+          mainSuperDamage: this.mainChar.superDamage,
+          money: this.money,
+        });
       };
       this.cameras.main.shake(300, 0.02);
       this.time.delayedCall(300, this.startBattle, [], this);

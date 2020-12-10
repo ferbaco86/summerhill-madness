@@ -11,8 +11,10 @@ export default class BattleScene extends Phaser.Scene {
   }
 
   create(data) {
-    const { posX } = data;
-    const { posY } = data;
+    const {
+      posX, posY, mainName, mainHP, mainDamage, mainAP, mainSuperDamage, money,
+    } = data;
+    // const { posY } = data;
     this.victory = true;
     this.gameOver = true;
 
@@ -60,22 +62,33 @@ export default class BattleScene extends Phaser.Scene {
       }
       this.endScene = () => {
         this.scene.stop('Battle');
-        this.scene.start('Town', { fromBattle: true, charPosX: posX, charPosY: posY });
+        this.scene.start('Town', {
+          fromBattle: true,
+          charPosX: posX,
+          charPosY: posY,
+          mainHP: this.mainChar.hp,
+          mainAP: this.mainChar.ap,
+          mainXP: 50,
+          mainDamage: this.mainChar.damage,
+          mainSuperDamage: this.mainChar.abilityDamage,
+          money: money + 100,
+        });
       };
     };
 
     this.startBattle = () => {
       this.cameras.main.fadeIn(1000, 0, 0, 0);
       this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
-      const mainChar = new BattlePlayer(this, 700, 200, 'mainCharBattleStand', 1, 'Player', 100, 20, 50, 10, 10, 'homeRun',
+      this.mainChar = new BattlePlayer(this, 700, 200, 'mainCharBattleStand', 1, mainName, mainHP, mainDamage,
+        mainSuperDamage, mainAP, 10, 'homeRun',
         'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim', 'mainEatAnim');
-      const redHead = new BattlePlayer(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 10, 40, 8, 8, 'smash',
+      this.redHead = new BattlePlayer(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 10, 40, 8, 8, 'smash',
         'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim', 'redHeadEatAnim');
       const blueSlime = new BattleEnemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 40, 10, 'blueSlimeDamageAnim', 50, 100);
       const blueSlime2 = new BattleEnemy(this, 100, 300, 'blueSlimeBattler', 0, 'Blue Slime 2', 40, 10, 'blueSlimeDamageAnim', 50, 100);
-      this.healthText = new BattleHudDisplay(this, mainChar.x, mainChar.y, 'heartIcon', '');
-      this.actionPointsText = new BattleHudDisplay(this, mainChar.x, mainChar.y, 'starIcon', '');
-      this.heroes = [mainChar, redHead];
+      this.healthText = new BattleHudDisplay(this, this.mainChar.x, this.mainChar.y, 'heartIcon', '');
+      this.actionPointsText = new BattleHudDisplay(this, this.mainChar.x, this.mainChar.y, 'starIcon', '');
+      this.heroes = [this.mainChar, this.redHead];
       this.enemies = [blueSlime, blueSlime2];
       this.units = this.heroes.concat(this.enemies);
 

@@ -67,13 +67,15 @@ export default class BattleUIScene extends Phaser.Scene {
           }
           break;
         case 2:
-          this.char.healHP(20);
-          this.char.playEatAnimation();
-          this.stopEating = () => {
-            this.char.anims.stop();
-            this.char.playIdleAnimation();
-          };
-          this.time.delayedCall(1000, this.stopEating, [], this);
+          if (this.char.healHP(20, this.sys.game.globals.candies)) {
+            console.log(this.sys.game.globals.candies);
+            this.char.playEatAnimation();
+            this.stopEating = () => {
+              this.char.anims.stop();
+              this.char.playIdleAnimation();
+            };
+            this.time.delayedCall(1000, this.stopEating, [], this);
+          }
           break;
         case 3:
           this.battleScene.exitBattle();

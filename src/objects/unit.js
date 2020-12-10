@@ -70,14 +70,21 @@ export default class Unit extends Phaser.GameObjects.Sprite {
     this.ap -= amount;
   }
 
-  healHP(amount) {
+  healHP(amount, candies) {
+    let healed = false;
     if (this.hp === this.maxHP) {
       this.scene.events.emit('Message',
         `${this.type} has full health`);
+    } else if (candies === 0) {
+      this.scene.events.emit('Message',
+        "You don't have candies");
     } else {
       this.hp += amount;
       this.scene.events.emit('Message',
         `${this.type} healed ${amount} HP`);
+      healed = true;
+      candies -= 1;
     }
+    return healed;
   }
 }

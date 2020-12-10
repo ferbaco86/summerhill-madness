@@ -117,12 +117,12 @@ const utils = (() => {
       charStats.mainLevel);
     scene.hudDisplay = new HudDisplay(scene, 320, 237, 'redHeadFace', 'heartIcon', charStats.redHeadHP, 'starIcon',
       charStats.redHeadAP, charStats.redHeadLevel);
-    const alphaBG = scene.add.rectangle(330, 390, 120, 20, '0x00000');
+    const alphaBG = scene.add.rectangle(345, 390, 120, 20, '0x00000');
     alphaBG.setScrollFactor(0).setDepth(30).setAlpha(0.5);
     const moneyIcon = scene.add.image(330, 390, 'moneyIcon');
     const moneyAmount = scene.add.text(340, 383, money, { font: '12px pixelFont' });
-    const candyIcon = scene.add.image(360, 390, 'candyIcon');
-    const candyAmount = scene.add.text(370, 383, candy, { font: '12px pixelFont' });
+    const candyIcon = scene.add.image(372, 390, 'candyIcon');
+    const candyAmount = scene.add.text(382, 383, candy, { font: '12px pixelFont' });
     const hudGroup = scene.add.group();
     hudGroup.add(moneyIcon);
     hudGroup.add(moneyAmount);
