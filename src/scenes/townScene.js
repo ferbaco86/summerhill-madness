@@ -45,22 +45,16 @@ export default class TownScene extends Phaser.Scene {
     this.moveEnemy = false;
 
 
-    if (data.fromHouse === true) {
-      // this.mainChar = this.physics.add.sprite(houseEntranceSpawn.x,
-      // houseEntranceSpawn.y, 'mainDown', 1);
+    if (data.fromHouse) {
       this.mainChar = new Character(this, houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1, 'mainFace',
         data.mainHP, data.mainAP, data.mainXP, 'Player', data.damage, data.superDamage);
-    } else if (data.fromSchool === true) {
-      // this.mainChar = this.physics.add.sprite(schoolEntranceSpawn.x,
-      // schoolEntranceSpawn.y, 'mainDown', 1);
+    } else if (data.fromSchool) {
       this.mainChar = new Character(this, schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1, 'mainFace',
         data.mainHP, data.mainAP, data.mainXP, 'Player', data.damage, data.superDamage);
-    } else if (data.fromBattle === true) {
+    } else if (data.fromBattle) {
       this.mainChar = new Character(this, data.charPosX - 30, data.charPosY - 30, 'mainDown', 1, 'mainFace',
         data.mainHP, data.mainAP, data.mainXP, 'Player', data.damage, data.superDamage);
-      // this.mainChar = this.physics.add.sprite(data.charPosX - 30, data.charPosY - 30, 'mainDown', 1);
     } else {
-      // this.mainChar = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, 'mainDown', 1);
       this.mainChar = new Character(this, spawnPoint.x, spawnPoint.y, 'mainDown', 1, 'mainFace', 100, 0, 0, 'Player', 20, 40);
     }
     if (data.fromHouse || data.fromBattle || data.fromSchool) {
@@ -91,18 +85,20 @@ export default class TownScene extends Phaser.Scene {
     }
     utils.displayHudElements(this, this.money, this.sys.game.globals.candies, this.charStats);
     this.physics.world.enable(this.mainChar);
+
     this.onMeetEnemy = (player, enemy) => {
       this.startBattle = () => {
         this.scene.stop('Town');
         this.scene.start('Battle', {
           posX: this.mainChar.x,
           posY: this.mainChar.y,
-          enemyKilled: enemy.name,
+          enemyToKill: enemy.name,
           mainHP: this.mainChar.hp,
           mainAP: this.mainChar.ap,
           mainName: this.mainChar.name,
           mainDamage: this.mainChar.damage,
           mainSuperDamage: this.mainChar.superDamage,
+          mainXP: this.mainChar.xp,
           money: this.money,
         });
       };
@@ -112,8 +108,11 @@ export default class TownScene extends Phaser.Scene {
 
     this.blueSlime = utils.createMonster(this, monsterSpawn1.x, monsterSpawn1.y, 'blueSlimeDown', 1, 'blueSlime1', 'blueSlimeWalkDown');
     this.redSlime = utils.createMonster(this, monsterSpawn2.x, monsterSpawn2.y, 'redSlimeDown', 1, 'redSlime1', 'redSlimeWalkDown');
+    this.enemyGroup = this.add.group();
+    this.enemyGroup.add(this.blueSlime);
+    this.enemyGroup.add(this.redSlime);
 
-    generateMaps.generateCollision(this, this.blueSlime, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
+    generateMaps.generateCollision(this, this.enemyGroup, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
     generateMaps.generateCollision(this, this.mainChar, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
     generateMaps.generateDepth(staticLayersArr, 'Above', 10);
 
@@ -140,7 +139,7 @@ export default class TownScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.physics.add.overlap(this.mainChar, houseDoorway, this.enterHouse, null, this);
     this.physics.add.overlap(this.mainChar, schoolDoorway, this.enterSchool, null, this);
-    this.physics.add.overlap(this.mainChar, this.blueSlime, this.onMeetEnemy, null, this);
+    this.physics.add.overlap(this.mainChar, this.enemyGroup, this.onMeetEnemy, null, this);
 
 
     // this.physics.world.createDebugGraphic();

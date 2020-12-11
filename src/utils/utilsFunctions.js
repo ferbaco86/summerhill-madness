@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import HudDisplay from '../objects/hudDisplay';
+import BattleEnemy from '../objects/battleEnemy';
 
 
 const utils = (() => {
@@ -141,6 +142,95 @@ const utils = (() => {
     return enemy;
   };
 
+  const selectEnemies = (scene, enemyName) => {
+    const enemiesInfo = {};
+    const enemies = [];
+    let totalXP = 0;
+    let totalMoney = 0;
+    let enemy1 = null;
+    let enemy2 = null;
+    let enemy3 = null;
+
+    switch (enemyName) {
+      case 'blueSlime1':
+        enemy1 = new BattleEnemy(scene, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 40, 10, 'blueSlimeDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 300, 'blueSlimeBattler', 0, 'Blue Slime 2', 40, 10, 'blueSlimeDamageAnim', 50, 100);
+        enemy3 = new BattleEnemy(scene, 200, 250, 'blueSlimeBattler', 0, 'Blue Slime 3', 40, 10, 'blueSlimeDamageAnim', 50, 100);
+        enemies.push(enemy1);
+        enemies.push(enemy2);
+        enemies.push(enemy3);
+        totalXP = 50;
+        totalMoney = 10;
+        enemiesInfo.enemies = enemies;
+        enemiesInfo.totalXP = totalXP;
+        enemiesInfo.totalMoney = totalMoney;
+        break;
+      case 'redSlime1':
+        enemy1 = new BattleEnemy(scene, 100, 200, 'redSlimeBattler', 0, 'Red Slime', 40, 10, 'blueSlimeDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 300, 'redSlimeBattler', 0, 'Red Slime 2', 40, 10, 'blueSlimeDamageAnim', 50, 100);
+        enemy3 = new BattleEnemy(scene, 200, 250, 'redSlimeBattler', 0, 'Red Slime 3', 40, 10, 'blueSlimeDamageAnim', 50, 100);
+        enemies.push(enemy1);
+        enemies.push(enemy2);
+        enemies.push(enemy3);
+        totalXP = 150;
+        totalMoney = 12;
+        enemiesInfo.enemies = enemies;
+        enemiesInfo.totalXP = totalXP;
+        enemiesInfo.totalMoney = totalMoney;
+        break;
+      default:
+        break;
+    }
+    return enemiesInfo;
+  };
+
+  const showLevelUpWindow = (scene, x, y, bgPic, heartIcon, swordIcon,
+    starIcon, mainPortraitTexture, redHeadPortraitTexture) => {
+    const BG = scene.add.image(x, y, bgPic).setDepth(30).setScale(0.3);
+    const levelUpText = scene.add.text(x - 34, y - 52, 'Level Up!', { font: '16px pixelFont', color: '#87EB3F' });
+    const hpText = scene.add.text(x - 50, y + 5, '+ 10', { font: '8px pixelFont', color: '#ffff' });
+    hpText.setDepth(40);
+    const attackText = scene.add.text(x - 50, y + 20, '+ 5', { font: '8px pixelFont', color: '#ffff' });
+    attackText.setDepth(40);
+    const hpText2 = scene.add.text(x + 50, y + 5, '+ 10', { font: '8px pixelFont', color: '#ffff' });
+    hpText2.setDepth(40);
+    const attackText2 = scene.add.text(x + 50, y + 20, '+ 5', { font: '8px pixelFont', color: '#ffff' });
+    attackText2.setDepth(40);
+    levelUpText.setDepth(40);
+    levelUpText.setOrigin(0);
+    const mainCharPortrait = scene.add.image(x - 50, y - 15, mainPortraitTexture)
+      .setDepth(40).setScale(0.7);
+    const rhPortrait = scene.add.image(x + 50, y - 15, redHeadPortraitTexture)
+      .setDepth(40).setScale(0.7);
+    const hpIcon1 = scene.add.image(x - 60, y + 10, heartIcon)
+      .setDepth(40);
+    const hpIcon2 = scene.add.image(x + 40, y + 10, heartIcon)
+      .setDepth(40);
+    const damageIcon1 = scene.add.image(x - 60, y + 25, swordIcon)
+      .setDepth(40);
+    const damageIcon2 = scene.add.image(x + 40, y + 25, swordIcon)
+      .setDepth(40);
+    const windowGroup = scene.add.group();
+    windowGroup.add(BG);
+    windowGroup.add(levelUpText);
+    windowGroup.add(mainCharPortrait);
+    windowGroup.add(rhPortrait);
+    windowGroup.add(hpIcon1);
+    windowGroup.add(hpIcon2);
+    windowGroup.add(damageIcon1);
+    windowGroup.add(damageIcon2);
+    windowGroup.add(hpText);
+    windowGroup.add(hpText2);
+    windowGroup.add(attackText);
+    windowGroup.add(attackText2);
+
+    const groupChildren = windowGroup.getChildren();
+    groupChildren.forEach(child => {
+      child.setScrollFactor(0);
+    });
+    return windowGroup;
+  };
+
   return {
     createTextBox,
     fadeOutScene,
@@ -148,6 +238,8 @@ const utils = (() => {
     setFullScreen,
     displayHudElements,
     createMonster,
+    selectEnemies,
+    showLevelUpWindow,
   };
 })();
 

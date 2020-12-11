@@ -12,10 +12,10 @@ import mainFace from '../assets/mainCharacter/mainCharFaceFrame.png';
 import redWindow from '../assets/ui/windowLight3.png';
 import moneyIcon from '../assets/ui/money.png';
 import candyIcon from '../assets/ui/candy.png';
+import attackIcon from '../assets/ui/attackIcon.png';
 import button1 from '../assets/ui/buttonDefault.png';
 import arrowRight from '../assets/ui/arrow_point_right.png';
 import button2 from '../assets/ui/buttonHover.png';
-import phaserLogo from '../assets/logo.png';
 import exclamationBalloon from '../assets/ui/exclamationBalloon.png';
 import introSleeping from '../assets/mainCharacter/sleepingSpriteAnim.png';
 import batPickUp from '../assets/mainCharacter/weaponPickupBase-sheet.png';
@@ -144,16 +144,16 @@ export default class PreloaderScene extends Phaser.Scene {
       this.ready();
     });
 
-    this.timedEvent = this.time.delayedCall(3000, this.ready, [], this);
+    this.timedEvent = this.time.delayedCall(10000, this.ready, [], this);
 
     // load assets needed in our game
     this.load.image('button1', button1);
     this.load.image('button2', button2);
     this.load.image('nextPage', arrowRight);
-    this.load.image('phaserLogo', phaserLogo);
     this.load.image('purpleSquare', purpleSquare);
     this.load.image('winWindow', winWindow);
     this.load.image('candyIcon', candyIcon);
+    this.load.image('attackIcon', attackIcon);
     this.load.image('moneyIcon', moneyIcon);
     this.load.image('redHeadFace', redHeadFace);
     this.load.image('mainFace', mainFace);

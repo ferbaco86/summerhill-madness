@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
-import BattleEnemy from '../objects/battleEnemy';
 import BattleHudDisplay from '../objects/battleHudDisplay';
 import BattlePlayer from '../objects/battlePlayer';
 import BattleEndWindow from '../objects/battleEndWindow';
+import utils from '../utils/utilsFunctions';
 
 
 export default class BattleScene extends Phaser.Scene {
@@ -12,9 +12,8 @@ export default class BattleScene extends Phaser.Scene {
 
   create(data) {
     const {
-      posX, posY, mainName, mainHP, mainDamage, mainAP, mainSuperDamage, money,
+      posX, posY, mainName, mainHP, mainDamage, mainAP, mainSuperDamage, money, mainXP,
     } = data;
-    // const { posY } = data;
     this.victory = true;
     this.gameOver = true;
 
@@ -48,15 +47,14 @@ export default class BattleScene extends Phaser.Scene {
       this.scene.sleep('BattleUI');
       // return to WorldScene and stop current Battle
       if (this.victory) {
-        this.victoryWindow = new BattleEndWindow(this, 350, 100, 100, 200);
+        this.victoryWindow = new BattleEndWindow(this, 350, 100,
+          this.enemiesInfo.totalXP, this.enemiesInfo.totalMoney);
         this.onKeyInput = (event) => {
           if (event.code === 'Space') {
             this.endScene();
           }
         };
         this.input.keyboard.on('keydown', this.onKeyInput, this);
-
-        // this.time.delayedCall(3000, this.endScene, [], this);
       } else {
         console.log('Game Over');
       }
@@ -68,10 +66,10 @@ export default class BattleScene extends Phaser.Scene {
           charPosY: posY,
           mainHP: this.mainChar.hp,
           mainAP: this.mainChar.ap,
-          mainXP: 50,
+          mainXP: mainXP + this.enemiesInfo.totalXP,
           mainDamage: this.mainChar.damage,
           mainSuperDamage: this.mainChar.abilityDamage,
-          money: money + 100,
+          money: money + this.enemiesInfo.totalMoney,
         });
       };
     };
@@ -84,22 +82,23 @@ export default class BattleScene extends Phaser.Scene {
         'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim', 'mainEatAnim');
       this.redHead = new BattlePlayer(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 10, 40, 8, 8, 'smash',
         'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim', 'redHeadEatAnim');
-      const blueSlime = new BattleEnemy(this, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 40, 10, 'blueSlimeDamageAnim', 50, 100);
-      const blueSlime2 = new BattleEnemy(this, 100, 300, 'blueSlimeBattler', 0, 'Blue Slime 2', 40, 10, 'blueSlimeDamageAnim', 50, 100);
       this.healthText = new BattleHudDisplay(this, this.mainChar.x, this.mainChar.y, 'heartIcon', '');
       this.actionPointsText = new BattleHudDisplay(this, this.mainChar.x, this.mainChar.y, 'starIcon', '');
       this.heroes = [this.mainChar, this.redHead];
-      this.enemies = [blueSlime, blueSlime2];
+      this.enemiesInfo = utils.selectEnemies(this, data.enemyToKill);
+      this.enemies = this.enemiesInfo.enemies;
       this.units = this.heroes.concat(this.enemies);
 
       this.index = -1;
       this.scene.run('BattleUI');
+      console.log(this.mainChar.damage);
+      console.log(this.enemies[0].hp);
     };
 
 
     this.nextTurn = () => {
       if (this.checkEndBattle()) {
-        this.sys.game.globals.enemiesDefeated.push(data.enemyKilled);
+        this.sys.game.globals.enemiesDefeated.push(data.enemyToKill);
         this.endBattle();
         return;
       }
