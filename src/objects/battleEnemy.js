@@ -9,11 +9,12 @@ export default class BattleEnemy extends Unit {
     this.damageAnim = damageAnim;
     this.xp = xp;
     this.coins = coins;
+    this.x = x;
   }
 
   attackAnim() {
     this.scene.tweens.add({
-      targets: this, duration: 800, x: 150, ease: 'Bounce', yoyo: true,
+      targets: this, duration: 800, x: this.x + 50, ease: 'Bounce', yoyo: true,
     });
   }
 

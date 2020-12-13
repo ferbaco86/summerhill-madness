@@ -4,6 +4,7 @@ import characterMov from '../utils/characterMovement';
 import mainCharAnimInfo from '../assets/data/mainCharAnims.json';
 import utils from '../utils/utilsFunctions';
 import Character from '../objects/character';
+import MainCharacter from '../objects/mainCharacter';
 
 
 export default class TownScene extends Phaser.Scene {
@@ -46,34 +47,34 @@ export default class TownScene extends Phaser.Scene {
 
 
     if (data.fromHouse) {
-      this.mainChar = new Character(this, houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1, 'mainFace',
-        data.mainHP, data.mainAP, data.mainXP, 'Player', data.damage, data.superDamage);
+      this.mainChar = new MainCharacter(this, houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1, 'mainFace',
+        data.mainHP, data.mainAP, data.mainXP, 'Player', data.mainDamage, data.mainSuperDamage);
+      this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
     } else if (data.fromSchool) {
-      this.mainChar = new Character(this, schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1, 'mainFace',
+      this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1, 'mainFace',
         data.mainHP, data.mainAP, data.mainXP, 'Player', data.damage, data.superDamage);
+      this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
     } else if (data.fromBattle) {
-      this.mainChar = new Character(this, data.charPosX - 30, data.charPosY - 30, 'mainDown', 1, 'mainFace',
+      this.mainChar = new MainCharacter(this, data.charPosX - 30, data.charPosY - 30, 'mainDown', 1, 'mainFace',
         data.mainHP, data.mainAP, data.mainXP, 'Player', data.damage, data.superDamage);
+      this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
     } else {
-      this.mainChar = new Character(this, spawnPoint.x, spawnPoint.y, 'mainDown', 1, 'mainFace', 100, 0, 0, 'Player', 20, 40);
+      this.mainChar = new MainCharacter(this, spawnPoint.x, spawnPoint.y, 'mainDown', 1, 'mainFace', 100, 0, 0, 'Player', 20, 40);
+      this.redHead = new Character(100, 0, 0, 'Ro', 20, 40);
     }
     if (data.fromHouse || data.fromBattle || data.fromSchool) {
       this.money = data.money;
-      // this.candy = data.candy;
       this.charStats = {
         mainHP: data.mainHP,
         mainAP: data.mainAP,
         mainLevel: this.mainChar.level,
-        // redHeadHP: data.redHeadHP,
-        redHeadHP: 100,
-        // redHeadAP: data.redHeadAP,
-        redHeadAP: 10,
-        redHeadLevel: 1,
+        redHeadHP: data.redHeadHP,
+        redHeadAP: data.redHeadAP,
+        redHeadLevel: this.mainChar.level,
       };
     } else {
       this.money = 0;
       this.sys.game.globals.candies = 0;
-      // this.candy = 0;
       this.charStats = {
         mainHP: 100,
         mainAP: 0,
@@ -99,6 +100,12 @@ export default class TownScene extends Phaser.Scene {
           mainDamage: this.mainChar.damage,
           mainSuperDamage: this.mainChar.superDamage,
           mainXP: this.mainChar.xp,
+          redHeadHP: this.redHead.hp,
+          redHeadAP: this.redHead.ap,
+          redHeadDamage: this.redHead.damage,
+          redHeadSuperDamage: this.redHead.superDamage,
+          redHeadXP: this.redHead.xp,
+
           money: this.money,
         });
       };

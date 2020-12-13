@@ -1,11 +1,6 @@
-import Phaser from 'phaser';
-import utils from '../utils/utilsFunctions';
 
-export default class Character extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y, texture, frame, portrait, hp, ap, xp, name, damage, superDamage) {
-    super(scene, x, y, texture, frame);
-    this.scene = scene;
-    this.portrait = portrait;
+export default class Character {
+  constructor(hp, ap, xp, name, damage, superDamage) {
     this.hp = hp;
     this.ap = ap;
     this.xp = xp;
@@ -15,18 +10,6 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
     this.superDamage = superDamage;
     this.maxHP = this.hp;
     this.maxAP = this.ap;
-    scene.add.existing(this);
-    this.levelUpWindow = utils.showLevelUpWindow(this.scene, 500, 300, 'winWindow', 'heartIcon', 'attackIcon', 'starIcon', 'mainFace', 'redHeadFace');
-    this.levelUpWindow.setVisible(false);
-
-    this.showHideWindow = () => {
-      this.levelUpWindow.setVisible(true);
-      const hideWindow = () => {
-        this.levelUpWindow.setVisible(false);
-      };
-      this.scene.time.delayedCall(5000, hideWindow, [], this.scene);
-    };
-
 
     if (xp > 150) {
       this.xp = 150;
@@ -37,7 +20,6 @@ export default class Character extends Phaser.Physics.Arcade.Sprite {
         this.level = 2;
         this.damage = 25;
         this.hp = 110;
-        this.showHideWindow();
         break;
       case 75:
         this.level = 3;

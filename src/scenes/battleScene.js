@@ -13,6 +13,7 @@ export default class BattleScene extends Phaser.Scene {
   create(data) {
     const {
       posX, posY, mainName, mainHP, mainDamage, mainAP, mainSuperDamage, money, mainXP,
+      redHeadHP, redHeadAP, redHeadDamage, redHeadSuperDamage, redHeadXP,
     } = data;
     this.victory = true;
     this.gameOver = true;
@@ -69,6 +70,11 @@ export default class BattleScene extends Phaser.Scene {
           mainXP: mainXP + this.enemiesInfo.totalXP,
           mainDamage: this.mainChar.damage,
           mainSuperDamage: this.mainChar.abilityDamage,
+          redHeadHP: this.redHead.hp,
+          redHeadAP: this.redHead.ap,
+          redHeadXP: redHeadXP + this.enemiesInfo.totalXP,
+          redHeadDamage: this.redHeadDamage,
+          redHeadSuperDamage: this.redHeadSuperDamage,
           money: money + this.enemiesInfo.totalMoney,
         });
       };
@@ -80,7 +86,8 @@ export default class BattleScene extends Phaser.Scene {
       this.mainChar = new BattlePlayer(this, 700, 200, 'mainCharBattleStand', 1, mainName, mainHP, mainDamage,
         mainSuperDamage, mainAP, 10, 'homeRun',
         'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim', 'mainEatAnim');
-      this.redHead = new BattlePlayer(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', 100, 10, 40, 8, 8, 'smash',
+      this.redHead = new BattlePlayer(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', redHeadHP, redHeadDamage,
+        redHeadSuperDamage, redHeadAP, 8, 'smash',
         'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim', 'redHeadEatAnim');
       this.healthText = new BattleHudDisplay(this, this.mainChar.x, this.mainChar.y, 'heartIcon', '');
       this.actionPointsText = new BattleHudDisplay(this, this.mainChar.x, this.mainChar.y, 'starIcon', '');
@@ -91,8 +98,6 @@ export default class BattleScene extends Phaser.Scene {
 
       this.index = -1;
       this.scene.run('BattleUI');
-      console.log(this.mainChar.damage);
-      console.log(this.enemies[0].hp);
     };
 
 

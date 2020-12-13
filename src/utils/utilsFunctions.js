@@ -172,7 +172,7 @@ const utils = (() => {
         enemies.push(enemy1);
         enemies.push(enemy2);
         enemies.push(enemy3);
-        totalXP = 150;
+        totalXP = 75;
         totalMoney = 12;
         enemiesInfo.enemies = enemies;
         enemiesInfo.totalXP = totalXP;
@@ -185,7 +185,7 @@ const utils = (() => {
   };
 
   const showLevelUpWindow = (scene, x, y, bgPic, heartIcon, swordIcon,
-    starIcon, mainPortraitTexture, redHeadPortraitTexture) => {
+    starIcon, mainPortraitTexture, redHeadPortraitTexture, xp = null) => {
     const BG = scene.add.image(x, y, bgPic).setDepth(30).setScale(0.3);
     const levelUpText = scene.add.text(x - 34, y - 52, 'Level Up!', { font: '16px pixelFont', color: '#87EB3F' });
     const hpText = scene.add.text(x - 50, y + 5, '+ 10', { font: '8px pixelFont', color: '#ffff' });
@@ -211,6 +211,20 @@ const utils = (() => {
     const damageIcon2 = scene.add.image(x + 40, y + 25, swordIcon)
       .setDepth(40);
     const windowGroup = scene.add.group();
+    if (xp >= 75) {
+      const actionText = scene.add.text(x - 50, y + 35, '+ 10', { font: '8px pixelFont', color: '#ffff' });
+      actionText.setDepth(40);
+      const actionsIcon1 = scene.add.image(x - 60, y + 40, starIcon)
+        .setDepth(40);
+      windowGroup.add(actionText);
+      windowGroup.add(actionsIcon1);
+      const actionText2 = scene.add.text(x + 50, y + 35, '+ 10', { font: '8px pixelFont', color: '#ffff' });
+      actionText2.setDepth(40);
+      const actionsIcon2 = scene.add.image(x + 40, y + 40, starIcon)
+        .setDepth(40);
+      windowGroup.add(actionText2);
+      windowGroup.add(actionsIcon2);
+    }
     windowGroup.add(BG);
     windowGroup.add(levelUpText);
     windowGroup.add(mainCharPortrait);
