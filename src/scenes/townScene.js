@@ -118,21 +118,27 @@ export default class TownScene extends Phaser.Scene {
     this.enemyGroup = this.add.group();
     this.enemyGroup.add(this.blueSlime);
     this.enemyGroup.add(this.redSlime);
+    this.enemies = this.enemyGroup.getChildren();
 
     generateMaps.generateCollision(this, this.enemyGroup, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
     generateMaps.generateCollision(this, this.mainChar, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
     generateMaps.generateDepth(staticLayersArr, 'Above', 10);
 
-    if (data.fromBattle === true && !data.runAway) {
+    if (data.fromBattle && !data.runAway) {
       this.sys.game.globals.enemiesDefeated.forEach(enemy => {
-        if (enemy === this.blueSlime.name) this.blueSlime.destroy();
+        this.enemies.forEach(townEnemy => {
+          if (enemy === townEnemy.name) townEnemy.destroy();
+        });
       });
     }
 
-    if ((this.sys.game.globals.enemiesDefeated.includes(this.blueSlime.name)
+    this.enemies.forEach(townEnemy => {
+      if ((this.sys.game.globals.enemiesDefeated.includes(townEnemy.name)
     && data.fromBattle === undefined) || data.runAway) {
-      this.moveEnemy = true;
-    }
+        this.moveEnemy = true;
+      }
+    });
+
 
     this.mainChar.body.setSize(this.mainChar.width, this.mainChar.height / 2, false)
       .setOffset(0, this.mainChar.height / 2);
@@ -170,12 +176,14 @@ export default class TownScene extends Phaser.Scene {
   update() {
     characterMov.charMovementControl(this.mainChar, this.cursors, 155, 50, -50, -50, 50,
       mainCharAnimInfo, 1);
-    if (!this.sys.game.globals.enemiesDefeated.includes(this.blueSlime.name)
-    || this.moveEnemy === true) {
-      if (Phaser.Math.Distance.Between(this.mainChar.x, this.mainChar.y,
-        this.blueSlime.x, this.blueSlime.y) < 80) {
-        this.physics.moveToObject(this.blueSlime, this.mainChar, 20);
+    this.enemies.forEach(townEnemy => {
+      if (!this.sys.game.globals.enemiesDefeated.includes(townEnemy.name)
+    || this.moveEnemy) {
+        if (Phaser.Math.Distance.Between(this.mainChar.x, this.mainChar.y,
+          townEnemy.x, townEnemy.y) < 80) {
+          this.physics.moveToObject(townEnemy, this.mainChar, 20);
+        }
       }
-    }
+    });
   }
 }
