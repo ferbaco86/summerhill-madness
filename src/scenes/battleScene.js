@@ -11,6 +11,7 @@ export default class BattleScene extends Phaser.Scene {
   }
 
   create(data) {
+    console.log(data);
     const {
       posX, posY, mainName, mainHP, mainDamage, mainAP, mainSuperDamage, money, mainXP,
       redHeadHP, redHeadAP, redHeadDamage, redHeadSuperDamage, redHeadXP,
@@ -74,8 +75,8 @@ export default class BattleScene extends Phaser.Scene {
           redHeadHP: this.redHead.hp,
           redHeadAP: this.redHead.ap,
           redHeadXP: redHeadXP + this.enemiesInfo.totalXP,
-          redHeadDamage: this.redHeadDamage,
-          redHeadSuperDamage: this.redHeadSuperDamage,
+          redHeadDamage: this.redHead.damage,
+          redHeadSuperDamage: this.redHead.abilityDamage,
           money: money + this.enemiesInfo.totalMoney,
         });
       };
@@ -181,8 +182,8 @@ export default class BattleScene extends Phaser.Scene {
         redHeadHP: this.redHead.hp,
         redHeadAP: this.redHead.ap,
         redHeadXP,
-        redHeadDamage: this.redHeadDamage,
-        redHeadSuperDamage: this.redHeadSuperDamage,
+        redHeadDamage: this.redHead.damage,
+        redHeadSuperDamage: this.redHead.abilityDamage,
         money,
       });
     };

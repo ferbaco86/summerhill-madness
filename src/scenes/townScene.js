@@ -56,7 +56,7 @@ export default class TownScene extends Phaser.Scene {
       this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
     } else if (data.fromBattle) {
       this.mainChar = new MainCharacter(this, data.charPosX - 30, data.charPosY - 30, 'mainDown', 1, 'mainFace',
-        data.mainHP, data.mainAP, data.mainXP, 'Player', data.damage, data.superDamage);
+        data.mainHP, data.mainAP, data.mainXP, 'Player', data.mainDamage, data.mainSuperDamage);
       this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
     } else {
       this.mainChar = new MainCharacter(this, spawnPoint.x, spawnPoint.y, 'mainDown', 1, 'mainFace', 100, 0, 0, 'Player', 20, 40);
@@ -86,7 +86,6 @@ export default class TownScene extends Phaser.Scene {
     }
     utils.displayHudElements(this, this.money, this.sys.game.globals.candies, this.charStats);
     this.physics.world.enable(this.mainChar);
-
     this.onMeetEnemy = (player, enemy) => {
       this.startBattle = () => {
         this.scene.stop('Town');
