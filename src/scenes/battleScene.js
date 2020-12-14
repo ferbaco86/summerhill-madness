@@ -48,6 +48,7 @@ export default class BattleScene extends Phaser.Scene {
       this.scene.sleep('BattleUI');
       // return to WorldScene and stop current Battle
       if (this.victory) {
+        this.sys.game.globals.enemiesDefeated.push(data.enemyToKill);
         this.victoryWindow = new BattleEndWindow(this, 350, 100,
           this.enemiesInfo.totalXP, this.enemiesInfo.totalMoney);
         this.onKeyInput = (event) => {
@@ -103,7 +104,6 @@ export default class BattleScene extends Phaser.Scene {
 
     this.nextTurn = () => {
       if (this.checkEndBattle()) {
-        this.sys.game.globals.enemiesDefeated.push(data.enemyToKill);
         this.endBattle();
         return;
       }
@@ -169,7 +169,21 @@ export default class BattleScene extends Phaser.Scene {
       this.scene.sleep('BattleUI');
       this.scene.stop('Battle');
       this.scene.start('Town', {
-        fromBattle: true, charPosX: posX, charPosY: posY, runAway: true,
+        fromBattle: true,
+        charPosX: posX,
+        charPosY: posY,
+        runAway: true,
+        mainHP: this.mainChar.hp,
+        mainAP: this.mainChar.ap,
+        mainXP,
+        mainDamage: this.mainChar.damage,
+        mainSuperDamage: this.mainChar.abilityDamage,
+        redHeadHP: this.redHead.hp,
+        redHeadAP: this.redHead.ap,
+        redHeadXP,
+        redHeadDamage: this.redHeadDamage,
+        redHeadSuperDamage: this.redHeadSuperDamage,
+        money,
       });
     };
     this.startBattle();

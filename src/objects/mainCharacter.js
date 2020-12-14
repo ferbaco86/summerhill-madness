@@ -2,7 +2,8 @@ import Phaser from 'phaser';
 import utils from '../utils/utilsFunctions';
 
 export default class MainCharacter extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y, texture, frame, portrait, hp, ap, xp, name, damage, superDamage) {
+  constructor(scene, x, y, texture, frame, portrait, hp, ap, xp, name, damage,
+    superDamage, runAway = null) {
     super(scene, x, y, texture, frame);
     this.scene = scene;
     this.portrait = portrait;
@@ -20,11 +21,13 @@ export default class MainCharacter extends Phaser.Physics.Arcade.Sprite {
     this.levelUpWindow.setVisible(false);
 
     this.showHideWindow = () => {
-      this.levelUpWindow.setVisible(true);
-      const hideWindow = () => {
-        this.levelUpWindow.setVisible(false);
-      };
-      this.scene.time.delayedCall(5000, hideWindow, [], this.scene);
+      if (!runAway) {
+        this.levelUpWindow.setVisible(true);
+        const hideWindow = () => {
+          this.levelUpWindow.setVisible(false);
+        };
+        this.scene.time.delayedCall(5000, hideWindow, [], this.scene);
+      }
     };
 
 

@@ -124,7 +124,7 @@ export default class TownScene extends Phaser.Scene {
     generateMaps.generateCollision(this, this.mainChar, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
     generateMaps.generateDepth(staticLayersArr, 'Above', 10);
 
-    if (data.fromBattle && !data.runAway) {
+    if (data.fromBattle) {
       this.sys.game.globals.enemiesDefeated.forEach(enemy => {
         this.enemies.forEach(townEnemy => {
           if (enemy === townEnemy.name) townEnemy.destroy();
