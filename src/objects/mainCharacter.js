@@ -21,7 +21,7 @@ export default class MainCharacter extends Phaser.Physics.Arcade.Sprite {
     this.levelUpWindow.setVisible(false);
 
     this.showHideWindow = () => {
-      if (!runAway) {
+      if (!runAway && xp <= 150) {
         this.levelUpWindow.setVisible(true);
         const hideWindow = () => {
           this.levelUpWindow.setVisible(false);

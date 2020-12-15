@@ -38,6 +38,19 @@ import blueSlimeBattler from '../assets/monsters/blueSlimeBattler.png';
 import blueSlimeBattlerDamage from '../assets/monsters/blueSlimeBattlerDamage.png';
 import redSlimeDown from '../assets/monsters/redSlimeIdleWalkDownSprite.png';
 import redSlimeBattler from '../assets/monsters/redSlimeBattler.png';
+import redSlimeBattlerDamage from '../assets/monsters/redSlimeTakeDamageAnim.png';
+import snakeBattlerDamage from '../assets/monsters/snakeTakeDamageAnim.png';
+import plantBattlerDamage from '../assets/monsters/plantTakeDamageAnim.png';
+import beeBattlerDamage from '../assets/monsters/beeTakeDamageAnim.png';
+import flyBattlerDamage from '../assets/monsters/flyTakeDamageAnim.png';
+import snakeBattler from '../assets/monsters/snakeBattler.png';
+import plantBattler from '../assets/monsters/plantBattler.png';
+import beeBattler from '../assets/monsters/beeBattler.png';
+import flyBattler from '../assets/monsters/flyBattler.png';
+import snakeDown from '../assets/monsters/snakeIdleWalkDownSprite.png';
+import beeDown from '../assets/monsters/beeIdleWalkDown.png';
+import flyDown from '../assets/monsters/flyIdleWalkDown.png';
+import plantDown from '../assets/monsters/flowerIdleWalkDown.png';
 import mainCharBattleStand from '../assets/mainCharacter/mainCharBattle_stand.png';
 import mainCharTakeDamage from '../assets/mainCharacter/mainTakeDamage.png';
 import redHeadBattleStand from '../assets/redHeadCharacter/redHeadBattle_stand.png';
@@ -175,6 +188,10 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('soundMenu', soundMenu);
     this.load.image('blueSlimeBattler', blueSlimeBattler);
     this.load.image('redSlimeBattler', redSlimeBattler);
+    this.load.image('snakeBattler', snakeBattler);
+    this.load.image('beeBattler', beeBattler);
+    this.load.image('flyBattler', flyBattler);
+    this.load.image('plantBattler', plantBattler);
     this.load.image('gameTitle', title);
     this.load.image('exclamationMark', exclamationBalloon);
     this.load.image('lightWindow', redWindow);
@@ -237,6 +254,22 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 20,
       frameHeight: 20,
     });
+    this.load.spritesheet('snakeDown', snakeDown, {
+      frameWidth: 17,
+      frameHeight: 20,
+    });
+    this.load.spritesheet('beeDown', beeDown, {
+      frameWidth: 30,
+      frameHeight: 25,
+    });
+    this.load.spritesheet('flyDown', flyDown, {
+      frameWidth: 32,
+      frameHeight: 31,
+    });
+    this.load.spritesheet('plantDown', plantDown, {
+      frameWidth: 30,
+      frameHeight: 30,
+    });
     this.load.spritesheet('mainCharBattleStand', mainCharBattleStand, {
       frameWidth: 30,
       frameHeight: 30,
@@ -261,6 +294,26 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 32,
     });
+    this.load.spritesheet('redSlimeDamage', redSlimeBattlerDamage, {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet('snakeDamage', snakeBattlerDamage, {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet('beeDamage', beeBattlerDamage, {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet('flyDamage', flyBattlerDamage, {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
+    this.load.spritesheet('plantDamage', plantBattlerDamage, {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
     this.load.spritesheet('mainTakeDamage', mainCharTakeDamage, {
       frameWidth: 30,
       frameHeight: 30,
@@ -282,13 +335,13 @@ export default class PreloaderScene extends Phaser.Scene {
   create() {
     this.animKeys = ['introSleepingAnim', 'redHeadWalkUp', 'redHeadWalkDown', 'redHeadWalkLeft', 'redHeadWalkRight',
       'mainCharWalkDown', 'mainCharWalkLeft', 'mainCharWalkRight', 'mainCharWalkUp', 'batPickUp', 'blueSlimeWalkDown',
-      'redSlimeWalkDown'];
+      'redSlimeWalkDown', 'snakeWalkDown', 'beeWalkDown', 'flyWalkDown', 'plantWalkDown'];
     this.battleAnimKeys = ['mainCharIdle', 'redHeadIdle'];
-    this.hitAnimKeys = ['batHitAnim', 'tennisHitAnim', 'blueSlimeDamageAnim', 'mainTakeDamageAnim', 'redHeadTakeDamageAnim', 'mainEatAnim', 'redHeadEatAnim'];
-    this.hitSpriteSheets = ['batHit', 'tennisHit', 'blueSlimeDamage', 'mainTakeDamage', 'redHeadTakeDamage', 'mainEat', 'redHeadEat'];
+    this.hitAnimKeys = ['batHitAnim', 'tennisHitAnim', 'blueSlimeDamageAnim', 'redSlimeDamageAnim', 'snakeDamageAnim', 'beeDamageAnim', 'flyDamageAnim', 'plantDamageAnim', 'mainTakeDamageAnim', 'redHeadTakeDamageAnim', 'mainEatAnim', 'redHeadEatAnim'];
+    this.hitSpriteSheets = ['batHit', 'tennisHit', 'blueSlimeDamage', 'redSlimeDamage', 'snakeDamage', 'beeDamage', 'flyDamage', 'plantDamage', 'mainTakeDamage', 'redHeadTakeDamage', 'mainEat', 'redHeadEat'];
     this.battleSpriteSheets = ['mainCharBattleStand', 'redHeadBattleStand'];
     this.spriteSheets = ['introSleeping', 'redHeadUp', 'redHeadDown', 'redHeadLeft', 'redHeadRight',
-      'mainDown', 'mainLeft', 'mainRight', 'mainUp', 'mainBatPick', 'blueSlimeDown', 'redSlimeDown'];
+      'mainDown', 'mainLeft', 'mainRight', 'mainUp', 'mainBatPick', 'blueSlimeDown', 'redSlimeDown', 'snakeDown', 'beeDown', 'flyDown', 'plantDown'];
     utils.createAnims(this, this.animKeys, this.spriteSheets, 10, -1);
     utils.createAnims(this, this.battleAnimKeys, this.battleSpriteSheets, 4, -1);
     utils.createAnims(this, this.hitAnimKeys, this.hitSpriteSheets, 10, 1);

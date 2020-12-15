@@ -178,6 +178,52 @@ const utils = (() => {
         enemiesInfo.totalXP = totalXP;
         enemiesInfo.totalMoney = totalMoney;
         break;
+      case 'snake':
+        enemy1 = new BattleEnemy(scene, 100, 200, 'snakeBattler', 0, 'Snake', 40, 10, 'snakeDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 300, 'snakeBattler', 0, 'Snake 2', 40, 10, 'snakeDamageAnim', 50, 100);
+        enemies.push(enemy1);
+        enemies.push(enemy2);
+        totalXP = 75;
+        totalMoney = 12;
+        enemiesInfo.enemies = enemies;
+        enemiesInfo.totalXP = totalXP;
+        enemiesInfo.totalMoney = totalMoney;
+        break;
+      case 'bee':
+        enemy1 = new BattleEnemy(scene, 100, 200, 'beeBattler', 0, 'Bee', 40, 10, 'beeDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 300, 'beeBattler', 0, 'Bee 2', 40, 10, 'beeDamageAnim', 50, 100);
+        enemy3 = new BattleEnemy(scene, 200, 250, 'beeBattler', 0, 'Bee 3', 40, 10, 'beeDamageAnim', 50, 100);
+        enemies.push(enemy1);
+        enemies.push(enemy2);
+        enemies.push(enemy3);
+        totalXP = 75;
+        totalMoney = 12;
+        enemiesInfo.enemies = enemies;
+        enemiesInfo.totalXP = totalXP;
+        enemiesInfo.totalMoney = totalMoney;
+        break;
+      case 'plant':
+        enemy1 = new BattleEnemy(scene, 100, 200, 'plantBattler', 0, 'Plant', 40, 10, 'plantDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 300, 'plantBattler', 0, 'Plant 2', 40, 10, 'plantDamageAnim', 50, 100);
+        enemies.push(enemy1);
+        enemies.push(enemy2);
+        totalXP = 75;
+        totalMoney = 12;
+        enemiesInfo.enemies = enemies;
+        enemiesInfo.totalXP = totalXP;
+        enemiesInfo.totalMoney = totalMoney;
+        break;
+      case 'fly':
+        enemy1 = new BattleEnemy(scene, 100, 200, 'flyBattler', 0, 'Fly', 40, 10, 'flyDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 300, 'flyBattler', 0, 'Fly 2', 40, 10, 'flyDamageAnim', 50, 100);
+        enemies.push(enemy1);
+        enemies.push(enemy2);
+        totalXP = 75;
+        totalMoney = 12;
+        enemiesInfo.enemies = enemies;
+        enemiesInfo.totalXP = totalXP;
+        enemiesInfo.totalMoney = totalMoney;
+        break;
       default:
         break;
     }

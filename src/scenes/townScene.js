@@ -43,6 +43,11 @@ export default class TownScene extends Phaser.Scene {
     const schoolEntranceSpawn = map.findObject('Objects', obj => obj.name === 'schoolEntrancesSpawn');
     const monsterSpawn1 = map.findObject('Objects', obj => obj.name === 'enemyTownSpawn1');
     const monsterSpawn2 = map.findObject('Objects', obj => obj.name === 'enemyTownSpawn2');
+    const monsterSpawn3 = map.findObject('Objects', obj => obj.name === 'enemyTownSpawn3');
+    const monsterSpawn4 = map.findObject('Objects', obj => obj.name === 'enemyTownSpawn4');
+    const monsterSpawn5 = map.findObject('Objects', obj => obj.name === 'enemyTownSpawn5');
+    const monsterSpawn6 = map.findObject('Objects', obj => obj.name === 'enemyTownSpawn6');
+
     this.moveEnemy = false;
 
 
@@ -56,7 +61,7 @@ export default class TownScene extends Phaser.Scene {
       this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
     } else if (data.fromBattle) {
       this.mainChar = new MainCharacter(this, data.charPosX - 30, data.charPosY - 30, 'mainDown', 1, 'mainFace',
-        data.mainHP, data.mainAP, data.mainXP, 'Player', data.mainDamage, data.mainSuperDamage);
+        data.mainHP, data.mainAP, data.mainXP, 'Player', data.mainDamage, data.mainSuperDamage, data.runAway);
       this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
     } else {
       this.mainChar = new MainCharacter(this, spawnPoint.x, spawnPoint.y, 'mainDown', 1, 'mainFace', 100, 0, 0, 'Player', 20, 40);
@@ -113,10 +118,21 @@ export default class TownScene extends Phaser.Scene {
     };
 
     this.blueSlime = utils.createMonster(this, monsterSpawn1.x, monsterSpawn1.y, 'blueSlimeDown', 1, 'blueSlime1', 'blueSlimeWalkDown');
-    this.redSlime = utils.createMonster(this, monsterSpawn2.x, monsterSpawn2.y, 'redSlimeDown', 1, 'redSlime1', 'redSlimeWalkDown');
+    this.redSlime = utils.createMonster(this, monsterSpawn3.x, monsterSpawn3.y, 'redSlimeDown', 1, 'redSlime1', 'redSlimeWalkDown');
+    this.snake = utils.createMonster(this, monsterSpawn2.x, monsterSpawn2.y, 'snakeDown', 1, 'snake', 'snakeWalkDown');
+    this.bee = utils.createMonster(this, monsterSpawn4.x, monsterSpawn4.y, 'beeDown', 1, 'bee', 'beeWalkDown');
+    this.fly = utils.createMonster(this, monsterSpawn5.x, monsterSpawn5.y, 'flyDown', 1, 'fly', 'flyWalkDown');
+    this.plant = utils.createMonster(this, monsterSpawn6.x, monsterSpawn6.y, 'plantDown', 1, 'plant', 'plantWalkDown');
+
     this.enemyGroup = this.add.group();
     this.enemyGroup.add(this.blueSlime);
     this.enemyGroup.add(this.redSlime);
+    this.enemyGroup.add(this.snake);
+    this.enemyGroup.add(this.bee);
+    this.enemyGroup.add(this.fly);
+    this.enemyGroup.add(this.plant);
+
+
     this.enemies = this.enemyGroup.getChildren();
 
     generateMaps.generateCollision(this, this.enemyGroup, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
