@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Button from '../objects/button';
+import utils from '../utils/utilsFunctions';
 
 export default class OptionsScene extends Phaser.Scene {
   constructor() {
@@ -12,6 +13,10 @@ export default class OptionsScene extends Phaser.Scene {
 
 
     this.add.image(0, 0, 'soundMenu').setOrigin(0);
+    const button = this.add.image(900, 570, 'maximize', 0).setScrollFactor(0);
+    button.setInteractive();
+    button.setDepth(30);
+    button.setScale(3);
     this.text = this.add.text(400, 100, 'Options', { font: '62px pixelFont' });
     this.musicButton = this.add.image(310, 220, 'soundOn');
     this.musicText = this.add.text(360, 190, 'Music Enabled', { font: '42px pixelFont' });
@@ -34,6 +39,7 @@ export default class OptionsScene extends Phaser.Scene {
 
     this.updateAudio();
     this.menuButton = new Button(this, 490, 500, 'button1', 'button2', 'Menu', 'Title');
+    utils.setFullScreen(this, button);
   }
 
   updateAudio() {

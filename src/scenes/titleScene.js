@@ -12,9 +12,10 @@ export default class TitleScene extends Phaser.Scene {
   create() {
     this.cameras.main.fadeIn(500, 0, 0, 0);
     this.cameras.main.backgroundColor.setTo(255, 255, 255);
-    const button = this.add.image(620, 390, 'maximize', 0).setScrollFactor(0);
+    const button = this.add.image(900, 570, 'maximize', 0).setScrollFactor(0);
     button.setInteractive();
     button.setDepth(30);
+    button.setScale(3);
     // Background Pic
     this.add.image(0, 0, 'bgMenu').setOrigin(0);
     this.menuTitle = this.add.image(200, 0, 'gameTitle').setOrigin(0);
