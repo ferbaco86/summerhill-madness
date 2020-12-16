@@ -6,10 +6,10 @@ import BattleEnemy from '../objects/battleEnemy';
 const utils = (() => {
   const { GetValue } = Phaser.Utils.Objects;
 
-  const getBBcodeText = (scene, wrapWidth, fixedWidth, fixedHeight) => scene.rexUI.add.BBCodeText(0, 0, '', {
+  const getBBcodeText = (scene, wrapWidth, fixedWidth, fixedHeight, fontSize) => scene.rexUI.add.BBCodeText(0, 0, '', {
     fixedWidth,
     fixedHeight,
-    fontSize: '26px',
+    fontSize,
     fontFamily: 'pixelFont',
     wrap: {
       mode: 'word',
@@ -18,7 +18,8 @@ const utils = (() => {
     maxLines: 2,
   });
 
-  const createTextBox = (scene, x, y, config, window, icon, speechFX, eventEmit = null) => {
+  const createTextBox = (scene, x, y, config, window, icon, speechFX,
+    fontSize, eventEmit = null, active = null) => {
     const wrapWidth = GetValue(config, 'wrapWidth', 0);
     const fixedWidth = GetValue(config, 'fixedWidth', 0);
     const fixedHeight = GetValue(config, 'fixedHeight', 0);
@@ -29,7 +30,7 @@ const utils = (() => {
       background: scene.add.image(0, 0, window),
       icon: scene.add.image(0, 0, icon).setScale(2),
       iconMask: false,
-      text: getBBcodeText(scene, wrapWidth, fixedWidth, fixedHeight),
+      text: getBBcodeText(scene, wrapWidth, fixedWidth, fixedHeight, fontSize),
 
       action: scene.add.image(0, 0, 'nextPage').setScale(2).setVisible(false),
 
@@ -44,25 +45,26 @@ const utils = (() => {
     })
       .setOrigin(0)
       .layout();
-
-    textBox
-      .setInteractive()
-      .on('pointerdown', () => {
-        const icon = textBox.getElement('action').setVisible(false);
-        textBox.resetChildVisibleState(icon);
-        if (textBox.isLastPage) {
-          textBox.destroy();
-          if (eventEmit != null) {
-            scene.emitter.emit(eventEmit);
+    if (active === true) {
+      const onKeyInput = (event) => {
+        if (event.code === 'Space') {
+          const icon = textBox.getElement('action').setVisible(false);
+          textBox.resetChildVisibleState(icon);
+          if (textBox.isLastPage) {
+            textBox.destroy();
+            if (eventEmit != null) {
+              scene.emitter.emit(eventEmit);
+            }
+          }
+          if (textBox.isTyping) {
+            textBox.stop(true);
+          } else {
+            textBox.typeNextPage();
           }
         }
-        if (textBox.isTyping) {
-          textBox.stop(true);
-        } else {
-          textBox.typeNextPage();
-        }
-      }, textBox)
-      .on('pageend', () => {
+      };
+      scene.input.keyboard.on('keydown', onKeyInput, textBox);
+      textBox.on('pageend', () => {
         const icon = textBox.getElement('action').setVisible(true);
         textBox.resetChildVisibleState(icon);
         icon.y -= 30;
@@ -74,10 +76,27 @@ const utils = (() => {
           repeat: 0,
           yoyo: false,
         });
-      }, textBox)
-      .on('type', () => {
+      }, textBox);
+      textBox.on('type', () => {
         speechFX.play();
       });
+    } else {
+      textBox.on('pageend', () => {
+        scene.time.delayedCall(1000, textBox.typeNextPage, [], textBox);
+        if (textBox.isLastPage) {
+          const finishMessage = () => {
+            textBox.destroy();
+            if (eventEmit != null) {
+              scene.emitter.emit(eventEmit);
+            }
+          };
+          scene.time.delayedCall(1000, finishMessage, [], textBox);
+        }
+      }, textBox);
+      textBox.on('type', () => {
+        speechFX.play();
+      });
+    }
     return textBox;
   };
 

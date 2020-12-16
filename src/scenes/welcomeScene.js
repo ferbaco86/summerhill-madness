@@ -38,9 +38,15 @@ export default class CreditsScene extends Phaser.Scene {
     utils.setFullScreen(this, button);
 
     this.input.keyboard.addKey('ENTER').on('down', () => {
-      this.sys.game.globals.playerName = inputText.text;
-      this.scene.stop('Welcome');
-      this.scene.start('Intro');
+      if (inputText.text === '') {
+        this.add.text(220, 100, "I don't believe you don't have a name. Please enter it", {
+          fontFamily: 'pixelFont',
+        });
+      } else {
+        this.sys.game.globals.playerName = inputText.text;
+        this.scene.stop('Welcome');
+        this.scene.start('Intro');
+      }
     });
   }
 }

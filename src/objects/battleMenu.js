@@ -58,9 +58,6 @@ export default class BattleMenu extends Phaser.GameObjects.Container {
     this.selected = false;
   }
 
-  // confirm() {
-  // // when the player confirms his slection, do the action
-  // }
 
   clear() {
     for (let i = 0; i < this.menuItems.length; i += 1) {

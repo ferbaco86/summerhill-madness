@@ -11,7 +11,6 @@ export default class BattleScene extends Phaser.Scene {
   }
 
   create(data) {
-    console.log(data);
     const {
       posX, posY, mainName, mainHP, mainDamage, mainAP, mainSuperDamage, money, mainXP,
       redHeadHP, redHeadAP, redHeadDamage, redHeadSuperDamage, redHeadXP,

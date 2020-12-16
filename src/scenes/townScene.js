@@ -19,7 +19,12 @@ export default class TownScene extends Phaser.Scene {
       this.cursors.up.reset();
       this.cursors.down.reset();
     };
+    this.startText = "Danny's house is the first house North West from here, we should probably head there first";
+    this.playerName = this.sys.game.globals.playerName;
     this.fromBattle = data.fromBattle;
+    this.textFx = this.sound.add('textFX', {
+      volume: 0.2, loop: false,
+    });
     this.enterHouse = () => {
       this.scene.stop('Town');
       this.scene.start('House');
@@ -53,19 +58,30 @@ export default class TownScene extends Phaser.Scene {
 
     if (data.fromHouse) {
       this.mainChar = new MainCharacter(this, houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1, 'mainFace',
-        data.mainHP, data.mainAP, data.mainXP, 'Player', data.mainDamage, data.mainSuperDamage);
+        data.mainHP, data.mainAP, data.mainXP, this.playerName,
+        data.mainDamage, data.mainSuperDamage);
       this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
     } else if (data.fromSchool) {
       this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1, 'mainFace',
-        data.mainHP, data.mainAP, data.mainXP, 'Player', data.damage, data.superDamage);
+        data.mainHP, data.mainAP, data.mainXP, this.playerName, data.damage, data.superDamage);
       this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
     } else if (data.fromBattle) {
       this.mainChar = new MainCharacter(this, data.charPosX - 30, data.charPosY - 30, 'mainDown', 1, 'mainFace',
-        data.mainHP, data.mainAP, data.mainXP, 'Player', data.mainDamage, data.mainSuperDamage, data.runAway);
+        data.mainHP, data.mainAP, data.mainXP, this.playerName,
+        data.mainDamage, data.mainSuperDamage, data.runAway);
       this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
     } else {
-      this.mainChar = new MainCharacter(this, spawnPoint.x, spawnPoint.y, 'mainDown', 1, 'mainFace', 100, 0, 0, 'Player', 20, 40);
+      this.mainChar = new MainCharacter(this, spawnPoint.x, spawnPoint.y, 'mainDown', 1, 'mainFace', 100, 0, 0, this.playerName, 20, 40);
       this.redHead = new Character(100, 0, 0, 'Ro', 20, 40);
+      this.textBox = utils.createTextBox(this, this.mainChar.x - 80, this.mainChar.y + 20, {
+        wrapWidth: 400,
+        fixedWidth: 400,
+        fixedHeight: 70,
+      }, 'messageBattleUI', 'mainFace', this.textFx, '26px', null, true);
+      this.textBox.start(this.startText, 50);
+      this.textBox.setOrigin(0);
+      this.textBox.setScale(0.3, 0.3);
+      this.textBox.setDepth(40);
     }
     if (data.fromHouse || data.fromBattle || data.fromSchool) {
       this.money = data.money;

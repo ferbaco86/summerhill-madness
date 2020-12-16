@@ -69,7 +69,7 @@ export default class IntroScene extends Phaser.Scene {
       this.redHeadChar.anims.pause(this.redHeadChar.anims.currentAnim.frames[1]);
       utils.createTextBox(this, xPos - 340, 350, {
         wrapWidth: 470,
-      }, 'lightWindow', 'redHeadFace', this.textFx, 'wakeUp').start(this.redHeadText, 50);
+      }, 'messageBattleUI', 'redHeadFace', this.textFx, '26px', 'wakeUp').start(this.redHeadText, 50);
       this.stepsFx.stop();
     };
 
@@ -84,7 +84,7 @@ export default class IntroScene extends Phaser.Scene {
       this.cameras.main.shake(300, 0.02);
       utils.createTextBox(this, xPos - 340, 350, {
         wrapWidth: 470,
-      }, 'lightWindow', 'mainFace', this.textFx, 'grabWeapon').start(this.mainCharText, 50);
+      }, 'messageBattleUI', 'mainFace', this.textFx, '26px', 'grabWeapon').start(this.mainCharText, 50);
     };
 
     this.grabWeaponAnim = () => {
@@ -98,7 +98,7 @@ export default class IntroScene extends Phaser.Scene {
         this.mainChar.anims.play('batPickUp');
         utils.createTextBox(this, xPos - 340, 350, {
           wrapWidth: 470,
-        }, 'lightWindow', 'purpleSquare', this.textFx, 'goOutside').start(this.batPickUpText, 50);
+        }, 'messageBattleUI', 'purpleSquare', this.textFx, '26px', 'goOutside').start(this.batPickUpText, 50);
         this.stepsFx.stop();
 
         this.getItemFx.play();
