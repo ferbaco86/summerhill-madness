@@ -3,7 +3,7 @@ import EventDispatcher from '../utils/eventDispatcher';
 import utils from '../utils/utilsFunctions';
 
 
-const redHeadText = "Hey player wake up!, wake up!. There's something really weird... ...going on in the city! There's monsters all over the place!... ...We have to get out!";
+const redHeadText = `Hey ${this.sys.game.globals.playerName}  wake up!, wake up!. There's something really weird... ...going on in the city! There's monsters all over the place!... ...We have to get out!`;
 const mainCharText = "WOW!! are you for real?! We should probably go to Danny's... ...house and see how he is doing! Let me grab something... ...to use as a weapon and we should get going!";
 const batPickUpText = 'Cool! you found a bat. This will come in handy for dealing... ...with monsters';
 
@@ -17,6 +17,9 @@ export default class IntroScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor('#000000');
     this.cameras.main.fadeIn(500, 0, 0, 0);
     this.sys.game.globals.bgMusic.stop();
+    const button = this.add.image(620, 390, 'maximize', 0).setScrollFactor(0);
+    button.setInteractive();
+    button.setDepth(30);
     const xPos = 500;
     const yPos = 300;
 
@@ -153,5 +156,7 @@ export default class IntroScene extends Phaser.Scene {
     this.time.delayedCall(2000, this.redHeadMoveUp, [], this);
     this.time.delayedCall(5300, this.redHeadMoveRight, [], this);
     this.time.delayedCall(7000, this.redHeadMessage, [], this);
+
+    utils.setFullScreen(this, button);
   }
 }
