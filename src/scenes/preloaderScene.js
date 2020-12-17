@@ -8,6 +8,7 @@ import introBG from '../assets/backgrounds/introScene.png';
 import title from '../assets/title.png';
 import purpleSquare from '../assets/ui/squarePurple.png';
 import redHeadFace from '../assets/redHeadCharacter/redHeadFaceFrame.png';
+import dannyFace from '../assets/dannyCharacter/dannyFaceFrame.png';
 import mainFace from '../assets/mainCharacter/mainCharFaceFrame.png';
 import redWindow from '../assets/ui/windowLight3.png';
 import moneyIcon from '../assets/ui/money.png';
@@ -22,7 +23,9 @@ import batPickUp from '../assets/mainCharacter/weaponPickupBase-sheet.png';
 import homeRun from '../assets/mainCharacter/HomeRun.png';
 import mainEat from '../assets/mainCharacter/mainCharEatCandy.png';
 import redHeadEat from '../assets/redHeadCharacter/redHeadEatCandy.png';
+import dannyEat from '../assets/dannyCharacter/dannyEatCandyAnim.png';
 import smash from '../assets/redHeadCharacter/Smash.png';
+import bigBookHit from '../assets/dannyCharacter/bigBookHit.png';
 import redHeadWalkUp from '../assets/redHeadCharacter/redHeadWalkUp.png';
 import redHeadWalkRight from '../assets/redHeadCharacter/redHeadWalkRight.png';
 import redHeadWalkDown from '../assets/redHeadCharacter/redHeadWalkDown.png';
@@ -32,6 +35,7 @@ import mainWalkLeft from '../assets/mainCharacter/mainWalkLeft.png';
 import mainWalkRight from '../assets/mainCharacter/mainWalkRight.png';
 import mainWalkUp from '../assets/mainCharacter/mainWalkUp.png';
 import batHit from '../assets/mainCharacter/BatHit.png';
+import bookHit from '../assets/dannyCharacter/dannyBookHitAnim.png';
 import tennisHit from '../assets/redHeadCharacter/tennisHit.png';
 import blueSlimeDown from '../assets/monsters/blueSlimeIdleWalkDown.png';
 import blueSlimeBattler from '../assets/monsters/blueSlimeBattler.png';
@@ -55,6 +59,9 @@ import mainCharBattleStand from '../assets/mainCharacter/mainCharBattle_stand.pn
 import mainCharTakeDamage from '../assets/mainCharacter/mainTakeDamage.png';
 import redHeadBattleStand from '../assets/redHeadCharacter/redHeadBattle_stand.png';
 import redHeadTakeDamage from '../assets/redHeadCharacter/redHeadTakeDamage.png';
+import dannyBattleStand from '../assets/dannyCharacter/dannyStandAnim.png';
+import dannyTakeDamage from '../assets/dannyCharacter/dannyTakeDamageAnim.png';
+import dannyCrawl from '../assets/dannyCharacter/dannyCrawlAnim.png';
 import tileSet from '../assets/backgrounds/tileset-extruded.png';
 import wallsTileSet from '../assets/backgrounds/tile-walls-extruded.png';
 import emptySprite from '../assets/backgrounds/emptySprite.png';
@@ -170,6 +177,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('moneyIcon', moneyIcon);
     this.load.image('redHeadFace', redHeadFace);
     this.load.image('mainFace', mainFace);
+    this.load.image('dannyFace', dannyFace);
     this.load.image('emptySprite', emptySprite);
     this.load.image('soundOn', soundOn);
     this.load.image('hudBG', hudBG);
@@ -185,6 +193,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('starIcon', star);
     this.load.image('homeRun', homeRun);
     this.load.image('smash', smash);
+    this.load.image('bigBookHit', bigBookHit);
     this.load.image('soundMenu', soundMenu);
     this.load.image('blueSlimeBattler', blueSlimeBattler);
     this.load.image('redSlimeBattler', redSlimeBattler);
@@ -278,6 +287,10 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 30,
       frameHeight: 30,
     });
+    this.load.spritesheet('dannyBattleStand', dannyBattleStand, {
+      frameWidth: 30,
+      frameHeight: 30,
+    });
     this.load.spritesheet('maximize', maximize, {
       frameWidth: 18,
       frameHeight: 18,
@@ -287,6 +300,10 @@ export default class PreloaderScene extends Phaser.Scene {
       frameHeight: 30,
     });
     this.load.spritesheet('tennisHit', tennisHit, {
+      frameWidth: 36,
+      frameHeight: 30,
+    });
+    this.load.spritesheet('bookHit', bookHit, {
       frameWidth: 36,
       frameHeight: 30,
     });
@@ -322,11 +339,23 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 30,
       frameHeight: 30,
     });
+    this.load.spritesheet('dannyTakeDamage', dannyTakeDamage, {
+      frameWidth: 30,
+      frameHeight: 30,
+    });
     this.load.spritesheet('mainEat', mainEat, {
       frameWidth: 30,
       frameHeight: 30,
     });
     this.load.spritesheet('redHeadEat', redHeadEat, {
+      frameWidth: 30,
+      frameHeight: 30,
+    });
+    this.load.spritesheet('dannyEat', dannyEat, {
+      frameWidth: 30,
+      frameHeight: 30,
+    });
+    this.load.spritesheet('dannyCrawl', dannyCrawl, {
       frameWidth: 30,
       frameHeight: 30,
     });
@@ -336,10 +365,10 @@ export default class PreloaderScene extends Phaser.Scene {
     this.animKeys = ['introSleepingAnim', 'redHeadWalkUp', 'redHeadWalkDown', 'redHeadWalkLeft', 'redHeadWalkRight',
       'mainCharWalkDown', 'mainCharWalkLeft', 'mainCharWalkRight', 'mainCharWalkUp', 'batPickUp', 'blueSlimeWalkDown',
       'redSlimeWalkDown', 'snakeWalkDown', 'beeWalkDown', 'flyWalkDown', 'plantWalkDown'];
-    this.battleAnimKeys = ['mainCharIdle', 'redHeadIdle'];
-    this.hitAnimKeys = ['batHitAnim', 'tennisHitAnim', 'blueSlimeDamageAnim', 'redSlimeDamageAnim', 'snakeDamageAnim', 'beeDamageAnim', 'flyDamageAnim', 'plantDamageAnim', 'mainTakeDamageAnim', 'redHeadTakeDamageAnim', 'mainEatAnim', 'redHeadEatAnim'];
-    this.hitSpriteSheets = ['batHit', 'tennisHit', 'blueSlimeDamage', 'redSlimeDamage', 'snakeDamage', 'beeDamage', 'flyDamage', 'plantDamage', 'mainTakeDamage', 'redHeadTakeDamage', 'mainEat', 'redHeadEat'];
-    this.battleSpriteSheets = ['mainCharBattleStand', 'redHeadBattleStand'];
+    this.battleAnimKeys = ['mainCharIdle', 'redHeadIdle', 'dannyIdle', 'dannyFloorCrawl'];
+    this.hitAnimKeys = ['batHitAnim', 'tennisHitAnim', 'bookHitAnim', 'blueSlimeDamageAnim', 'redSlimeDamageAnim', 'snakeDamageAnim', 'beeDamageAnim', 'flyDamageAnim', 'plantDamageAnim', 'mainTakeDamageAnim', 'redHeadTakeDamageAnim', 'mainEatAnim', 'redHeadEatAnim'];
+    this.hitSpriteSheets = ['batHit', 'tennisHit', 'bookHit', 'blueSlimeDamage', 'redSlimeDamage', 'snakeDamage', 'beeDamage', 'flyDamage', 'plantDamage', 'mainTakeDamage', 'redHeadTakeDamage', 'mainEat', 'redHeadEat'];
+    this.battleSpriteSheets = ['mainCharBattleStand', 'redHeadBattleStand', 'dannyBattleStand', 'dannyCrawl'];
     this.spriteSheets = ['introSleeping', 'redHeadUp', 'redHeadDown', 'redHeadLeft', 'redHeadRight',
       'mainDown', 'mainLeft', 'mainRight', 'mainUp', 'mainBatPick', 'blueSlimeDown', 'redSlimeDown', 'snakeDown', 'beeDown', 'flyDown', 'plantDown'];
     utils.createAnims(this, this.animKeys, this.spriteSheets, 10, -1);

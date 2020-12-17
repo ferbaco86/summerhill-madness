@@ -51,8 +51,8 @@ export default class HouseScene extends Phaser.Scene {
     const arrayLayers = generateMaps.generateStaticLayers(mapHouse, ['Ground', 'World', 'Above', 'Decorators'], arrayTiles, 0, 0);
 
     const charSpawnPoint = mapHouse.findObject('Objects', obj => obj.name === 'roomPlayerSpawnPoint');
-    const enemySpawnPoint = mapHouse.findObject('Objects', obj => obj.name === 'roomEnemySpawnPoint');
     const enemySpawnPoint2 = mapHouse.findObject('Objects', obj => obj.name === 'roomEnemySpawnPoint2');
+    const dannySpawnPoint = mapHouse.findObject('Objects', obj => obj.name === 'dannySpawnPoint');
 
 
     if (data.fromBattle) {
@@ -66,6 +66,8 @@ export default class HouseScene extends Phaser.Scene {
         data.mainDamage, data.mainSuperDamage, true);
       this.mainChar.setDepth(10);
       this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+      this.dannyOnFloor = this.add.sprite(dannySpawnPoint.x, dannySpawnPoint.y, 'dannyCrawl', 0);
+      this.dannyOnFloor.anims.play('dannyFloorCrawl');
     }
 
     this.charStats = {
@@ -79,7 +81,7 @@ export default class HouseScene extends Phaser.Scene {
     utils.displayHudElements(this, this.money, this.candy, this.charStats);
     this.physics.world.enable(this.mainChar);
 
-    this.bee = utils.createMonster(this, enemySpawnPoint.x, enemySpawnPoint.y, 'beeDown', 1, 'bee', 'beeWalkDown');
+    this.bee = utils.createMonster(this, enemySpawnPoint2.x, enemySpawnPoint2.y, 'beeDown', 1, 'bee', 'beeWalkDown');
     this.bee.setDepth(10);
 
     this.houseEnemyGroup = this.add.group();
@@ -137,19 +139,19 @@ export default class HouseScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.physics.add.overlap(this.mainChar, exit, this.exitHouse, null, this);
     this.physics.add.overlap(this.mainChar, this.houseEnemyGroup, this.onMeetEnemy, null, this);
-    this.physics.world.createDebugGraphic();
+    // this.physics.world.createDebugGraphic();
 
-    // Create worldLayer collision graphic above the player, but below the help text
-    const graphics = this.add
-      .graphics()
-      .setAlpha(0.75)
-      .setDepth(20);
-    arrayLayers[1].renderDebug(graphics, {
-      tileColor: null, // Color of non-colliding tiles
-      collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
-      // Color of colliding tiles
-      faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
-    });
+    // // Create worldLayer collision graphic above the player, but below the help text
+    // const graphics = this.add
+    //   .graphics()
+    //   .setAlpha(0.75)
+    //   .setDepth(20);
+    // arrayLayers[1].renderDebug(graphics, {
+    //   tileColor: null, // Color of non-colliding tiles
+    //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
+    //   // Color of colliding tiles
+    //   faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
+    // });
 
     this.sys.events.on('wake', this.wake, this);
     utils.setFullScreen(this, button);
