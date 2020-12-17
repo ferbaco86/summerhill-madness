@@ -53,16 +53,22 @@ export default class BattleScene extends Phaser.Scene {
           this.enemiesInfo.totalXP, this.enemiesInfo.totalMoney);
         this.onKeyInput = (event) => {
           if (event.code === 'Space') {
-            this.endScene();
+            if (data.fromTown) {
+              this.endScene('Town');
+            } else if (data.fromHouse) {
+              this.endScene('House');
+            } else if (data.fromSchool) {
+              this.endScene('School');
+            }
           }
         };
         this.input.keyboard.on('keydown', this.onKeyInput, this);
       } else {
         console.log('Game Over');
       }
-      this.endScene = () => {
+      this.endScene = (newScene) => {
         this.scene.stop('Battle');
-        this.scene.start('Town', {
+        this.scene.start(newScene, {
           fromBattle: true,
           charPosX: posX,
           charPosY: posY,

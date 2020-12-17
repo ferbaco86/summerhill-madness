@@ -27,7 +27,24 @@ export default class TownScene extends Phaser.Scene {
     });
     this.enterHouse = () => {
       this.scene.stop('Town');
-      this.scene.start('House');
+      this.scene.start('House', {
+        posX: this.mainChar.x,
+        posY: this.mainChar.y,
+        mainHP: this.mainChar.hp,
+        mainAP: this.mainChar.ap,
+        mainName: this.mainChar.name,
+        mainDamage: this.mainChar.damage,
+        mainSuperDamage: this.mainChar.superDamage,
+        mainXP: this.mainChar.xp,
+        mainLevel: this.mainChar.level,
+        redHeadHP: this.redHead.hp,
+        redHeadAP: this.redHead.ap,
+        redHeadDamage: this.redHead.damage,
+        redHeadSuperDamage: this.redHead.superDamage,
+        redHeadXP: this.redHead.xp,
+        redHeadLevel: this.redHead.level,
+        money: this.money,
+      });
     };
     this.enterSchool = () => {
       this.scene.stop('Town');
@@ -59,7 +76,7 @@ export default class TownScene extends Phaser.Scene {
     if (data.fromHouse) {
       this.mainChar = new MainCharacter(this, houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1, 'mainFace',
         data.mainHP, data.mainAP, data.mainXP, this.playerName,
-        data.mainDamage, data.mainSuperDamage);
+        data.mainDamage, data.mainSuperDamage, true);
       this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
     } else if (data.fromSchool) {
       this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1, 'mainFace',
@@ -125,6 +142,7 @@ export default class TownScene extends Phaser.Scene {
           redHeadDamage: this.redHead.damage,
           redHeadSuperDamage: this.redHead.superDamage,
           redHeadXP: this.redHead.xp,
+          fromTown: true,
 
           money: this.money,
         });
