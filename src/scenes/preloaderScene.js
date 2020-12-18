@@ -366,8 +366,8 @@ export default class PreloaderScene extends Phaser.Scene {
       'mainCharWalkDown', 'mainCharWalkLeft', 'mainCharWalkRight', 'mainCharWalkUp', 'batPickUp', 'blueSlimeWalkDown',
       'redSlimeWalkDown', 'snakeWalkDown', 'beeWalkDown', 'flyWalkDown', 'plantWalkDown'];
     this.battleAnimKeys = ['mainCharIdle', 'redHeadIdle', 'dannyIdle', 'dannyFloorCrawl'];
-    this.hitAnimKeys = ['batHitAnim', 'tennisHitAnim', 'bookHitAnim', 'blueSlimeDamageAnim', 'redSlimeDamageAnim', 'snakeDamageAnim', 'beeDamageAnim', 'flyDamageAnim', 'plantDamageAnim', 'mainTakeDamageAnim', 'redHeadTakeDamageAnim', 'mainEatAnim', 'redHeadEatAnim'];
-    this.hitSpriteSheets = ['batHit', 'tennisHit', 'bookHit', 'blueSlimeDamage', 'redSlimeDamage', 'snakeDamage', 'beeDamage', 'flyDamage', 'plantDamage', 'mainTakeDamage', 'redHeadTakeDamage', 'mainEat', 'redHeadEat'];
+    this.hitAnimKeys = ['batHitAnim', 'tennisHitAnim', 'bookHitAnim', 'blueSlimeDamageAnim', 'redSlimeDamageAnim', 'snakeDamageAnim', 'beeDamageAnim', 'flyDamageAnim', 'plantDamageAnim', 'mainTakeDamageAnim', 'redHeadTakeDamageAnim', 'dannyTakeDamageAnim', 'mainEatAnim', 'redHeadEatAnim', 'dannyEatAnim'];
+    this.hitSpriteSheets = ['batHit', 'tennisHit', 'bookHit', 'blueSlimeDamage', 'redSlimeDamage', 'snakeDamage', 'beeDamage', 'flyDamage', 'plantDamage', 'mainTakeDamage', 'redHeadTakeDamage', 'dannyTakeDamage', 'mainEat', 'redHeadEat', 'dannyEat'];
     this.battleSpriteSheets = ['mainCharBattleStand', 'redHeadBattleStand', 'dannyBattleStand', 'dannyCrawl'];
     this.spriteSheets = ['introSleeping', 'redHeadUp', 'redHeadDown', 'redHeadLeft', 'redHeadRight',
       'mainDown', 'mainLeft', 'mainRight', 'mainUp', 'mainBatPick', 'blueSlimeDown', 'redSlimeDown', 'snakeDown', 'beeDown', 'flyDown', 'plantDown'];

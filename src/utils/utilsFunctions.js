@@ -137,6 +137,10 @@ const utils = (() => {
       charStats.mainLevel);
     scene.hudDisplay = new HudDisplay(scene, 320, 237, 'redHeadFace', 'heartIcon', charStats.redHeadHP, 'starIcon',
       charStats.redHeadAP, charStats.redHeadLevel);
+    if (scene.sys.game.globals.withDanny) {
+      scene.hudDisplay = new HudDisplay(scene, 320, 267, 'dannyFace', 'heartIcon', charStats.dannyHP, 'starIcon',
+        charStats.dannyAP, charStats.dannyLevel);
+    }
     const alphaBG = scene.add.rectangle(345, 390, 120, 20, '0x00000');
     alphaBG.setScrollFactor(0).setDepth(30).setAlpha(0.5);
     const moneyIcon = scene.add.image(330, 390, 'moneyIcon');
@@ -169,6 +173,8 @@ const utils = (() => {
     let enemy1 = null;
     let enemy2 = null;
     let enemy3 = null;
+    let enemy4 = null;
+
 
     switch (enemyName) {
       case 'blueSlime1':
@@ -221,6 +227,21 @@ const utils = (() => {
         enemiesInfo.totalXP = totalXP;
         enemiesInfo.totalMoney = totalMoney;
         break;
+      case 'houseBee':
+        enemy1 = new BattleEnemy(scene, 100, 200, 'beeBattler', 0, 'Bee', 40, 10, 'beeDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 300, 'beeBattler', 0, 'Bee 2', 40, 10, 'beeDamageAnim', 50, 100);
+        enemy3 = new BattleEnemy(scene, 200, 250, 'beeBattler', 0, 'Bee 3', 40, 10, 'beeDamageAnim', 50, 100);
+        enemy4 = new BattleEnemy(scene, 200, 350, 'beeBattler', 0, 'Bee 4', 40, 10, 'beeDamageAnim', 50, 100);
+        enemies.push(enemy1);
+        enemies.push(enemy2);
+        enemies.push(enemy3);
+        enemies.push(enemy4);
+        totalXP = 75;
+        totalMoney = 12;
+        enemiesInfo.enemies = enemies;
+        enemiesInfo.totalXP = totalXP;
+        enemiesInfo.totalMoney = totalMoney;
+        break;
       case 'plant':
         enemy1 = new BattleEnemy(scene, 100, 200, 'plantBattler', 0, 'Plant', 40, 10, 'plantDamageAnim', 50, 100);
         enemy2 = new BattleEnemy(scene, 100, 300, 'plantBattler', 0, 'Plant 2', 40, 10, 'plantDamageAnim', 50, 100);
@@ -250,7 +271,7 @@ const utils = (() => {
   };
 
   const showLevelUpWindow = (scene, x, y, bgPic, heartIcon, swordIcon,
-    starIcon, mainPortraitTexture, redHeadPortraitTexture, xp = null) => {
+    starIcon, mainPortraitTexture, redHeadPortraitTexture, dannyPortraitTexture, xp = null) => {
     const BG = scene.add.image(x, y, bgPic).setDepth(30).setScale(0.3);
     const levelUpText = scene.add.text(x - 34, y - 52, 'Level Up!', { font: '16px pixelFont', color: '#87EB3F' });
     const hpText = scene.add.text(x - 50, y + 5, '+ 10', { font: '8px pixelFont', color: '#ffff' });

@@ -27,24 +27,50 @@ export default class TownScene extends Phaser.Scene {
     });
     this.enterHouse = () => {
       this.scene.stop('Town');
-      this.scene.start('House', {
-        posX: this.mainChar.x,
-        posY: this.mainChar.y,
-        mainHP: this.mainChar.hp,
-        mainAP: this.mainChar.ap,
-        mainName: this.mainChar.name,
-        mainDamage: this.mainChar.damage,
-        mainSuperDamage: this.mainChar.superDamage,
-        mainXP: this.mainChar.xp,
-        mainLevel: this.mainChar.level,
-        redHeadHP: this.redHead.hp,
-        redHeadAP: this.redHead.ap,
-        redHeadDamage: this.redHead.damage,
-        redHeadSuperDamage: this.redHead.superDamage,
-        redHeadXP: this.redHead.xp,
-        redHeadLevel: this.redHead.level,
-        money: this.money,
-      });
+      if (this.sys.game.globals.withDanny) {
+        this.scene.start('House', {
+          posX: this.mainChar.x,
+          posY: this.mainChar.y,
+          mainHP: this.mainChar.hp,
+          mainAP: this.mainChar.ap,
+          mainName: this.mainChar.name,
+          mainDamage: this.mainChar.damage,
+          mainSuperDamage: this.mainChar.superDamage,
+          mainXP: this.mainChar.xp,
+          mainLevel: this.mainChar.level,
+          redHeadHP: this.redHead.hp,
+          redHeadAP: this.redHead.ap,
+          redHeadDamage: this.redHead.damage,
+          redHeadSuperDamage: this.redHead.superDamage,
+          redHeadXP: this.redHead.xp,
+          redHeadLevel: this.redHead.level,
+          dannyHP: this.danny.hp,
+          dannyAP: this.danny.ap,
+          dannyDamage: this.danny.damage,
+          dannySuperDamage: this.danny.superDamage,
+          dannyXP: this.danny.level,
+          money: this.money,
+        });
+      } else {
+        this.scene.start('House', {
+          posX: this.mainChar.x,
+          posY: this.mainChar.y,
+          mainHP: this.mainChar.hp,
+          mainAP: this.mainChar.ap,
+          mainName: this.mainChar.name,
+          mainDamage: this.mainChar.damage,
+          mainSuperDamage: this.mainChar.superDamage,
+          mainXP: this.mainChar.xp,
+          mainLevel: this.mainChar.level,
+          redHeadHP: this.redHead.hp,
+          redHeadAP: this.redHead.ap,
+          redHeadDamage: this.redHead.damage,
+          redHeadSuperDamage: this.redHead.superDamage,
+          redHeadXP: this.redHead.xp,
+          redHeadLevel: this.redHead.level,
+          money: this.money,
+        });
+      }
     };
     this.enterSchool = () => {
       this.scene.stop('Town');
@@ -74,19 +100,42 @@ export default class TownScene extends Phaser.Scene {
 
 
     if (data.fromHouse) {
-      this.mainChar = new MainCharacter(this, houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1, 'mainFace',
-        data.mainHP, data.mainAP, data.mainXP, this.playerName,
-        data.mainDamage, data.mainSuperDamage, true);
-      this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+      if (this.sys.game.globals.withDanny) {
+        this.mainChar = new MainCharacter(this, houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1, 'mainFace',
+          data.mainHP, data.mainAP, data.mainXP, this.playerName,
+          data.mainDamage, data.mainSuperDamage, true);
+        this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+        this.danny = new Character(data.dannyHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
+      } else {
+        this.mainChar = new MainCharacter(this, houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1, 'mainFace',
+          data.mainHP, data.mainAP, data.mainXP, this.playerName,
+          data.mainDamage, data.mainSuperDamage, true);
+        this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+      }
     } else if (data.fromSchool) {
-      this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1, 'mainFace',
-        data.mainHP, data.mainAP, data.mainXP, this.playerName, data.damage, data.superDamage);
-      this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+      if (this.sys.game.globals.withDanny) {
+        this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1, 'mainFace',
+          data.mainHP, data.mainAP, data.mainXP, this.playerName, data.damage, data.superDamage);
+        this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+        this.danny = new Character(data.dannyHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
+      } else {
+        this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1, 'mainFace',
+          data.mainHP, data.mainAP, data.mainXP, this.playerName, data.damage, data.superDamage);
+        this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+      }
     } else if (data.fromBattle) {
-      this.mainChar = new MainCharacter(this, data.charPosX - 30, data.charPosY - 30, 'mainDown', 1, 'mainFace',
-        data.mainHP, data.mainAP, data.mainXP, this.playerName,
-        data.mainDamage, data.mainSuperDamage, data.runAway);
-      this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+      if (this.sys.game.globals.withDanny) {
+        this.mainChar = new MainCharacter(this, data.charPosX - 30, data.charPosY - 30, 'mainDown', 1, 'mainFace',
+          data.mainHP, data.mainAP, data.mainXP, this.playerName,
+          data.mainDamage, data.mainSuperDamage, data.runAway);
+        this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+        this.danny = new Character(data.dannyHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
+      } else {
+        this.mainChar = new MainCharacter(this, data.charPosX - 30, data.charPosY - 30, 'mainDown', 1, 'mainFace',
+          data.mainHP, data.mainAP, data.mainXP, this.playerName,
+          data.mainDamage, data.mainSuperDamage, data.runAway);
+        this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+      }
     } else {
       this.mainChar = new MainCharacter(this, spawnPoint.x, spawnPoint.y, 'mainDown', 1, 'mainFace', 100, 0, 0, this.playerName, 20, 40);
       this.redHead = new Character(100, 0, 0, 'Ro', 20, 40);
@@ -101,15 +150,30 @@ export default class TownScene extends Phaser.Scene {
       this.textBox.setDepth(40);
     }
     if (data.fromHouse || data.fromBattle || data.fromSchool) {
-      this.money = data.money;
-      this.charStats = {
-        mainHP: data.mainHP,
-        mainAP: data.mainAP,
-        mainLevel: this.mainChar.level,
-        redHeadHP: data.redHeadHP,
-        redHeadAP: data.redHeadAP,
-        redHeadLevel: this.mainChar.level,
-      };
+      if (this.sys.game.globals.withDanny) {
+        this.money = data.money;
+        this.charStats = {
+          mainHP: data.mainHP,
+          mainAP: data.mainAP,
+          mainLevel: this.mainChar.level,
+          redHeadHP: data.redHeadHP,
+          redHeadAP: data.redHeadAP,
+          redHeadLevel: this.mainChar.level,
+          dannyHP: data.dannyHP,
+          dannyAP: data.dannyAP,
+          dannyLevel: this.mainChar.level,
+        };
+      } else {
+        this.money = data.money;
+        this.charStats = {
+          mainHP: data.mainHP,
+          mainAP: data.mainAP,
+          mainLevel: this.mainChar.level,
+          redHeadHP: data.redHeadHP,
+          redHeadAP: data.redHeadAP,
+          redHeadLevel: this.mainChar.level,
+        };
+      }
     } else {
       this.money = 0;
       this.sys.game.globals.candies = 0;
@@ -127,25 +191,51 @@ export default class TownScene extends Phaser.Scene {
     this.onMeetEnemy = (player, enemy) => {
       this.startBattle = () => {
         this.scene.stop('Town');
-        this.scene.start('Battle', {
-          posX: this.mainChar.x,
-          posY: this.mainChar.y,
-          enemyToKill: enemy.name,
-          mainHP: this.mainChar.hp,
-          mainAP: this.mainChar.ap,
-          mainName: this.mainChar.name,
-          mainDamage: this.mainChar.damage,
-          mainSuperDamage: this.mainChar.superDamage,
-          mainXP: this.mainChar.xp,
-          redHeadHP: this.redHead.hp,
-          redHeadAP: this.redHead.ap,
-          redHeadDamage: this.redHead.damage,
-          redHeadSuperDamage: this.redHead.superDamage,
-          redHeadXP: this.redHead.xp,
-          fromTown: true,
+        if (this.sys.game.globals.withDanny) {
+          this.scene.start('Battle', {
+            posX: this.mainChar.x,
+            posY: this.mainChar.y,
+            enemyToKill: enemy.name,
+            mainHP: this.mainChar.hp,
+            mainAP: this.mainChar.ap,
+            mainName: this.mainChar.name,
+            mainDamage: this.mainChar.damage,
+            mainSuperDamage: this.mainChar.superDamage,
+            mainXP: this.mainChar.xp,
+            redHeadHP: this.redHead.hp,
+            redHeadAP: this.redHead.ap,
+            redHeadDamage: this.redHead.damage,
+            redHeadSuperDamage: this.redHead.superDamage,
+            redHeadXP: this.redHead.xp,
+            dannyHP: this.danny.hp,
+            dannyAP: this.danny.ap,
+            dannyDamage: this.danny.damage,
+            dannySuperDamage: this.danny.superDamage,
+            dannyXP: this.danny.xp,
+            fromTown: true,
 
-          money: this.money,
-        });
+            money: this.money,
+          });
+        } else {
+          this.scene.start('Battle', {
+            posX: this.mainChar.x,
+            posY: this.mainChar.y,
+            enemyToKill: enemy.name,
+            mainHP: this.mainChar.hp,
+            mainAP: this.mainChar.ap,
+            mainName: this.mainChar.name,
+            mainDamage: this.mainChar.damage,
+            mainSuperDamage: this.mainChar.superDamage,
+            mainXP: this.mainChar.xp,
+            redHeadHP: this.redHead.hp,
+            redHeadAP: this.redHead.ap,
+            redHeadDamage: this.redHead.damage,
+            redHeadSuperDamage: this.redHead.superDamage,
+            redHeadXP: this.redHead.xp,
+            fromTown: true,
+            money: this.money,
+          });
+        }
       };
       this.cameras.main.shake(300, 0.02);
       this.time.delayedCall(300, this.startBattle, [], this);

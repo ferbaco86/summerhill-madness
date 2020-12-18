@@ -17,7 +17,7 @@ export default class MainCharacter extends Phaser.Physics.Arcade.Sprite {
     this.maxHP = this.hp;
     this.maxAP = this.ap;
     scene.add.existing(this);
-    this.levelUpWindow = utils.showLevelUpWindow(this.scene, 500, 300, 'winWindow', 'heartIcon', 'attackIcon', 'starIcon', 'mainFace', 'redHeadFace', this.xp);
+    this.levelUpWindow = utils.showLevelUpWindow(this.scene, 500, 300, 'winWindow', 'heartIcon', 'attackIcon', 'starIcon', 'mainFace', 'redHeadFace', 'dannyFace', this.xp);
     this.levelUpWindow.setVisible(false);
 
     this.showHideWindow = () => {

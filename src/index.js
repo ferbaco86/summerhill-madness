@@ -20,7 +20,12 @@ class Game extends Phaser.Game {
     super(config);
     const model = new Model();
     this.globals = {
-      model, bgMusic: null, enemiesDefeated: [], playerName: '',
+      model,
+      bgMusic: null,
+      enemiesDefeated: [],
+      playerName: '',
+      withDanny: false,
+      dannyFirst: true,
     };
     this.scene.add('Boot', BootScene);
     this.scene.add('Preloader', PreloaderScene);
