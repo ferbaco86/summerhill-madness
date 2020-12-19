@@ -26,7 +26,7 @@ export default class MainCharacter extends Phaser.Physics.Arcade.Sprite {
         const hideWindow = () => {
           this.levelUpWindow.setVisible(false);
         };
-        this.scene.time.delayedCall(5000, hideWindow, [], this.scene);
+        this.scene.time.delayedCall(2500, hideWindow, [], this.scene);
       }
     };
 

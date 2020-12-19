@@ -159,13 +159,13 @@ export default class TownScene extends Phaser.Scene {
       if (this.sys.game.globals.withDanny) {
         this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1, 'mainFace',
           data.mainHP, data.mainAP, data.mainXP, this.playerName,
-          data.mainDamage, data.mainSuperDamage);
+          data.mainDamage, data.mainSuperDamage, true);
         this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
         this.danny = new Character(data.dannyHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
       } else {
         this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1, 'mainFace',
           data.mainHP, data.mainAP, data.mainXP, this.playerName,
-          data.mainDamage, data.mainSuperDamage);
+          data.mainDamage, data.mainSuperDamage, true);
         this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
       }
     } else if (data.fromBattle) {

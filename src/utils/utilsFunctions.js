@@ -318,6 +318,7 @@ const utils = (() => {
   const showLevelUpWindow = (scene, x, y, bgPic, heartIcon, swordIcon,
     starIcon, mainPortraitTexture, redHeadPortraitTexture, dannyPortraitTexture, xp = null) => {
     const BG = scene.add.image(x, y, bgPic).setDepth(30).setScale(0.3);
+    const windowGroup = scene.add.group();
     const levelUpText = scene.add.text(x - 34, y - 52, 'Level Up!', { font: '16px pixelFont', color: '#87EB3F' });
     const hpText = scene.add.text(x - 50, y + 5, '+ 10', { font: '8px pixelFont', color: '#ffff' });
     hpText.setDepth(40);
@@ -333,6 +334,24 @@ const utils = (() => {
       .setDepth(40).setScale(0.7);
     const rhPortrait = scene.add.image(x + 50, y - 15, redHeadPortraitTexture)
       .setDepth(40).setScale(0.7);
+    if (scene.sys.game.globals.withDanny) {
+      const dannyCharPortrait = scene.add.image(x, y - 15, dannyPortraitTexture)
+        .setDepth(40).setScale(0.7);
+      const hpText3 = scene.add.text(x, y + 5, '+ 10', { font: '8px pixelFont', color: '#ffff' });
+      hpText3.setDepth(40);
+      const hpIcon3 = scene.add.image(x - 10, y + 10, heartIcon)
+        .setDepth(40);
+      const damageIcon3 = scene.add.image(x - 10, y + 25, swordIcon)
+        .setDepth(40);
+      const attackText3 = scene.add.text(x, y + 20, '+ 5', { font: '8px pixelFont', color: '#ffff' });
+      attackText3.setDepth(40);
+      windowGroup.add(dannyCharPortrait);
+      windowGroup.add(hpIcon3);
+      windowGroup.add(damageIcon3);
+      windowGroup.add(hpText3);
+      windowGroup.add(attackText3);
+    }
+
     const hpIcon1 = scene.add.image(x - 60, y + 10, heartIcon)
       .setDepth(40);
     const hpIcon2 = scene.add.image(x + 40, y + 10, heartIcon)
@@ -341,8 +360,15 @@ const utils = (() => {
       .setDepth(40);
     const damageIcon2 = scene.add.image(x + 40, y + 25, swordIcon)
       .setDepth(40);
-    const windowGroup = scene.add.group();
     if (xp >= 75) {
+      if (scene.sys.game.globals.withDanny) {
+        const actionsIcon3 = scene.add.image(x - 10, y + 40, starIcon)
+          .setDepth(40);
+        const actionText3 = scene.add.text(x, y + 35, '+ 10', { font: '8px pixelFont', color: '#ffff' });
+        actionText3.setDepth(40);
+        windowGroup.add(actionText3);
+        windowGroup.add(actionsIcon3);
+      }
       const actionText = scene.add.text(x - 50, y + 35, '+ 10', { font: '8px pixelFont', color: '#ffff' });
       actionText.setDepth(40);
       const actionsIcon1 = scene.add.image(x - 60, y + 40, starIcon)
