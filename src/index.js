@@ -25,7 +25,7 @@ class Game extends Phaser.Game {
       enemiesDefeated: [],
       playerName: '',
       withDanny: false,
-      dannyFirst: true,
+      dannyFirst: false,
     };
     this.scene.add('Boot', BootScene);
     this.scene.add('Preloader', PreloaderScene);

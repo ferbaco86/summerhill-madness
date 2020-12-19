@@ -191,9 +191,9 @@ const utils = (() => {
         enemiesInfo.totalMoney = totalMoney;
         break;
       case 'redSlime1':
-        enemy1 = new BattleEnemy(scene, 100, 200, 'redSlimeBattler', 0, 'Red Slime', 40, 10, 'blueSlimeDamageAnim', 50, 100);
-        enemy2 = new BattleEnemy(scene, 100, 300, 'redSlimeBattler', 0, 'Red Slime 2', 40, 10, 'blueSlimeDamageAnim', 50, 100);
-        enemy3 = new BattleEnemy(scene, 200, 250, 'redSlimeBattler', 0, 'Red Slime 3', 40, 10, 'blueSlimeDamageAnim', 50, 100);
+        enemy1 = new BattleEnemy(scene, 100, 200, 'redSlimeBattler', 0, 'Red Slime', 40, 10, 'redSlimeDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 300, 'redSlimeBattler', 0, 'Red Slime 2', 40, 10, 'redSlimeDamageAnim', 50, 100);
+        enemy3 = new BattleEnemy(scene, 200, 250, 'redSlimeBattler', 0, 'Red Slime 3', 40, 10, 'redSlimeDamageAnim', 50, 100);
         enemies.push(enemy1);
         enemies.push(enemy2);
         enemies.push(enemy3);
@@ -228,10 +228,55 @@ const utils = (() => {
         enemiesInfo.totalMoney = totalMoney;
         break;
       case 'houseBee':
-        enemy1 = new BattleEnemy(scene, 100, 200, 'beeBattler', 0, 'Bee', 40, 10, 'beeDamageAnim', 50, 100);
-        enemy2 = new BattleEnemy(scene, 100, 300, 'beeBattler', 0, 'Bee 2', 40, 10, 'beeDamageAnim', 50, 100);
-        enemy3 = new BattleEnemy(scene, 200, 250, 'beeBattler', 0, 'Bee 3', 40, 10, 'beeDamageAnim', 50, 100);
-        enemy4 = new BattleEnemy(scene, 200, 350, 'beeBattler', 0, 'Bee 4', 40, 10, 'beeDamageAnim', 50, 100);
+        enemy1 = new BattleEnemy(scene, 100, 150, 'beeBattler', 0, 'Bee', 40, 10, 'beeDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 250, 'beeBattler', 0, 'Bee 2', 40, 10, 'beeDamageAnim', 50, 100);
+        enemy3 = new BattleEnemy(scene, 200, 200, 'beeBattler', 0, 'Bee 3', 40, 10, 'beeDamageAnim', 50, 100);
+        enemy4 = new BattleEnemy(scene, 200, 300, 'beeBattler', 0, 'Bee 4', 40, 10, 'beeDamageAnim', 50, 100);
+        enemies.push(enemy1);
+        enemies.push(enemy2);
+        enemies.push(enemy3);
+        enemies.push(enemy4);
+        totalXP = 75;
+        totalMoney = 12;
+        enemiesInfo.enemies = enemies;
+        enemiesInfo.totalXP = totalXP;
+        enemiesInfo.totalMoney = totalMoney;
+        break;
+      case 'houseFly':
+        enemy1 = new BattleEnemy(scene, 100, 150, 'beeBattler', 0, 'Bee', 40, 10, 'beeDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 250, 'beeBattler', 0, 'Bee 2', 40, 10, 'beeDamageAnim', 50, 100);
+        enemy3 = new BattleEnemy(scene, 200, 200, 'flyBattler', 0, 'Fly 1', 40, 10, 'flyDamageAnim', 50, 100);
+        enemy4 = new BattleEnemy(scene, 200, 300, 'flyBattler', 0, 'Fly 2', 40, 10, 'flyDamageAnim', 50, 100);
+        enemies.push(enemy1);
+        enemies.push(enemy2);
+        enemies.push(enemy3);
+        enemies.push(enemy4);
+        totalXP = 75;
+        totalMoney = 12;
+        enemiesInfo.enemies = enemies;
+        enemiesInfo.totalXP = totalXP;
+        enemiesInfo.totalMoney = totalMoney;
+        break;
+      case 'schoolSnake':
+        enemy1 = new BattleEnemy(scene, 100, 150, 'snakeBattler', 0, 'Snake', 40, 10, 'snakeDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 250, 'snakeBattler', 0, 'Snake 2', 40, 10, 'snakeDamageAnim', 50, 100);
+        enemy3 = new BattleEnemy(scene, 200, 200, 'redSlimeBattler', 0, 'Red Slime', 40, 10, 'redSlimeDamageAnim', 50, 100);
+        enemy4 = new BattleEnemy(scene, 200, 300, 'redSlimeBattler', 0, 'Red Slime 2', 40, 10, 'redSlimeDamageAnim', 50, 100);
+        enemies.push(enemy1);
+        enemies.push(enemy2);
+        enemies.push(enemy3);
+        enemies.push(enemy4);
+        totalXP = 75;
+        totalMoney = 12;
+        enemiesInfo.enemies = enemies;
+        enemiesInfo.totalXP = totalXP;
+        enemiesInfo.totalMoney = totalMoney;
+        break;
+      case 'schoolPlant':
+        enemy1 = new BattleEnemy(scene, 100, 200, 'plantBattler', 0, 'Plant', 40, 10, 'plantDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 300, 'plantBattler', 0, 'Plant 2', 40, 10, 'plantDamageAnim', 50, 100);
+        enemy3 = new BattleEnemy(scene, 200, 250, 'flyBattler', 0, 'Fly', 40, 10, 'flyDamageAnim', 50, 100);
+        enemy4 = new BattleEnemy(scene, 200, 350, 'flyBattler', 0, 'Fly 2', 40, 10, 'flyDamageAnim', 50, 100);
         enemies.push(enemy1);
         enemies.push(enemy2);
         enemies.push(enemy3);

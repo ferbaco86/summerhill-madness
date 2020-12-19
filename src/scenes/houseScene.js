@@ -18,6 +18,8 @@ export default class HouseScene extends Phaser.Scene {
       this.cursors.up.reset();
       this.cursors.down.reset();
     };
+    this.dannyHelpText = "HEEY!! PLEASE HELP!! I'M IN MY ROOM! COME QUICK!!!";
+    this.dannyTipText = "We should probably head to the SCHOOL up north and talk to the science teacher, he may have an idea of what's going on";
 
     this.exitHouse = () => {
       this.scene.stop('House');
@@ -71,16 +73,23 @@ export default class HouseScene extends Phaser.Scene {
     const button = this.add.image(620, 390, 'maximize', 0).setScrollFactor(0);
     button.setInteractive();
     button.setDepth(30);
-
+    this.textFx = this.sound.add('textFX', {
+      volume: 0.2, loop: false,
+    });
     const arrayTiles = generateMaps.generateTilesSet(mapHouse, generateMaps.tilesParams);
     const arrayLayers = generateMaps.generateStaticLayers(mapHouse, ['Ground', 'World', 'Above', 'Decorators'], arrayTiles, 0, 0);
 
     const charSpawnPoint = mapHouse.findObject('Objects', obj => obj.name === 'roomPlayerSpawnPoint');
     const enemySpawnPoint2 = mapHouse.findObject('Objects', obj => obj.name === 'roomEnemySpawnPoint2');
+    const enemySpawnPoint3 = mapHouse.findObject('Objects', obj => obj.name === 'roomEnemySpawnPoint3');
     const dannySpawnPoint = mapHouse.findObject('Objects', obj => obj.name === 'dannySpawnPoint');
 
 
     if (data.fromBattle) {
+      if (!this.sys.game.globals.withDanny) {
+        this.dannyOnFloor = this.add.sprite(dannySpawnPoint.x, dannySpawnPoint.y, 'dannyCrawl', 0);
+        this.dannyOnFloor.anims.play('dannyFloorCrawl');
+      }
       if (this.sys.game.globals.withDanny) {
         this.mainChar = new MainCharacter(this, data.charPosX - 12, data.charPosY - 12, 'mainDown', 1, 'mainFace',
           data.mainHP, data.mainAP, data.mainXP, this.playerName,
@@ -88,10 +97,17 @@ export default class HouseScene extends Phaser.Scene {
         this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
 
         if (this.sys.game.globals.dannyFirst) {
-          this.danny = new Character(this.redHead.maxHP, this.mainChar.maxAP + 5, this.mainChar.xp, 'Danny', this.mainChar - 5, this.mainChar.superDamage - 5);
+          this.textBox = utils.createTextBox(this,
+            dannySpawnPoint.x - 150, dannySpawnPoint.y - 60, {
+              wrapWidth: 400,
+              fixedWidth: 400,
+              fixedHeight: 70,
+            }, 'messageBattleUI', 'dannyFace', this.textFx, '26px', null, true);
+          this.textBox.start(this.dannyTipText, 50);
+          this.textBox.setOrigin(0);
+          this.textBox.setScale(0.3, 0.3);
+          this.textBox.setDepth(40);
           this.sys.game.globals.dannyFirst = false;
-        } else {
-          this.danny = new Character(data.dannyHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
         }
       } else {
         this.mainChar = new MainCharacter(this, data.charPosX - 12, data.charPosY - 12, 'mainDown', 1, 'mainFace',
@@ -105,6 +121,15 @@ export default class HouseScene extends Phaser.Scene {
         data.mainDamage, data.mainSuperDamage, true);
       this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
       if (!this.sys.game.globals.withDanny) {
+        this.textBox = utils.createTextBox(this, charSpawnPoint.x - 60, charSpawnPoint.y - 60, {
+          wrapWidth: 400,
+          fixedWidth: 400,
+          fixedHeight: 70,
+        }, 'messageBattleUI', 'dannyFace', this.textFx, '26px', null, true);
+        this.textBox.start(this.dannyHelpText, 50);
+        this.textBox.setOrigin(0);
+        this.textBox.setScale(0.3, 0.3);
+        this.textBox.setDepth(40);
         this.dannyOnFloor = this.add.sprite(dannySpawnPoint.x, dannySpawnPoint.y, 'dannyCrawl', 0);
         this.dannyOnFloor.anims.play('dannyFloorCrawl');
       } else {
@@ -139,9 +164,11 @@ export default class HouseScene extends Phaser.Scene {
     this.physics.world.enable(this.mainChar);
 
     this.bee = utils.createMonster(this, enemySpawnPoint2.x, enemySpawnPoint2.y, 'beeDown', 1, 'houseBee', 'beeWalkDown');
+    this.flybee = utils.createMonster(this, enemySpawnPoint3.x, enemySpawnPoint3.y, 'flyDown', 1, 'houseFly', 'flyWalkDown');
 
     this.houseEnemyGroup = this.add.group();
     this.houseEnemyGroup.add(this.bee);
+    this.houseEnemyGroup.add(this.flybee);
     this.enemies = this.houseEnemyGroup.getChildren();
 
     generateMaps.generateCollision(this, this.houseEnemyGroup, 'World', 'Decorators', arrayLayers, ['World', 'Decorators']);
@@ -152,19 +179,19 @@ export default class HouseScene extends Phaser.Scene {
     this.mainChar.body.setSize(this.mainChar.width, this.mainChar.height / 2, false)
       .setOffset(0, this.mainChar.height / 2);
 
-    if (data.fromBattle) {
-      this.sys.game.globals.enemiesDefeated.forEach(enemy => {
-        this.enemies.forEach(houseEnemy => {
-          if (enemy === houseEnemy.name) houseEnemy.destroy();
-        });
+    this.sys.game.globals.enemiesDefeated.forEach(enemy => {
+      this.enemies.forEach(houseEnemy => {
+        if (enemy === houseEnemy.name) houseEnemy.destroy();
       });
-    }
+    });
 
     this.onMeetEnemy = (player, enemy) => {
       this.startBattle = () => {
         this.scene.stop('House');
         if (enemy.name === 'houseBee') {
           this.sys.game.globals.withDanny = true;
+          this.sys.game.globals.dannyFirst = true;
+
           this.danny = new Character(this.redHead.maxHP, this.mainChar.maxAP, this.mainChar.xp, 'Danny', this.mainChar.damage, this.mainChar.superDamage);
           this.scene.start('Battle', {
             fromHouse: true,

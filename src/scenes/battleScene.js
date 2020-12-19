@@ -117,6 +117,7 @@ export default class BattleScene extends Phaser.Scene {
         this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
       }
       if (this.sys.game.globals.withDanny) {
+        console.log(data);
         this.mainChar = new BattlePlayer(this, 700, 140, 'mainCharBattleStand', 1, data.mainName, data.mainHP, data.mainDamage,
           data.mainSuperDamage, data.mainAP, 10, 'homeRun',
           'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim', 'mainEatAnim');
