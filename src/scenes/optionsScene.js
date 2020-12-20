@@ -21,24 +21,16 @@ export default class OptionsScene extends Phaser.Scene {
     this.musicButton = this.add.image(310, 220, 'soundOn');
     this.musicText = this.add.text(360, 190, 'Music Enabled', { font: '42px pixelFont' });
 
-    this.soundButton = this.add.image(310, 320, 'soundOn');
-    this.soundText = this.add.text(360, 290, 'Sound Enabled', { font: '42px pixelFont' });
 
     this.musicButton.setInteractive();
-    this.soundButton.setInteractive();
 
     this.musicButton.on('pointerdown', () => {
       this.model.musicOn = !this.model.musicOn;
       this.updateAudio();
     });
 
-    this.soundButton.on('pointerdown', () => {
-      this.model.soundOn = !this.model.soundOn;
-      this.updateAudio();
-    });
-
     this.updateAudio();
-    this.menuButton = new Button(this, 490, 500, 'button1', 'button2', 'Menu', 'Title');
+    this.menuButton = new Button(this, 400, 500, 'button1', 'button2', 'Menu', 'Title');
     utils.setFullScreen(this, button);
   }
 
@@ -53,12 +45,6 @@ export default class OptionsScene extends Phaser.Scene {
         this.sys.game.globals.bgMusic.play();
         this.model.bgMusicPlaying = true;
       }
-    }
-
-    if (this.model.soundOn === false) {
-      this.soundButton.setTexture('soundOff');
-    } else {
-      this.soundButton.setTexture('soundOn');
     }
   }
 }

@@ -273,19 +273,6 @@ export default class HouseScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.physics.add.overlap(this.mainChar, exit, this.exitHouse, null, this);
     this.physics.add.overlap(this.mainChar, this.houseEnemyGroup, this.onMeetEnemy, null, this);
-    // this.physics.world.createDebugGraphic();
-
-    // // Create worldLayer collision graphic above the player, but below the help text
-    // const graphics = this.add
-    //   .graphics()
-    //   .setAlpha(0.75)
-    //   .setDepth(20);
-    // arrayLayers[1].renderDebug(graphics, {
-    //   tileColor: null, // Color of non-colliding tiles
-    //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
-    //   // Color of colliding tiles
-    //   faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
-    // });
 
     this.sys.events.on('wake', this.wake, this);
     utils.setFullScreen(this, button);

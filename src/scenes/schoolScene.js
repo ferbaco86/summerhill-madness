@@ -222,19 +222,6 @@ export default class SchoolScene extends Phaser.Scene {
     this.physics.add.overlap(this.mainChar, exit, this.exitSchool, null, this);
     this.physics.add.overlap(this.mainChar, this.schoolEnemyGroup, this.onMeetEnemy, null, this);
 
-    // this.physics.world.createDebugGraphic();
-
-    // // Create worldLayer collision graphic above the player, but below the help text
-    // const graphics = this.add
-    //   .graphics()
-    //   .setAlpha(0.75)
-    //   .setDepth(20);
-    // arrayLayers[1].renderDebug(graphics, {
-    //   tileColor: null, // Color of non-colliding tiles
-    //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255),
-    //   // Color of colliding tiles
-    //   faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
-    // });
     utils.setFullScreen(this, button);
   }
 
