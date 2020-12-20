@@ -72,6 +72,10 @@ export default class SchoolScene extends Phaser.Scene {
     const schoolEntranceSpawn = mapSchool.findObject('Objects', obj => obj.name === 'schoolPlayerSpawnPoint');
     const enemySpawnPoint1 = mapSchool.findObject('Objects', obj => obj.name === 'schoolEnemySpawnPoint1');
     const enemySpawnPoint2 = mapSchool.findObject('Objects', obj => obj.name === 'schoolEnemySpawnPoint2');
+    const enemySpawnPoint3 = mapSchool.findObject('Objects', obj => obj.name === 'schoolEnemySpawnPoint3');
+    const enemySpawnPoint4 = mapSchool.findObject('Objects', obj => obj.name === 'schoolEnemySpawnPoint4');
+    const enemySpawnPoint5 = mapSchool.findObject('Objects', obj => obj.name === 'schoolEnemySpawnPoint5');
+
 
     if (data.fromBattle) {
       if (this.sys.game.globals.withDanny) {
@@ -125,13 +129,19 @@ export default class SchoolScene extends Phaser.Scene {
     this.physics.world.enable(this.mainChar);
     utils.displayHudElements(this, this.money, this.candy, this.charStats);
 
-    this.snake = utils.createMonster(this, enemySpawnPoint1.x, enemySpawnPoint1.y, 'snakeDown', 1, 'schoolSnake', 'snakeWalkDown');
-    this.plant = utils.createMonster(this, enemySpawnPoint2.x, enemySpawnPoint2.y, 'plantDown', 1, 'schoolPlant', 'plantWalkDown');
+    this.snakeFly = utils.createMonster(this, enemySpawnPoint1.x, enemySpawnPoint1.y, 'snakeDown', 1, 'schoolSnake', 'snakeWalkDown');
+    this.plantSlime = utils.createMonster(this, enemySpawnPoint2.x, enemySpawnPoint2.y, 'plantDown', 1, 'schoolPlant', 'plantWalkDown');
+    this.blueRedSlime = utils.createMonster(this, enemySpawnPoint3.x, enemySpawnPoint3.y, 'redSlimeDown', 1, 'schoolRedSlime', 'redSlimeWalkDown');
+    this.fly = utils.createMonster(this, enemySpawnPoint4.x, enemySpawnPoint4.y, 'flyDown', 1, 'schoolFly', 'flyWalkDown');
+    this.bee = utils.createMonster(this, enemySpawnPoint5.x, enemySpawnPoint5.y, 'beeDown', 1, 'schoolBee', 'beeWalkDown');
 
 
     this.schoolEnemyGroup = this.add.group();
-    this.schoolEnemyGroup.add(this.snake);
-    this.schoolEnemyGroup.add(this.plant);
+    this.schoolEnemyGroup.add(this.snakeFly);
+    this.schoolEnemyGroup.add(this.plantSlime);
+    this.schoolEnemyGroup.add(this.blueRedSlime);
+    this.schoolEnemyGroup.add(this.fly);
+    this.schoolEnemyGroup.add(this.bee);
     this.enemies = this.schoolEnemyGroup.getChildren();
 
     generateMaps.generateCollision(this, this.schoolEnemyGroup, 'World', 'Decorators', arrayLayers, ['World', 'Decorators']);

@@ -6,6 +6,30 @@ import BattleEnemy from '../objects/battleEnemy';
 const utils = (() => {
   const { GetValue } = Phaser.Utils.Objects;
 
+  const disableCursors = (scene) => {
+    scene.keyUp = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+    scene.keyDown = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+    scene.keyLeft = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+    scene.keyRight = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+
+    scene.keyUp.enabled = false;
+    scene.keyDown.enabled = false;
+    scene.keyLeft.enabled = false;
+    scene.keyRight.enabled = false;
+  };
+
+  const enableCursors = (scene) => {
+    scene.keyUp = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+    scene.keyDown = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+    scene.keyLeft = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+    scene.keyRight = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+
+    scene.keyUp.enabled = true;
+    scene.keyDown.enabled = true;
+    scene.keyLeft.enabled = true;
+    scene.keyRight.enabled = true;
+  };
+
   const getBBcodeText = (scene, wrapWidth, fixedWidth, fixedHeight, fontSize) => scene.rexUI.add.BBCodeText(0, 0, '', {
     fixedWidth,
     fixedHeight,
@@ -23,6 +47,7 @@ const utils = (() => {
     const wrapWidth = GetValue(config, 'wrapWidth', 0);
     const fixedWidth = GetValue(config, 'fixedWidth', 0);
     const fixedHeight = GetValue(config, 'fixedHeight', 0);
+    disableCursors(scene);
     const textBox = scene.rexUI.add.textBox({
       x,
       y,
@@ -51,6 +76,7 @@ const utils = (() => {
           const icon = textBox.getElement('action').setVisible(false);
           textBox.resetChildVisibleState(icon);
           if (textBox.isLastPage) {
+            enableCursors(scene);
             textBox.destroy();
             if (eventEmit != null) {
               scene.emitter.emit(eventEmit);
@@ -85,6 +111,7 @@ const utils = (() => {
         scene.time.delayedCall(1000, textBox.typeNextPage, [], textBox);
         if (textBox.isLastPage) {
           const finishMessage = () => {
+            enableCursors(scene);
             textBox.destroy();
             if (eventEmit != null) {
               scene.emitter.emit(eventEmit);
@@ -273,10 +300,55 @@ const utils = (() => {
         enemiesInfo.totalMoney = totalMoney;
         break;
       case 'schoolPlant':
-        enemy1 = new BattleEnemy(scene, 100, 200, 'plantBattler', 0, 'Plant', 40, 10, 'plantDamageAnim', 50, 100);
-        enemy2 = new BattleEnemy(scene, 100, 300, 'plantBattler', 0, 'Plant 2', 40, 10, 'plantDamageAnim', 50, 100);
-        enemy3 = new BattleEnemy(scene, 200, 250, 'flyBattler', 0, 'Fly', 40, 10, 'flyDamageAnim', 50, 100);
-        enemy4 = new BattleEnemy(scene, 200, 350, 'flyBattler', 0, 'Fly 2', 40, 10, 'flyDamageAnim', 50, 100);
+        enemy1 = new BattleEnemy(scene, 100, 150, 'plantBattler', 0, 'Plant', 40, 10, 'plantDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 250, 'plantBattler', 0, 'Plant 2', 40, 10, 'plantDamageAnim', 50, 100);
+        enemy3 = new BattleEnemy(scene, 200, 200, 'flyBattler', 0, 'Fly', 40, 10, 'flyDamageAnim', 50, 100);
+        enemy4 = new BattleEnemy(scene, 200, 300, 'flyBattler', 0, 'Fly 2', 40, 10, 'flyDamageAnim', 50, 100);
+        enemies.push(enemy1);
+        enemies.push(enemy2);
+        enemies.push(enemy3);
+        enemies.push(enemy4);
+        totalXP = 75;
+        totalMoney = 12;
+        enemiesInfo.enemies = enemies;
+        enemiesInfo.totalXP = totalXP;
+        enemiesInfo.totalMoney = totalMoney;
+        break;
+      case 'schoolRedSlime':
+        enemy1 = new BattleEnemy(scene, 100, 150, 'redSlimeBattler', 0, 'Red Slime', 40, 10, 'redSlimeDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 250, 'blueSlimeBattler', 0, 'Blue Slime', 40, 10, 'blueSlimeDamageAnim', 50, 100);
+        enemy3 = new BattleEnemy(scene, 200, 200, 'redSlimeBattler', 0, 'Red Slime 2', 40, 10, 'redSlimeDamageAnim', 50, 100);
+        enemy4 = new BattleEnemy(scene, 200, 300, 'blueSlimeBattler', 0, 'Blue Slime 2', 40, 10, 'blueSlimeDamageAnim', 50, 100);
+        enemies.push(enemy1);
+        enemies.push(enemy2);
+        enemies.push(enemy3);
+        enemies.push(enemy4);
+        totalXP = 75;
+        totalMoney = 12;
+        enemiesInfo.enemies = enemies;
+        enemiesInfo.totalXP = totalXP;
+        enemiesInfo.totalMoney = totalMoney;
+        break;
+      case 'schoolFly':
+        enemy1 = new BattleEnemy(scene, 100, 150, 'flyBattler', 0, 'Fly', 40, 10, 'flyDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 250, 'flyBattler', 0, 'Fly 2', 40, 10, 'flyDamageAnim', 50, 100);
+        enemy3 = new BattleEnemy(scene, 200, 200, 'flyBattler', 0, 'Fly 3', 40, 10, 'flyDamageAnim', 50, 100);
+        enemy4 = new BattleEnemy(scene, 200, 300, 'flyBattler', 0, 'Fly 4', 40, 10, 'flyDamageAnim', 50, 100);
+        enemies.push(enemy1);
+        enemies.push(enemy2);
+        enemies.push(enemy3);
+        enemies.push(enemy4);
+        totalXP = 75;
+        totalMoney = 12;
+        enemiesInfo.enemies = enemies;
+        enemiesInfo.totalXP = totalXP;
+        enemiesInfo.totalMoney = totalMoney;
+        break;
+      case 'schoolBee':
+        enemy1 = new BattleEnemy(scene, 100, 150, 'beeBattler', 0, 'Bee', 40, 10, 'beeDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 250, 'beeBattler', 0, 'Bee 2', 40, 10, 'beeDamageAnim', 50, 100);
+        enemy3 = new BattleEnemy(scene, 200, 200, 'flyBattler', 0, 'Fly', 40, 10, 'flyDamageAnim', 50, 100);
+        enemy4 = new BattleEnemy(scene, 200, 300, 'flyBattler', 0, 'Fly 2', 40, 10, 'flyDamageAnim', 50, 100);
         enemies.push(enemy1);
         enemies.push(enemy2);
         enemies.push(enemy3);

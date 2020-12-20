@@ -19,7 +19,7 @@ export default class TownScene extends Phaser.Scene {
       this.cursors.up.reset();
       this.cursors.down.reset();
     };
-    this.startText = "Danny's house is the first house North West from here, we should probably head there first";
+    this.startText = "I can move UP, DOWN, LEFT, RIGHT with the ARROW keys. To confirm an action you can use the SPACE key... ...Danny's house is the first house North West from here, we should probably head there first";
     this.playerName = this.sys.game.globals.playerName;
     this.fromBattle = data.fromBattle;
     this.textFx = this.sound.add('textFX', {
@@ -351,6 +351,7 @@ export default class TownScene extends Phaser.Scene {
     //   // Color of colliding tiles
     //   faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
     // });
+
 
     this.sys.events.on('wake', this.wake, this);
     utils.setFullScreen(this, button);
