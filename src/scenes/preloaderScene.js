@@ -10,6 +10,7 @@ import purpleSquare from '../assets/ui/squarePurple.png';
 import redHeadFace from '../assets/redHeadCharacter/redHeadFaceFrame.png';
 import dannyFace from '../assets/dannyCharacter/dannyFaceFrame.png';
 import mainFace from '../assets/mainCharacter/mainCharFaceFrame.png';
+import defeated from '../assets/mainCharacter/defeated.png';
 import redWindow from '../assets/ui/windowLight3.png';
 import moneyIcon from '../assets/ui/money.png';
 import candyIcon from '../assets/ui/candy.png';
@@ -175,6 +176,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('candyIcon', candyIcon);
     this.load.image('attackIcon', attackIcon);
     this.load.image('moneyIcon', moneyIcon);
+    this.load.image('defeated', defeated);
     this.load.image('redHeadFace', redHeadFace);
     this.load.image('mainFace', mainFace);
     this.load.image('dannyFace', dannyFace);
