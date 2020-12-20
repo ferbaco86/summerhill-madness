@@ -242,9 +242,9 @@ const utils = (() => {
         enemiesInfo.totalMoney = totalMoney;
         break;
       case 'bee':
-        enemy1 = new BattleEnemy(scene, 100, 200, 'beeBattler', 0, 'Bee', 40, 100, 'beeDamageAnim', 50, 100);
-        enemy2 = new BattleEnemy(scene, 100, 300, 'beeBattler', 0, 'Bee 2', 40, 100, 'beeDamageAnim', 50, 100);
-        enemy3 = new BattleEnemy(scene, 200, 250, 'beeBattler', 0, 'Bee 3', 40, 100, 'beeDamageAnim', 50, 100);
+        enemy1 = new BattleEnemy(scene, 100, 200, 'beeBattler', 0, 'Bee', 40, 200, 'beeDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 300, 'beeBattler', 0, 'Bee 2', 40, 200, 'beeDamageAnim', 50, 100);
+        enemy3 = new BattleEnemy(scene, 200, 250, 'beeBattler', 0, 'Bee 3', 40, 200, 'beeDamageAnim', 50, 100);
         enemies.push(enemy1);
         enemies.push(enemy2);
         enemies.push(enemy3);
