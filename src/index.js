@@ -13,6 +13,8 @@ import SchoolScene from './scenes/schoolScene';
 import BattleScene from './scenes/battleScene';
 import GameOverScene from './scenes/gameOverScene';
 import BattleUIScene from './scenes/battleUIScene';
+import VictoryScene from './scenes/victoryScene';
+import HighScoresScene from './scenes/highScoresScene';
 import Model from './model';
 
 
@@ -40,6 +42,8 @@ class Game extends Phaser.Game {
     this.scene.add('School', SchoolScene);
     this.scene.add('Battle', BattleScene);
     this.scene.add('BattleUI', BattleUIScene);
+    this.scene.add('Victory', VictoryScene);
+    this.scene.add('HighScores', HighScoresScene);
     this.scene.add('GameOver', GameOverScene);
     this.scene.start('Boot');
   }

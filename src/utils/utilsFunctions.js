@@ -204,6 +204,15 @@ const utils = (() => {
 
 
     switch (enemyName) {
+      case 'demon':
+        enemy1 = new BattleEnemy(scene, 100, 200, 'demonBattler', 0, 'Demon', 40, 10, 'demonDamageAnim', 50, 100);
+        enemies.push(enemy1);
+        totalXP = 50;
+        totalMoney = 5000;
+        enemiesInfo.enemies = enemies;
+        enemiesInfo.totalXP = totalXP;
+        enemiesInfo.totalMoney = totalMoney;
+        break;
       case 'blueSlime1':
         enemy1 = new BattleEnemy(scene, 100, 200, 'blueSlimeBattler', 0, 'Blue Slime', 40, 10, 'blueSlimeDamageAnim', 50, 100);
         enemy2 = new BattleEnemy(scene, 100, 300, 'blueSlimeBattler', 0, 'Blue Slime 2', 40, 10, 'blueSlimeDamageAnim', 50, 100);

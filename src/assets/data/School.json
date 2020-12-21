@@ -94,8 +94,8 @@
                  "type":"enemy",
                  "visible":true,
                  "width":0,
-                 "x":426,
-                 "y":362
+                 "x":597.5,
+                 "y":358.5
                 }, 
                 {
                  "height":0,
@@ -118,8 +118,8 @@
                  "type":"enemy",
                  "visible":true,
                  "width":0,
-                 "x":572,
-                 "y":556
+                 "x":413.5,
+                 "y":555
                 }, 
                 {
                  "height":0,
@@ -168,6 +168,29 @@
                  "width":0,
                  "x":228,
                  "y":64
+                }, 
+                {
+                 "height":33,
+                 "id":14,
+                 "name":"startBossBattlePoint",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":385.5,
+                 "y":344
+                }, 
+                {
+                 "height":0,
+                 "id":15,
+                 "name":"schoolChestSpawnPoint3",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":549,
+                 "y":491.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -176,7 +199,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":11,
+ "nextobjectid":16,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",
@@ -185,7 +208,7 @@
         {
          "columns":96,
          "firstgid":1,
-         "image":"tileset_master.png",
+         "image":"E:\/Descargas\/Mapas Capstone\/tileset_master.png",
          "imageheight":1360,
          "imagewidth":1536,
          "margin":0,
@@ -205,6 +228,33 @@
                 }, 
                 {
                  "id":1763,
+                 "properties":[
+                        {
+                         "name":"collider",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1996,
+                 "properties":[
+                        {
+                         "name":"collider",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1997,
+                 "properties":[
+                        {
+                         "name":"collider",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":1998,
                  "properties":[
                         {
                          "name":"collider",
@@ -546,6 +596,24 @@
                         }]
                 }, 
                 {
+                 "id":5693,
+                 "properties":[
+                        {
+                         "name":"collider",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":5694,
+                 "properties":[
+                        {
+                         "name":"collider",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
                  "id":5702,
                  "properties":[
                         {
@@ -628,6 +696,24 @@
                 }, 
                 {
                  "id":5781,
+                 "properties":[
+                        {
+                         "name":"collider",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":5789,
+                 "properties":[
+                        {
+                         "name":"collider",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":5790,
                  "properties":[
                         {
                          "name":"collider",
@@ -812,7 +898,7 @@
         {
          "columns":32,
          "firstgid":8161,
-         "image":"tileA4_walls3.png",
+         "image":"E:\/Descargas\/Mapas Capstone\/tileA4_walls3.png",
          "imageheight":480,
          "imagewidth":512,
          "margin":0,

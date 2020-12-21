@@ -10,6 +10,7 @@ import purpleSquare from '../assets/ui/squarePurple.png';
 import redHeadFace from '../assets/redHeadCharacter/redHeadFaceFrame.png';
 import dannyFace from '../assets/dannyCharacter/dannyFaceFrame.png';
 import mainFace from '../assets/mainCharacter/mainCharFaceFrame.png';
+import demonFace from '../assets/monsters/demonFaceFrame.png';
 import defeated from '../assets/mainCharacter/defeated.png';
 import moneyIcon from '../assets/ui/money.png';
 import candyIcon from '../assets/ui/candy.png';
@@ -46,10 +47,12 @@ import snakeBattlerDamage from '../assets/monsters/snakeTakeDamageAnim.png';
 import plantBattlerDamage from '../assets/monsters/plantTakeDamageAnim.png';
 import beeBattlerDamage from '../assets/monsters/beeTakeDamageAnim.png';
 import flyBattlerDamage from '../assets/monsters/flyTakeDamageAnim.png';
+import demonBattlerDamage from '../assets/monsters/demonTakeDamageAnim.png';
 import snakeBattler from '../assets/monsters/snakeBattler.png';
 import plantBattler from '../assets/monsters/plantBattler.png';
 import beeBattler from '../assets/monsters/beeBattler.png';
 import flyBattler from '../assets/monsters/flyBattler.png';
+import demonBattler from '../assets/monsters/demonBattler.png';
 import snakeDown from '../assets/monsters/snakeIdleWalkDownSprite.png';
 import beeDown from '../assets/monsters/beeIdleWalkDown.png';
 import flyDown from '../assets/monsters/flyIdleWalkDown.png';
@@ -70,6 +73,8 @@ import star from '../assets/ui/star.png';
 import battleMessageUI from '../assets/ui/messageFrame.png';
 import maximize from '../assets/ui/maximize.png';
 import townBattleBG from '../assets/backgrounds/townBattle.png';
+import houseBattleBG from '../assets/backgrounds/houseBattle.png';
+import schoolBattleBG from '../assets/backgrounds/schoolBattle.png';
 import mapData from '../assets/data/Town.json';
 import houseData from '../assets/data/dannyHouse.json';
 import schoolData from '../assets/data/School.json';
@@ -176,6 +181,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('redHeadFace', redHeadFace);
     this.load.image('mainFace', mainFace);
     this.load.image('dannyFace', dannyFace);
+    this.load.image('demonFace', demonFace);
     this.load.image('emptySprite', emptySprite);
     this.load.image('soundOn', soundOn);
     this.load.image('hudBG', hudBG);
@@ -199,6 +205,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('beeBattler', beeBattler);
     this.load.image('flyBattler', flyBattler);
     this.load.image('plantBattler', plantBattler);
+    this.load.image('demonBattler', demonBattler);
     this.load.image('gameTitle', title);
     this.load.image('introBG', introBG);
     this.load.image('wallTiles', wallsTileSet);
@@ -206,6 +213,8 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('messageBattleUI', battleMessageUI);
     this.load.image('tiles', tileSet);
     this.load.image('townBattleBG', townBattleBG);
+    this.load.image('houseBattleBG', houseBattleBG);
+    this.load.image('schoolBattleBG', schoolBattleBG);
     this.load.tilemapTiledJSON('townMap', mapData);
     this.load.tilemapTiledJSON('houseMap', houseData);
     this.load.tilemapTiledJSON('schoolMap', schoolData);
@@ -325,6 +334,10 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 32,
     });
+    this.load.spritesheet('demonDamage', demonBattlerDamage, {
+      frameWidth: 48,
+      frameHeight: 48,
+    });
     this.load.spritesheet('mainTakeDamage', mainCharTakeDamage, {
       frameWidth: 30,
       frameHeight: 30,
@@ -360,8 +373,8 @@ export default class PreloaderScene extends Phaser.Scene {
       'mainCharWalkDown', 'mainCharWalkLeft', 'mainCharWalkRight', 'mainCharWalkUp', 'batPickUp', 'blueSlimeWalkDown',
       'redSlimeWalkDown', 'snakeWalkDown', 'beeWalkDown', 'flyWalkDown', 'plantWalkDown'];
     this.battleAnimKeys = ['mainCharIdle', 'redHeadIdle', 'dannyIdle', 'dannyFloorCrawl'];
-    this.hitAnimKeys = ['batHitAnim', 'tennisHitAnim', 'bookHitAnim', 'blueSlimeDamageAnim', 'redSlimeDamageAnim', 'snakeDamageAnim', 'beeDamageAnim', 'flyDamageAnim', 'plantDamageAnim', 'mainTakeDamageAnim', 'redHeadTakeDamageAnim', 'dannyTakeDamageAnim', 'mainEatAnim', 'redHeadEatAnim', 'dannyEatAnim'];
-    this.hitSpriteSheets = ['batHit', 'tennisHit', 'bookHit', 'blueSlimeDamage', 'redSlimeDamage', 'snakeDamage', 'beeDamage', 'flyDamage', 'plantDamage', 'mainTakeDamage', 'redHeadTakeDamage', 'dannyTakeDamage', 'mainEat', 'redHeadEat', 'dannyEat'];
+    this.hitAnimKeys = ['batHitAnim', 'tennisHitAnim', 'bookHitAnim', 'blueSlimeDamageAnim', 'redSlimeDamageAnim', 'snakeDamageAnim', 'beeDamageAnim', 'flyDamageAnim', 'plantDamageAnim', 'demonDamageAnim', 'mainTakeDamageAnim', 'redHeadTakeDamageAnim', 'dannyTakeDamageAnim', 'mainEatAnim', 'redHeadEatAnim', 'dannyEatAnim'];
+    this.hitSpriteSheets = ['batHit', 'tennisHit', 'bookHit', 'blueSlimeDamage', 'redSlimeDamage', 'snakeDamage', 'beeDamage', 'flyDamage', 'plantDamage', 'demonDamage', 'mainTakeDamage', 'redHeadTakeDamage', 'dannyTakeDamage', 'mainEat', 'redHeadEat', 'dannyEat'];
     this.battleSpriteSheets = ['mainCharBattleStand', 'redHeadBattleStand', 'dannyBattleStand', 'dannyCrawl'];
     this.spriteSheets = ['introSleeping', 'redHeadUp', 'redHeadDown', 'redHeadLeft', 'redHeadRight',
       'mainDown', 'mainLeft', 'mainRight', 'mainUp', 'mainBatPick', 'blueSlimeDown', 'redSlimeDown', 'snakeDown', 'beeDown', 'flyDown', 'plantDown'];

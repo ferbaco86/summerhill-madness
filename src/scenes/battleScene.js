@@ -55,6 +55,8 @@ export default class BattleScene extends Phaser.Scene {
               this.endScene('House');
             } else if (data.fromSchool) {
               this.endScene('School');
+            } else if (data.fromDemon) {
+              this.endScene('Victory');
             }
           }
         };
@@ -113,9 +115,9 @@ export default class BattleScene extends Phaser.Scene {
       if (data.fromTown) {
         this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
       } else if (data.fromHouse) {
-        this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
-      } else if (data.fromSchool) {
-        this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
+        this.add.image(0, -200, 'houseBattleBG').setOrigin(0, 0).setScale(2);
+      } else if (data.fromSchool || data.fromDemon) {
+        this.add.image(0, -200, 'schoolBattleBG').setOrigin(0, 0).setScale(2);
       }
       if (this.sys.game.globals.withDanny) {
         this.mainChar = new BattlePlayer(this, 700, 140, 'mainCharBattleStand', 1, data.mainName, data.mainHP, data.mainDamage,

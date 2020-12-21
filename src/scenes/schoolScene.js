@@ -5,6 +5,7 @@ import mainCharAnimInfo from '../assets/data/mainCharAnims.json';
 import utils from '../utils/utilsFunctions';
 import MainCharacter from '../objects/mainCharacter';
 import Character from '../objects/character';
+import EventDispatcher from '../utils/eventDispatcher';
 
 export default class SchoolScene extends Phaser.Scene {
   constructor() {
@@ -12,6 +13,10 @@ export default class SchoolScene extends Phaser.Scene {
   }
 
   create(data) {
+    this.mainCharDialog = "Where's the professor?, He's supposed to be here";
+    this.demonDialogText = 'Your puny teacher no longer exists in this dimension.'
+    + " The fool opened a gate between our worlds allowing us to enter, now it's just a matter of time before we take over";
+    this.mainCharDialog2 = 'We are not going to let that happen!';
     this.exitSchool = () => {
       this.scene.stop('School');
       if (this.sys.game.globals.withDanny) {
@@ -60,16 +65,23 @@ export default class SchoolScene extends Phaser.Scene {
     this.cameras.main.fadeIn(1000, 0, 0, 0);
     this.money = data.money;
     this.candy = this.sys.game.globals.candies;
+    this.textFx = this.sound.add('textFX', {
+      volume: 0.2, loop: false,
+    });
 
+    this.cursors = this.input.keyboard.createCursorKeys();
     const button = this.add.image(620, 390, 'maximize', 0).setScrollFactor(0);
     button.setInteractive();
     button.setDepth(30);
     const mapSchool = this.make.tilemap({ key: 'schoolMap' });
+    this.emitter = EventDispatcher.getInstance();
+
 
     const arrayTiles = generateMaps.generateTilesSet(mapSchool, generateMaps.tilesParams);
     const arrayLayers = generateMaps.generateStaticLayers(mapSchool, ['Ground', 'World', 'Above', 'Decorators'], arrayTiles, 0, 0);
 
     const schoolEntranceSpawn = mapSchool.findObject('Objects', obj => obj.name === 'schoolPlayerSpawnPoint');
+    const schoolStartBossBattePoint = mapSchool.findObject('Objects', obj => obj.name === 'startBossBattlePoint');
     const enemySpawnPoint1 = mapSchool.findObject('Objects', obj => obj.name === 'schoolEnemySpawnPoint1');
     const enemySpawnPoint2 = mapSchool.findObject('Objects', obj => obj.name === 'schoolEnemySpawnPoint2');
     const enemySpawnPoint3 = mapSchool.findObject('Objects', obj => obj.name === 'schoolEnemySpawnPoint3');
@@ -129,15 +141,15 @@ export default class SchoolScene extends Phaser.Scene {
     this.physics.world.enable(this.mainChar);
     utils.displayHudElements(this, this.money, this.candy, this.charStats);
 
-    this.snakeFly = utils.createMonster(this, enemySpawnPoint1.x, enemySpawnPoint1.y, 'snakeDown', 1, 'schoolSnake', 'snakeWalkDown');
     this.plantSlime = utils.createMonster(this, enemySpawnPoint2.x, enemySpawnPoint2.y, 'plantDown', 1, 'schoolPlant', 'plantWalkDown');
     this.blueRedSlime = utils.createMonster(this, enemySpawnPoint3.x, enemySpawnPoint3.y, 'redSlimeDown', 1, 'schoolRedSlime', 'redSlimeWalkDown');
     this.fly = utils.createMonster(this, enemySpawnPoint4.x, enemySpawnPoint4.y, 'flyDown', 1, 'schoolFly', 'flyWalkDown');
     this.bee = utils.createMonster(this, enemySpawnPoint5.x, enemySpawnPoint5.y, 'beeDown', 1, 'schoolBee', 'beeWalkDown');
-
+    const bossDemon = this.physics.add.sprite(enemySpawnPoint1.x - 100, enemySpawnPoint1.y, 'demonBattler');
+    bossDemon.setName('demon');
+    bossDemon.flipX = true;
 
     this.schoolEnemyGroup = this.add.group();
-    this.schoolEnemyGroup.add(this.snakeFly);
     this.schoolEnemyGroup.add(this.plantSlime);
     this.schoolEnemyGroup.add(this.blueRedSlime);
     this.schoolEnemyGroup.add(this.fly);
@@ -157,7 +169,11 @@ export default class SchoolScene extends Phaser.Scene {
 
 
     const exit = this.physics.add.sprite(schoolExit.x, schoolExit.y, 'emptySprite');
+    const startBoss = this.physics.add.sprite(schoolStartBossBattePoint.x, schoolStartBossBattePoint.y + 10, 'emptySprite');
+
     exit.body.setSize(schoolExit.width, schoolExit.height);
+    startBoss.body.setSize(schoolStartBossBattePoint.width, schoolStartBossBattePoint.height + 10);
+
     exit.setOrigin(-1, 0);
 
     this.sys.game.globals.enemiesDefeated.forEach(enemy => {
@@ -218,9 +234,109 @@ export default class SchoolScene extends Phaser.Scene {
       this.time.delayedCall(300, this.startBattle, [], this);
     };
 
-    this.cursors = this.input.keyboard.createCursorKeys();
+    this.dialogStart = true;
+    this.bossCutScene = () => {
+      if (this.dialogStart) {
+        this.mainChar.body.setVelocity(0);
+        this.mainChar.anims.stop();
+
+        this.textBoxMain = utils.createTextBox(this, this.mainChar.x - 80, this.mainChar.y + 20, {
+          wrapWidth: 400,
+          fixedWidth: 400,
+          fixedHeight: 70,
+        }, 'messageBattleUI', 'mainFace', this.textFx, '26px', 'demonDialog');
+        this.textBoxMain.start(this.mainCharDialog, 50);
+        this.textBoxMain.setOrigin(0);
+        this.textBoxMain.setScale(0.3, 0.3);
+        this.textBoxMain.setDepth(40);
+        this.dialogStart = false;
+      }
+    };
+
+    this.demonDialog = () => {
+      this.textBoxMain = utils.createTextBox(this, this.mainChar.x - 80, this.mainChar.y + 20, {
+        wrapWidth: 400,
+        fixedWidth: 400,
+        fixedHeight: 70,
+      }, 'messageBattleUI', 'demonFace', this.textFx, '26px', 'mainDialog');
+      this.textBoxMain.start(this.demonDialogText, 50);
+      this.textBoxMain.setOrigin(0);
+      this.textBoxMain.setScale(0.3, 0.3);
+      this.textBoxMain.setDepth(40);
+    };
+
+    this.dialogMainChar = () => {
+      this.textBoxMain = utils.createTextBox(this, this.mainChar.x - 80, this.mainChar.y + 20, {
+        wrapWidth: 400,
+        fixedWidth: 400,
+        fixedHeight: 70,
+      }, 'messageBattleUI', 'mainFace', this.textFx, '26px', 'battleBoss');
+      this.textBoxMain.start(this.mainCharDialog2, 50);
+      this.textBoxMain.setOrigin(0);
+      this.textBoxMain.setScale(0.3, 0.3);
+      this.textBoxMain.setDepth(40);
+    };
+
+    this.onMeetDemon = () => {
+      this.startBattle = () => {
+        this.scene.stop('School');
+        if (this.sys.game.globals.withDanny) {
+          this.scene.start('Battle', {
+            posX: this.mainChar.x,
+            posY: this.mainChar.y,
+            enemyToKill: 'demon',
+            mainHP: this.mainChar.hp,
+            mainAP: this.mainChar.ap,
+            mainName: this.mainChar.name,
+            mainDamage: this.mainChar.damage,
+            mainSuperDamage: this.mainChar.superDamage,
+            mainXP: this.mainChar.xp,
+            redHeadHP: this.redHead.hp,
+            redHeadAP: this.redHead.ap,
+            redHeadDamage: this.redHead.damage,
+            redHeadSuperDamage: this.redHead.superDamage,
+            redHeadXP: this.redHead.xp,
+            dannyHP: this.danny.hp,
+            dannyAP: this.danny.ap,
+            dannyDamage: this.danny.damage,
+            dannySuperDamage: this.danny.superDamage,
+            dannyXP: this.danny.xp,
+            fromDemon: true,
+            money: this.money,
+          });
+        } else {
+          this.scene.start('Battle', {
+            posX: this.mainChar.x,
+            posY: this.mainChar.y,
+            enemyToKill: 'demon',
+            mainHP: this.mainChar.hp,
+            mainAP: this.mainChar.ap,
+            mainName: this.mainChar.name,
+            mainDamage: this.mainChar.damage,
+            mainSuperDamage: this.mainChar.superDamage,
+            mainXP: this.mainChar.xp,
+            redHeadHP: this.redHead.hp,
+            redHeadAP: this.redHead.ap,
+            redHeadDamage: this.redHead.damage,
+            redHeadSuperDamage: this.redHead.superDamage,
+            redHeadXP: this.redHead.xp,
+            fromDemon: true,
+            money: this.money,
+          });
+        }
+      };
+      this.cameras.main.shake(300, 0.02);
+      this.time.delayedCall(300, this.startBattle, [], this);
+    };
+
     this.physics.add.overlap(this.mainChar, exit, this.exitSchool, null, this);
     this.physics.add.overlap(this.mainChar, this.schoolEnemyGroup, this.onMeetEnemy, null, this);
+    this.physics.add.overlap(this.mainChar, startBoss, this.bossCutScene, null, this);
+
+    this.emitter.on('demonDialog', this.demonDialog);
+    this.emitter.on('mainDialog', this.dialogMainChar);
+    this.emitter.on('battleBoss', this.onMeetDemon);
+
 
     utils.setFullScreen(this, button);
   }
