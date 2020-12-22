@@ -71,7 +71,6 @@ export default class Unit extends Phaser.GameObjects.Sprite {
   }
 
   healHP(amount) {
-    console.log(this.scene.sys.game.globals.candies);
     let healed = false;
     if (this.hp === this.maxHP) {
       this.scene.events.emit('Message',
@@ -85,7 +84,6 @@ export default class Unit extends Phaser.GameObjects.Sprite {
         `${this.type} healed ${amount} HP`);
       healed = true;
       this.scene.sys.game.globals.candies -= 1;
-      console.log(this.scene.sys.game.globals.candies);
     }
     return healed;
   }
