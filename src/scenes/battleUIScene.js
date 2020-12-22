@@ -67,7 +67,7 @@ export default class BattleUIScene extends Phaser.Scene {
           }
           break;
         case 2:
-          if (this.char.healHP(20, this.sys.game.globals.candies)) {
+          if (this.char.healHP(20)) {
             this.char.playEatAnimation();
             this.stopEating = () => {
               this.char.anims.stop();

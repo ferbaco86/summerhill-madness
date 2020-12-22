@@ -160,29 +160,34 @@ const utils = (() => {
   };
 
   const displayHudElements = (scene, money, candy, charStats) => {
-    scene.hudDisplay = new HudDisplay(scene, 320, 207, 'mainFace', 'heartIcon', charStats.mainHP, 'starIcon', charStats.mainAP,
+    const hudGroup = scene.add.group();
+    const hudDisplayMain = new HudDisplay(scene, 320, 207, 'mainFace', 'heartIcon', charStats.mainHP, 'starIcon', charStats.mainAP,
       charStats.mainLevel);
-    scene.hudDisplay = new HudDisplay(scene, 320, 237, 'redHeadFace', 'heartIcon', charStats.redHeadHP, 'starIcon',
+    const hudDisplayRo = new HudDisplay(scene, 320, 237, 'redHeadFace', 'heartIcon', charStats.redHeadHP, 'starIcon',
       charStats.redHeadAP, charStats.redHeadLevel);
     if (scene.sys.game.globals.withDanny) {
-      scene.hudDisplay = new HudDisplay(scene, 320, 267, 'dannyFace', 'heartIcon', charStats.dannyHP, 'starIcon',
+      const hudDisplayDanny = new HudDisplay(scene, 320, 267, 'dannyFace', 'heartIcon', charStats.dannyHP, 'starIcon',
         charStats.dannyAP, charStats.dannyLevel);
+      hudGroup.add(hudDisplayDanny);
     }
+    hudGroup.add(hudDisplayMain);
+    hudGroup.add(hudDisplayRo);
     const alphaBG = scene.add.rectangle(345, 390, 120, 20, '0x00000');
     alphaBG.setScrollFactor(0).setDepth(30).setAlpha(0.5);
     const moneyIcon = scene.add.image(330, 390, 'moneyIcon');
     const moneyAmount = scene.add.text(340, 383, money, { font: '12px pixelFont' });
     const candyIcon = scene.add.image(372, 390, 'candyIcon');
     const candyAmount = scene.add.text(382, 383, candy, { font: '12px pixelFont' });
-    const hudGroup = scene.add.group();
     hudGroup.add(moneyIcon);
     hudGroup.add(moneyAmount);
     hudGroup.add(candyIcon);
     hudGroup.add(candyAmount);
+    hudGroup.add(alphaBG);
     const groupChildren = hudGroup.getChildren();
     groupChildren.forEach(child => {
       child.setDepth(30).setScrollFactor(0);
     });
+    return hudGroup;
   };
 
   const createMonster = (scene, spawnX, spawnY, texture, frame, name, animToPlay) => {
@@ -251,9 +256,9 @@ const utils = (() => {
         enemiesInfo.totalMoney = totalMoney;
         break;
       case 'bee':
-        enemy1 = new BattleEnemy(scene, 100, 200, 'beeBattler', 0, 'Bee', 40, 200, 'beeDamageAnim', 50, 100);
-        enemy2 = new BattleEnemy(scene, 100, 300, 'beeBattler', 0, 'Bee 2', 40, 200, 'beeDamageAnim', 50, 100);
-        enemy3 = new BattleEnemy(scene, 200, 250, 'beeBattler', 0, 'Bee 3', 40, 200, 'beeDamageAnim', 50, 100);
+        enemy1 = new BattleEnemy(scene, 100, 200, 'beeBattler', 0, 'Bee', 200, 200, 'beeDamageAnim', 50, 100);
+        enemy2 = new BattleEnemy(scene, 100, 300, 'beeBattler', 0, 'Bee 2', 200, 200, 'beeDamageAnim', 50, 100);
+        enemy3 = new BattleEnemy(scene, 200, 250, 'beeBattler', 0, 'Bee 3', 200, 200, 'beeDamageAnim', 50, 100);
         enemies.push(enemy1);
         enemies.push(enemy2);
         enemies.push(enemy3);
@@ -483,6 +488,33 @@ const utils = (() => {
     return windowGroup;
   };
 
+  const createActiveChest = (scene, spawnPointX, spawnPointY, texture, animation,
+    hud, money, charStats, mainChar) => {
+    const chest = scene.physics.add.sprite(spawnPointX, spawnPointY, texture, 0);
+    const chestCollider = scene.physics.add.sprite(spawnPointX, spawnPointY + 3, 'emptySprite');
+    chestCollider.body.setSize(chest.width, chest.height);
+
+
+    const openChest = () => {
+      const onKeyInput = (event) => {
+        if (event.code === 'Space') {
+          if (!scene.sys.game.globals.townChestOpened) {
+            chest.anims.play(animation);
+            scene.sys.game.globals.candies += 5;
+            hud.clear(true, true);
+            displayHudElements(scene, money,
+              scene.sys.game.globals.candies, charStats);
+            scene.sys.game.globals.townChestOpened = true;
+            chestCollider.destroy();
+          }
+        }
+      };
+      scene.input.keyboard.on('keydown', onKeyInput, scene);
+    };
+    scene.physics.add.overlap(mainChar, chestCollider, openChest, null, scene);
+    return chest;
+  };
+
   return {
     createTextBox,
     fadeOutScene,
@@ -492,6 +524,7 @@ const utils = (() => {
     createMonster,
     selectEnemies,
     showLevelUpWindow,
+    createActiveChest,
   };
 })();
 

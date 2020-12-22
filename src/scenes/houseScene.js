@@ -20,6 +20,7 @@ export default class HouseScene extends Phaser.Scene {
     };
     this.dannyHelpText = "HEEY!! PLEASE HELP!! I'M IN MY ROOM! COME QUICK!!!";
     this.dannyTipText = "We should probably head to the SCHOOL up north and talk to the science teacher, he may have an idea of what's going on";
+    this.playerName = this.sys.game.globals.playerName;
 
     this.exitHouse = () => {
       this.scene.stop('House');
@@ -147,7 +148,7 @@ export default class HouseScene extends Phaser.Scene {
         redHeadLevel: this.mainChar.level,
         dannyHP: this.danny.hp,
         dannyAP: this.danny.ap,
-        dannyLevel: this.danny.level,
+        dannyLevel: this.mainChar.level,
       };
     } else {
       this.charStats = {

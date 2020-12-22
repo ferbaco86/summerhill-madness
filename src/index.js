@@ -29,6 +29,8 @@ class Game extends Phaser.Game {
       playerName: '',
       withDanny: false,
       dannyFirst: false,
+      townChestOpened: false,
+      candies: 0,
     };
     this.scene.add('Boot', BootScene);
     this.scene.add('Preloader', PreloaderScene);

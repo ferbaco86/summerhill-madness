@@ -75,6 +75,7 @@ export default class SchoolScene extends Phaser.Scene {
     button.setDepth(30);
     const mapSchool = this.make.tilemap({ key: 'schoolMap' });
     this.emitter = EventDispatcher.getInstance();
+    this.playerName = this.sys.game.globals.playerName;
 
 
     const arrayTiles = generateMaps.generateTilesSet(mapSchool, generateMaps.tilesParams);

@@ -26,7 +26,7 @@ export default class VictoryScene extends Phaser.Scene {
       fontFamily: 'pixelFont',
     });
     this.add.image(440, 275, 'moneyIcon').setScale(3);
-    this.add.text(470, 255, `${data.money}`, {
+    this.add.text(470, 255, `$${data.money}`, {
       fontSize: '32px',
       fontFamily: 'pixelFont',
     });

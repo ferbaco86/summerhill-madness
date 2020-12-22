@@ -26,12 +26,12 @@ export default class GameOverScene extends Phaser.Scene {
       fontFamily: 'pixelFont',
     });
     this.add.image(440, 275, 'moneyIcon').setScale(3);
-    this.add.text(470, 255, `${data.money}`, {
+    this.add.text(470, 255, `$${data.money}`, {
       fontSize: '32px',
       fontFamily: 'pixelFont',
     });
     this.menuButton = new Button(this, 300, 500, 'button1', 'button2', 'Menu', 'Title');
-    this.scoresButton = new Button(this, 500, 500, 'button1', 'button2', 'Top 5', 'TopScores');
+    this.scoresButton = new Button(this, 500, 500, 'button1', 'button2', 'Top 5', 'HighScores');
     utils.setFullScreen(this, button);
     HighScoresAPI.recordScore();
   }

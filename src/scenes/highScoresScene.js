@@ -27,7 +27,7 @@ export default class HighScoresScene extends Phaser.Scene {
       .then(() => {
         let tab = 0;
         HighScoresAPI.scores.topscores.forEach(element => {
-          this.add.text(400, 230 + tab, `${tab / 24 + 1}.- ${element.user}: ${element.score}`,
+          this.add.text(400, 230 + tab, `${tab / 24 + 1}.- ${element.user}: $${element.score}`,
             { fontSize: '22px', fontFamily: 'pixelFont', fill: '#FFF' });
           tab += 24;
         });

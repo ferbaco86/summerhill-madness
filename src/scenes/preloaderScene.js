@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import utils from '../utils/utilsFunctions';
+import chestSprite from '../assets/backgrounds/chestSpritesheet.png';
 import bgMenu from '../assets/backgrounds/titleMenu.png';
 import winWindow from '../assets/backgrounds/win.png';
 import hudBG from '../assets/backgrounds/hudBG.png';
@@ -366,6 +367,10 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 30,
       frameHeight: 30,
     });
+    this.load.spritesheet('chestOpen', chestSprite, {
+      frameWidth: 26,
+      frameHeight: 17,
+    });
   }
 
   create() {
@@ -373,8 +378,10 @@ export default class PreloaderScene extends Phaser.Scene {
       'mainCharWalkDown', 'mainCharWalkLeft', 'mainCharWalkRight', 'mainCharWalkUp', 'batPickUp', 'blueSlimeWalkDown',
       'redSlimeWalkDown', 'snakeWalkDown', 'beeWalkDown', 'flyWalkDown', 'plantWalkDown'];
     this.battleAnimKeys = ['mainCharIdle', 'redHeadIdle', 'dannyIdle', 'dannyFloorCrawl'];
-    this.hitAnimKeys = ['batHitAnim', 'tennisHitAnim', 'bookHitAnim', 'blueSlimeDamageAnim', 'redSlimeDamageAnim', 'snakeDamageAnim', 'beeDamageAnim', 'flyDamageAnim', 'plantDamageAnim', 'demonDamageAnim', 'mainTakeDamageAnim', 'redHeadTakeDamageAnim', 'dannyTakeDamageAnim', 'mainEatAnim', 'redHeadEatAnim', 'dannyEatAnim'];
-    this.hitSpriteSheets = ['batHit', 'tennisHit', 'bookHit', 'blueSlimeDamage', 'redSlimeDamage', 'snakeDamage', 'beeDamage', 'flyDamage', 'plantDamage', 'demonDamage', 'mainTakeDamage', 'redHeadTakeDamage', 'dannyTakeDamage', 'mainEat', 'redHeadEat', 'dannyEat'];
+    this.hitAnimKeys = ['batHitAnim', 'tennisHitAnim', 'bookHitAnim', 'blueSlimeDamageAnim', 'redSlimeDamageAnim', 'snakeDamageAnim', 'beeDamageAnim', 'flyDamageAnim', 'plantDamageAnim',
+      'demonDamageAnim', 'mainTakeDamageAnim', 'redHeadTakeDamageAnim', 'dannyTakeDamageAnim', 'mainEatAnim', 'redHeadEatAnim', 'dannyEatAnim', 'chestOpenAnim'];
+    this.hitSpriteSheets = ['batHit', 'tennisHit', 'bookHit', 'blueSlimeDamage', 'redSlimeDamage', 'snakeDamage', 'beeDamage', 'flyDamage', 'plantDamage',
+      'demonDamage', 'mainTakeDamage', 'redHeadTakeDamage', 'dannyTakeDamage', 'mainEat', 'redHeadEat', 'dannyEat', 'chestOpen'];
     this.battleSpriteSheets = ['mainCharBattleStand', 'redHeadBattleStand', 'dannyBattleStand', 'dannyCrawl'];
     this.spriteSheets = ['introSleeping', 'redHeadUp', 'redHeadDown', 'redHeadLeft', 'redHeadRight',
       'mainDown', 'mainLeft', 'mainRight', 'mainUp', 'mainBatPick', 'blueSlimeDown', 'redSlimeDown', 'snakeDown', 'beeDown', 'flyDown', 'plantDown'];
@@ -384,10 +391,10 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   ready() {
-    this.scene.start('Title');
+    this.scene.start('Town');
     this.readyCount += 1;
     if (this.readyCount === 2) {
-      this.scene.start('Title');
+      this.scene.start('Town');
     }
   }
 }

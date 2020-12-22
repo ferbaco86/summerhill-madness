@@ -127,6 +127,7 @@ export default class TownScene extends Phaser.Scene {
     const tileSet = map.addTilesetImage('tileset_master', 'tiles', 16, 16, 1, 2);
     const tileSetArr = [tileSet];
     const staticLayersArr = generateMaps.generateStaticLayers(map, ['Ground', 'Above', 'World', 'Decorators'], tileSetArr, 0, 0);
+    const chestSpawnPoint = map.findObject('Objects', obj => obj.name === 'chestTownSpawn');
     const spawnPoint = map.findObject('Objects', obj => obj.name === 'mainHouseSpawn');
     const houseEntrance = map.findObject('Objects', obj => obj.name === 'houseEntrance');
     const schoolEntrance = map.findObject('Objects', obj => obj.name === 'schoolEntrance');
@@ -143,43 +144,28 @@ export default class TownScene extends Phaser.Scene {
 
 
     if (data.fromHouse) {
+      this.mainChar = new MainCharacter(this, houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1, 'mainFace',
+        data.mainHP, data.mainAP, data.mainXP, this.playerName,
+        data.mainDamage, data.mainSuperDamage, true);
+      this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
       if (this.sys.game.globals.withDanny) {
-        this.mainChar = new MainCharacter(this, houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1, 'mainFace',
-          data.mainHP, data.mainAP, data.mainXP, this.playerName,
-          data.mainDamage, data.mainSuperDamage, true);
-        this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
         this.danny = new Character(data.dannyHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
-      } else {
-        this.mainChar = new MainCharacter(this, houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1, 'mainFace',
-          data.mainHP, data.mainAP, data.mainXP, this.playerName,
-          data.mainDamage, data.mainSuperDamage, true);
-        this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
       }
     } else if (data.fromSchool) {
+      this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1, 'mainFace',
+        data.mainHP, data.mainAP, data.mainXP, this.playerName,
+        data.mainDamage, data.mainSuperDamage, true);
+      this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
       if (this.sys.game.globals.withDanny) {
-        this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1, 'mainFace',
-          data.mainHP, data.mainAP, data.mainXP, this.playerName,
-          data.mainDamage, data.mainSuperDamage, true);
-        this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
         this.danny = new Character(data.dannyHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
-      } else {
-        this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1, 'mainFace',
-          data.mainHP, data.mainAP, data.mainXP, this.playerName,
-          data.mainDamage, data.mainSuperDamage, true);
-        this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
       }
     } else if (data.fromBattle) {
+      this.mainChar = new MainCharacter(this, data.charPosX, data.charPosY - 30, 'mainDown', 1, 'mainFace',
+        data.mainHP, data.mainAP, data.mainXP, this.playerName,
+        data.mainDamage, data.mainSuperDamage, data.runAway);
+      this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
       if (this.sys.game.globals.withDanny) {
-        this.mainChar = new MainCharacter(this, data.charPosX - 30, data.charPosY - 30, 'mainDown', 1, 'mainFace',
-          data.mainHP, data.mainAP, data.mainXP, this.playerName,
-          data.mainDamage, data.mainSuperDamage, data.runAway);
-        this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
         this.danny = new Character(data.dannyHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
-      } else {
-        this.mainChar = new MainCharacter(this, data.charPosX - 30, data.charPosY - 30, 'mainDown', 1, 'mainFace',
-          data.mainHP, data.mainAP, data.mainXP, this.playerName,
-          data.mainDamage, data.mainSuperDamage, data.runAway);
-        this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
       }
     } else {
       this.mainChar = new MainCharacter(this, spawnPoint.x, spawnPoint.y, 'mainDown', 1, 'mainFace', 100, 0, 0, this.playerName, 20, 40);
@@ -221,7 +207,6 @@ export default class TownScene extends Phaser.Scene {
       }
     } else {
       this.money = 0;
-      this.sys.game.globals.candies = 0;
       this.charStats = {
         mainHP: 100,
         mainAP: 0,
@@ -231,8 +216,10 @@ export default class TownScene extends Phaser.Scene {
         redHeadLevel: 1,
       };
     }
-    utils.displayHudElements(this, this.money, this.sys.game.globals.candies, this.charStats);
+    const hud = utils.displayHudElements(this, this.money,
+      this.sys.game.globals.candies, this.charStats);
     this.physics.world.enable(this.mainChar);
+
     this.onMeetEnemy = (player, enemy) => {
       this.startBattle = () => {
         this.scene.stop('Town');
@@ -300,9 +287,40 @@ export default class TownScene extends Phaser.Scene {
     this.enemyGroup.add(this.fly);
     this.enemyGroup.add(this.plant);
 
+    if (!this.sys.game.globals.townChestOpened) {
+      this.chest = utils.createActiveChest(this, chestSpawnPoint.x, chestSpawnPoint.y, 'chestOpen', 'chestOpenAnim',
+        hud, this.money, this.charStats, this.mainChar);
+      // this.chest = this.physics.add.sprite(chestSpawnPoint.x, chestSpawnPoint.y, 'chestOpen', 0);
+      // this.chestCollider = this.physics.add.sprite(chestSpawnPoint.x, chestSpawnPoint.y + 3, 'emptySprite');
+      // this.chestCollider.body.setSize(this.chest.width, this.chest.height);
+
+
+      // this.openChest = () => {
+      //   this.onKeyInput = (event) => {
+      //     if (event.code === 'Space') {
+      //       this.chest.anims.play('chestOpenAnim');
+      //       this.sys.game.globals.candies += 5;
+      //       hud.clear(true, true);
+      //       this.newHud = utils.displayHudElements(this, this.money,
+      //         this.sys.game.globals.candies, this.charStats);
+      //       this.sys.game.globals.townChestOpened = true;
+      //       this.chestCollider.destroy();
+      //     }
+      //   };
+      //   this.input.keyboard.on('keydown', this.onKeyInput, this);
+      // };
+      // this.physics.add.overlap(this.mainChar, this.chestCollider, this.openChest, null, this);
+    } else {
+      this.chest = this.physics.add.sprite(chestSpawnPoint.x, chestSpawnPoint.y, 'chestOpen', 3);
+    }
+
+    this.mainChar.setDepth(1);
+    this.chest.body.setSize(this.chest.width, this.chest.height);
+    this.chest.body.immovable = true;
+
 
     this.enemies = this.enemyGroup.getChildren();
-
+    this.physics.add.collider(this.mainChar, this.chest);
     generateMaps.generateCollision(this, this.enemyGroup, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
     generateMaps.generateCollision(this, this.mainChar, 'World', 'Decorators', staticLayersArr, ['World', 'Decorators']);
     generateMaps.generateDepth(staticLayersArr, 'Above', 10);
@@ -321,7 +339,6 @@ export default class TownScene extends Phaser.Scene {
         this.moveEnemy = true;
       }
     });
-
 
     this.mainChar.body.setSize(this.mainChar.width, this.mainChar.height / 2, false)
       .setOffset(0, this.mainChar.height / 2);
@@ -345,14 +362,14 @@ export default class TownScene extends Phaser.Scene {
   update() {
     characterMov.charMovementControl(this.mainChar, this.cursors, 155, 50, -50, -50, 50,
       mainCharAnimInfo, 1);
-    this.enemies.forEach(townEnemy => {
-      if (!this.sys.game.globals.enemiesDefeated.includes(townEnemy.name)
-    || this.moveEnemy) {
-        if (Phaser.Math.Distance.Between(this.mainChar.x, this.mainChar.y,
-          townEnemy.x, townEnemy.y) < 80) {
-          this.physics.moveToObject(townEnemy, this.mainChar, 20);
-        }
-      }
-    });
+    // this.enemies.forEach(townEnemy => {
+    //   if (!this.sys.game.globals.enemiesDefeated.includes(townEnemy.name)
+    // || this.moveEnemy) {
+    //     if (Phaser.Math.Distance.Between(this.mainChar.x, this.mainChar.y,
+    //       townEnemy.x, townEnemy.y) < 80) {
+    //       this.physics.moveToObject(townEnemy, this.mainChar, 20);
+    //     }
+    //   }
+    // });
   }
 }
