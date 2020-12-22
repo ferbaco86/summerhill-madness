@@ -88,20 +88,15 @@ export default class SchoolScene extends Phaser.Scene {
     const enemySpawnPoint3 = mapSchool.findObject('Objects', obj => obj.name === 'schoolEnemySpawnPoint3');
     const enemySpawnPoint4 = mapSchool.findObject('Objects', obj => obj.name === 'schoolEnemySpawnPoint4');
     const enemySpawnPoint5 = mapSchool.findObject('Objects', obj => obj.name === 'schoolEnemySpawnPoint5');
-
+    const chestSpawnPoint = mapSchool.findObject('Objects', obj => obj.name === 'schoolChestSpawnPoint1');
 
     if (data.fromBattle) {
+      this.mainChar = new MainCharacter(this, data.charPosX, data.charPosY - 30, 'mainDown', 1, 'mainFace',
+        data.mainHP, data.mainAP, data.mainXP, this.playerName,
+        data.mainDamage, data.mainSuperDamage, data.runAway);
+      this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
       if (this.sys.game.globals.withDanny) {
-        this.mainChar = new MainCharacter(this, data.charPosX - 30, data.charPosY - 30, 'mainDown', 1, 'mainFace',
-          data.mainHP, data.mainAP, data.mainXP, this.playerName,
-          data.mainDamage, data.mainSuperDamage, data.runAway);
-        this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
         this.danny = new Character(data.dannyHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
-      } else {
-        this.mainChar = new MainCharacter(this, data.charPosX - 30, data.charPosY - 30, 'mainDown', 1, 'mainFace',
-          data.mainHP, data.mainAP, data.mainXP, this.playerName,
-          data.mainDamage, data.mainSuperDamage, data.runAway);
-        this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
       }
     } else if (this.sys.game.globals.withDanny) {
       this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x + 5, schoolEntranceSpawn.y + 5, 'mainUp', 1, 'mainFace',
@@ -140,7 +135,7 @@ export default class SchoolScene extends Phaser.Scene {
       };
     }
     this.physics.world.enable(this.mainChar);
-    utils.displayHudElements(this, this.money, this.candy, this.charStats);
+    const hud = utils.displayHudElements(this, this.money, this.candy, this.charStats);
 
     this.plantSlime = utils.createMonster(this, enemySpawnPoint2.x, enemySpawnPoint2.y, 'plantDown', 1, 'schoolPlant', 'plantWalkDown');
     this.blueRedSlime = utils.createMonster(this, enemySpawnPoint3.x, enemySpawnPoint3.y, 'redSlimeDown', 1, 'schoolRedSlime', 'redSlimeWalkDown');
@@ -238,7 +233,8 @@ export default class SchoolScene extends Phaser.Scene {
     this.dialogStart = true;
     this.bossCutScene = () => {
       if (this.dialogStart) {
-        this.mainChar.body.setVelocity(0);
+        // this.mainChar.body.setVelocity(0);
+        this.mainChar.body.destroy();
         this.mainChar.anims.stop();
 
         this.textBoxMain = utils.createTextBox(this, this.mainChar.x - 80, this.mainChar.y + 20, {
@@ -329,6 +325,18 @@ export default class SchoolScene extends Phaser.Scene {
       this.cameras.main.shake(300, 0.02);
       this.time.delayedCall(300, this.startBattle, [], this);
     };
+
+    if (!this.sys.game.globals.schoolChestOpened) {
+      this.chest = utils.createActiveChest(this, chestSpawnPoint.x, chestSpawnPoint.y, 'chestOpen', 'chestOpenAnim',
+        hud, this.money, this.charStats, this.mainChar, 3, this.textFx);
+    } else {
+      this.chest = this.physics.add.sprite(chestSpawnPoint.x, chestSpawnPoint.y - 5, 'chestOpen', 3);
+    }
+
+    this.mainChar.setDepth(1);
+    this.chest.body.setSize(this.chest.width, this.chest.height);
+    this.chest.body.immovable = true;
+    this.physics.add.collider(this.mainChar, this.chest);
 
     this.physics.add.overlap(this.mainChar, exit, this.exitSchool, null, this);
     this.physics.add.overlap(this.mainChar, this.schoolEnemyGroup, this.onMeetEnemy, null, this);

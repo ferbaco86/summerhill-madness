@@ -289,27 +289,8 @@ export default class TownScene extends Phaser.Scene {
 
     if (!this.sys.game.globals.townChestOpened) {
       this.chest = utils.createActiveChest(this, chestSpawnPoint.x, chestSpawnPoint.y, 'chestOpen', 'chestOpenAnim',
-        hud, this.money, this.charStats, this.mainChar, 3, this.textFx);
-      // this.chest = this.physics.add.sprite(chestSpawnPoint.x, chestSpawnPoint.y, 'chestOpen', 0);
-      // this.chestCollider = this.physics.add.sprite(chestSpawnPoint.x, chestSpawnPoint.y + 3, 'emptySprite');
-      // this.chestCollider.body.setSize(this.chest.width, this.chest.height);
-
-
-      // this.openChest = () => {
-      //   this.onKeyInput = (event) => {
-      //     if (event.code === 'Space') {
-      //       this.chest.anims.play('chestOpenAnim');
-      //       this.sys.game.globals.candies += 5;
-      //       hud.clear(true, true);
-      //       this.newHud = utils.displayHudElements(this, this.money,
-      //         this.sys.game.globals.candies, this.charStats);
-      //       this.sys.game.globals.townChestOpened = true;
-      //       this.chestCollider.destroy();
-      //     }
-      //   };
-      //   this.input.keyboard.on('keydown', this.onKeyInput, this);
-      // };
-      // this.physics.add.overlap(this.mainChar, this.chestCollider, this.openChest, null, this);
+        hud, this.money, this.charStats, this.mainChar, 3, this.textFx,
+        this.sys.game.globals.townChestOpened);
     } else {
       this.chest = this.physics.add.sprite(chestSpawnPoint.x, chestSpawnPoint.y, 'chestOpen', 3);
     }

@@ -7,6 +7,7 @@ export default class CreditsScene extends Phaser.Scene {
   }
 
   create() {
+    this.cameras.main.setBackgroundColor('#0f9200');
     this.add.image(180, 150, 'winWindow').setOrigin(0);
     const button = this.add.image(900, 570, 'maximize', 0).setScrollFactor(0);
     button.setInteractive();

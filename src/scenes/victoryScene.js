@@ -9,6 +9,7 @@ export default class VictoryScene extends Phaser.Scene {
   }
 
   create(data) {
+    this.cameras.main.setBackgroundColor('#0f9200');
     const { playerName } = this.sys.game.globals;
     const button = this.add.image(900, 570, 'maximize', 0).setScrollFactor(0);
     button.setInteractive();
@@ -18,6 +19,10 @@ export default class VictoryScene extends Phaser.Scene {
     HighScoresAPI.scores.user.score = data.money;
     this.add.sprite(480, 400, 'defeated').setScale(3);
     this.add.text(100, 100, 'CONGRATULATIONS! YOU SAVED SUMMERHILL!', {
+      fontSize: '44px',
+      fontFamily: 'pixelFont',
+    });
+    this.add.text(100, 170, 'YOU SAVED SUMMERHILL!', {
       fontSize: '44px',
       fontFamily: 'pixelFont',
     });
@@ -31,7 +36,7 @@ export default class VictoryScene extends Phaser.Scene {
       fontFamily: 'pixelFont',
     });
     this.menuButton = new Button(this, 300, 500, 'button1', 'button2', 'Menu', 'Title');
-    this.scoresButton = new Button(this, 500, 500, 'button1', 'button2', 'Top 5', 'TopScores');
+    this.scoresButton = new Button(this, 500, 500, 'button1', 'button2', 'Top 5', 'HighScores');
     utils.setFullScreen(this, button);
     HighScoresAPI.recordScore();
   }

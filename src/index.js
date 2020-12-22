@@ -30,6 +30,8 @@ class Game extends Phaser.Game {
       withDanny: false,
       dannyFirst: false,
       townChestOpened: false,
+      houseChestOpened: false,
+      schoolChestOpened: false,
       candies: 0,
     };
     this.scene.add('Boot', BootScene);

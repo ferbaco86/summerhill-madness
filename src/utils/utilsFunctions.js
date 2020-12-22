@@ -489,34 +489,56 @@ const utils = (() => {
   };
 
   const createActiveChest = (scene, spawnPointX, spawnPointY, texture, animation,
-    hud, money, charStats, mainChar, candiesToAdd, textFX) => {
+    hud, money, charStats, mainChar, candiesToAdd, textFX, chestState) => {
     const chest = scene.physics.add.sprite(spawnPointX, spawnPointY, texture, 0);
     const chestCollider = scene.physics.add.sprite(spawnPointX, spawnPointY + 3, 'emptySprite');
     chestCollider.body.setSize(chest.width, chest.height);
+
+    const chestLogic = () => {
+      chest.anims.play(animation);
+      scene.sys.game.globals.candies += candiesToAdd;
+      const candyIcon = scene.add.image(spawnPointX, spawnPointY - 10, 'candyIcon');
+      const textBox = createTextBox(scene, mainChar.x - 40, mainChar.y + 20, {
+        wrapWidth: 400,
+        fixedWidth: 400,
+        fixedHeight: 70,
+      }, 'messageBattleUI', 'mainFace', textFX, '26px', null, true);
+      textBox.start(`Cool I found ${candiesToAdd} candies!`, 50);
+      textBox.setOrigin(0);
+      textBox.setScale(0.3, 0.3);
+      textBox.setDepth(40);
+      hud.clear(true, true);
+      displayHudElements(scene, money,
+        scene.sys.game.globals.candies, charStats);
+      chestCollider.destroy();
+      scene.time.delayedCall(1500, candyIcon.destroy, [], candyIcon);
+    };
 
 
     const openChest = () => {
       const onKeyInput = (event) => {
         if (event.code === 'Space') {
-          if (!scene.sys.game.globals.townChestOpened) {
-            chest.anims.play(animation);
-            scene.sys.game.globals.candies += candiesToAdd;
-            const candyIcon = scene.add.image(spawnPointX, spawnPointY - 10, 'candyIcon');
-            const textBox = createTextBox(scene, mainChar.x - 40, mainChar.y + 20, {
-              wrapWidth: 400,
-              fixedWidth: 400,
-              fixedHeight: 70,
-            }, 'messageBattleUI', 'mainFace', textFX, '26px', null, true);
-            textBox.start(`Cool I found ${candiesToAdd} candies!`, 50);
-            textBox.setOrigin(0);
-            textBox.setScale(0.3, 0.3);
-            textBox.setDepth(40);
-            hud.clear(true, true);
-            displayHudElements(scene, money,
-              scene.sys.game.globals.candies, charStats);
-            scene.sys.game.globals.townChestOpened = true;
-            chestCollider.destroy();
-            scene.time.delayedCall(1500, candyIcon.destroy, [], candyIcon);
+          switch (scene.sys.config) {
+            case 'Town':
+              if (!scene.sys.game.globals.townChestOpened) {
+                scene.sys.game.globals.townChestOpened = true;
+                chestLogic();
+              }
+              break;
+            case 'House':
+              if (!scene.sys.game.globals.houseChestOpened) {
+                scene.sys.game.globals.houseChestOpened = true;
+                chestLogic();
+              }
+              break;
+            case 'School':
+              if (!scene.sys.game.globals.schoolChestOpened) {
+                scene.sys.game.globals.schoolChestOpened = true;
+                chestLogic();
+              }
+              break;
+            default:
+              break;
           }
         }
       };

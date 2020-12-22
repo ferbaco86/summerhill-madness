@@ -84,6 +84,7 @@ export default class HouseScene extends Phaser.Scene {
     const enemySpawnPoint2 = mapHouse.findObject('Objects', obj => obj.name === 'roomEnemySpawnPoint2');
     const enemySpawnPoint3 = mapHouse.findObject('Objects', obj => obj.name === 'roomEnemySpawnPoint3');
     const dannySpawnPoint = mapHouse.findObject('Objects', obj => obj.name === 'dannySpawnPoint');
+    const chestSpawnPoint = mapHouse.findObject('Objects', obj => obj.name === 'roomChestSpawnPoint');
 
 
     if (data.fromBattle) {
@@ -92,7 +93,7 @@ export default class HouseScene extends Phaser.Scene {
         this.dannyOnFloor.anims.play('dannyFloorCrawl');
       }
       if (this.sys.game.globals.withDanny) {
-        this.mainChar = new MainCharacter(this, data.charPosX - 12, data.charPosY - 12, 'mainDown', 1, 'mainFace',
+        this.mainChar = new MainCharacter(this, data.charPosX, data.charPosY - 12, 'mainDown', 1, 'mainFace',
           data.mainHP, data.mainAP, data.mainXP, this.playerName,
           data.mainDamage, data.mainSuperDamage);
         this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
@@ -111,7 +112,7 @@ export default class HouseScene extends Phaser.Scene {
           this.sys.game.globals.dannyFirst = false;
         }
       } else {
-        this.mainChar = new MainCharacter(this, data.charPosX - 12, data.charPosY - 12, 'mainDown', 1, 'mainFace',
+        this.mainChar = new MainCharacter(this, data.charPosX, data.charPosY - 12, 'mainDown', 1, 'mainFace',
           data.mainHP, data.mainAP, data.mainXP, this.playerName,
           data.mainDamage, data.mainSuperDamage);
         this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
@@ -161,7 +162,7 @@ export default class HouseScene extends Phaser.Scene {
       };
     }
 
-    utils.displayHudElements(this, this.money, this.candy, this.charStats);
+    const hud = utils.displayHudElements(this, this.money, this.candy, this.charStats);
     this.physics.world.enable(this.mainChar);
 
     this.bee = utils.createMonster(this, enemySpawnPoint2.x, enemySpawnPoint2.y, 'beeDown', 1, 'houseBee', 'beeWalkDown');
@@ -267,6 +268,17 @@ export default class HouseScene extends Phaser.Scene {
     };
     const houseExit = mapHouse.findObject('Objects', obj => obj.name === 'roomExit');
 
+    if (!this.sys.game.globals.houseChestOpened) {
+      this.chest = utils.createActiveChest(this, chestSpawnPoint.x, chestSpawnPoint.y, 'chestOpen', 'chestOpenAnim',
+        hud, this.money, this.charStats, this.mainChar, 3, this.textFx);
+    } else {
+      this.chest = this.physics.add.sprite(chestSpawnPoint.x, chestSpawnPoint.y - 5, 'chestOpen', 3);
+    }
+
+    this.mainChar.setDepth(1);
+    this.chest.body.setSize(this.chest.width, this.chest.height);
+    this.chest.body.immovable = true;
+    this.physics.add.collider(this.mainChar, this.chest);
     const exit = this.physics.add.sprite(houseExit.x, houseExit.y, 'emptySprite');
     exit.body.setSize(houseExit.width, houseExit.height);
     exit.setOrigin(-1, 0);
