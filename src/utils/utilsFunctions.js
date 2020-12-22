@@ -489,7 +489,7 @@ const utils = (() => {
   };
 
   const createActiveChest = (scene, spawnPointX, spawnPointY, texture, animation,
-    hud, money, charStats, mainChar, candiesToAdd, textFX, chestState) => {
+    hud, money, charStats, mainChar, candiesToAdd, textFX) => {
     const chest = scene.physics.add.sprite(spawnPointX, spawnPointY, texture, 0);
     const chestCollider = scene.physics.add.sprite(spawnPointX, spawnPointY + 3, 'emptySprite');
     chestCollider.body.setSize(chest.width, chest.height);

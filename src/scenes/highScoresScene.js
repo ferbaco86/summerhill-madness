@@ -9,6 +9,7 @@ export default class HighScoresScene extends Phaser.Scene {
   }
 
   create() {
+    this.cameras.main.setBackgroundColor('#0f9200');
     const button = this.add.image(900, 570, 'maximize', 0).setScrollFactor(0);
     const windowFrame = this.add.image(490, 300, 'winWindow');
     windowFrame.setScale(0.5, 0.8);

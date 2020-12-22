@@ -289,8 +289,7 @@ export default class TownScene extends Phaser.Scene {
 
     if (!this.sys.game.globals.townChestOpened) {
       this.chest = utils.createActiveChest(this, chestSpawnPoint.x, chestSpawnPoint.y, 'chestOpen', 'chestOpenAnim',
-        hud, this.money, this.charStats, this.mainChar, 3, this.textFx,
-        this.sys.game.globals.townChestOpened);
+        hud, this.money, this.charStats, this.mainChar, 3, this.textFx);
     } else {
       this.chest = this.physics.add.sprite(chestSpawnPoint.x, chestSpawnPoint.y, 'chestOpen', 3);
     }
