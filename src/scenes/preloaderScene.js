@@ -81,12 +81,17 @@ import houseData from '../assets/data/dannyHouse.json';
 import schoolData from '../assets/data/School.json';
 import soundOff from '../assets/ui/soundOff.png';
 import soundOn from '../assets/ui/soundOn.png';
-import titleMusic from '../assets/sounds/titleMenu.wav';
+import titleMusic from '../assets/sounds/like-totally-rad.ogg';
+import monstersAmb from '../assets/sounds/strangeMonsters.ogg';
+import townMusic from '../assets/sounds/town.ogg';
 import doorOpenFX from '../assets/sounds/doorOpen.wav';
 import textFX from '../assets/sounds/text.wav';
 import stepsFX from '../assets/sounds/steps.wav';
 import getItemFX from '../assets/sounds/itemget2.wav';
 import wowFX from '../assets/sounds/wow.wav';
+import acceptFX from '../assets/sounds/Accept3.ogg';
+import battleMusic from '../assets/sounds/battle.ogg';
+import meetEnemyFX from '../assets/sounds/meetEnemy.ogg';
 import '../style.css';
 
 
@@ -188,11 +193,16 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('hudBG', hudBG);
     this.load.image('soundOff', soundOff);
     this.load.audio('bgMusic', [titleMusic]);
+    this.load.audio('monstersAmb', [monstersAmb]);
+    this.load.audio('townMusic', [townMusic]);
+    this.load.audio('battleMusic', [battleMusic]);
     this.load.audio('doorOpen', [doorOpenFX]);
     this.load.audio('stepsFX', [stepsFX]);
     this.load.audio('getItemFX', [getItemFX]);
     this.load.audio('wowFX', [wowFX]);
     this.load.audio('textFX', [textFX]);
+    this.load.audio('acceptFX', [acceptFX]);
+    this.load.audio('meetEnemyFX', [meetEnemyFX]);
     this.load.image('bgMenu', bgMenu);
     this.load.image('heartIcon', heart);
     this.load.image('starIcon', star);
@@ -391,10 +401,10 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   ready() {
-    this.scene.start('Town');
+    this.scene.start('Title');
     this.readyCount += 1;
     if (this.readyCount === 2) {
-      this.scene.start('Town');
+      this.scene.start('Title');
     }
   }
 }

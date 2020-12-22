@@ -19,6 +19,7 @@ export default class TownScene extends Phaser.Scene {
       this.cursors.up.reset();
       this.cursors.down.reset();
     };
+    this.meetEnemyFX = this.sound.add('meetEnemyFX', { volume: 0.1, loop: false });
     this.startText = "I can move UP, DOWN, LEFT, RIGHT with the ARROW keys. To confirm an action you can use the SPACE key... ...Danny's house is the first house North West from here, we should probably head there first";
     this.playerName = this.sys.game.globals.playerName;
     this.fromBattle = data.fromBattle;
@@ -268,6 +269,7 @@ export default class TownScene extends Phaser.Scene {
           });
         }
       };
+      this.meetEnemyFX.play();
       this.cameras.main.shake(300, 0.02);
       this.time.delayedCall(300, this.startBattle, [], this);
     };
@@ -337,6 +339,9 @@ export default class TownScene extends Phaser.Scene {
 
     this.sys.events.on('wake', this.wake, this);
     utils.setFullScreen(this, button);
+
+    this.sys.game.globals.bgMusic.stop();
+    utils.playBGMusic(this, 'townMusic', 0.1, true);
   }
 
   update() {

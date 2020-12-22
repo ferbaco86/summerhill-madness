@@ -9,6 +9,7 @@ export default class Button extends Phaser.GameObjects.Container {
     this.x = x;
     this.y = y;
 
+    const sound = this.scene.sound.add('acceptFX', { volume: 0.1, loop: false });
     this.button = this.scene.add.sprite(0, 0, key1).setInteractive().setOrigin(0);
     this.text = this.scene.add.text(0, 0, text, { font: '28px pixelFont', fill: '#fff' });
     Phaser.Display.Align.In.Center(this.text, this.button);
@@ -18,6 +19,7 @@ export default class Button extends Phaser.GameObjects.Container {
 
     this.button.on('pointerdown', () => {
       utils.fadeOutScene(scene, targetScene, 1000);
+      sound.play();
     });
 
     this.button.on('pointerover', () => {

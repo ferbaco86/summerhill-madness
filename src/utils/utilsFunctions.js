@@ -548,6 +548,18 @@ const utils = (() => {
     return chest;
   };
 
+  const playBGMusic = (scene, sound, volValue, loopState) => {
+    // scene.sys.game.globals.bgMusic.stop();
+    const { model } = scene.sys.game.globals;
+    model.bgMusicPlaying = false;
+    if (model.musicOn === true && model.bgMusicPlaying === false) {
+      const bgMusic = scene.sound.add(sound, { volume: volValue, loop: loopState });
+      bgMusic.play();
+      model.bgMusicPlaying = true;
+      scene.sys.game.globals.bgMusic = bgMusic;
+    }
+  };
+
   return {
     createTextBox,
     fadeOutScene,
@@ -558,6 +570,7 @@ const utils = (() => {
     selectEnemies,
     showLevelUpWindow,
     createActiveChest,
+    playBGMusic,
   };
 })();
 

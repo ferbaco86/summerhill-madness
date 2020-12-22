@@ -271,5 +271,8 @@ export default class BattleScene extends Phaser.Scene {
     };
     this.startBattle();
     this.sys.events.on('wake', this.startBattle, this);
+
+    this.sys.game.globals.bgMusic.stop();
+    utils.playBGMusic(this, 'battleMusic', 0.1, true);
   }
 }

@@ -15,7 +15,6 @@ export default class IntroScene extends Phaser.Scene {
     this.fromIntro = true;
     this.cameras.main.setBackgroundColor('#000000');
     this.cameras.main.fadeIn(500, 0, 0, 0);
-    this.sys.game.globals.bgMusic.stop();
     const button = this.add.image(900, 570, 'maximize', 0).setScrollFactor(0);
     button.setInteractive();
     button.setDepth(30);
@@ -158,5 +157,7 @@ export default class IntroScene extends Phaser.Scene {
     this.time.delayedCall(7000, this.redHeadMessage, [], this);
 
     utils.setFullScreen(this, button);
+    this.sys.game.globals.bgMusic.stop();
+    utils.playBGMusic(this, 'monstersAmb', 0.5, true);
   }
 }
