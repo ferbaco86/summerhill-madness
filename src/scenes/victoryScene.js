@@ -10,6 +10,8 @@ export default class VictoryScene extends Phaser.Scene {
 
   create(data) {
     this.cameras.main.setBackgroundColor('#0f9200');
+    this.gameCompletedSound = this.sound.add('gameCompletedFX', { volume: 0.5, loop: false });
+    this.gameCompletedSound.play();
     const { playerName } = this.sys.game.globals;
     const button = this.add.image(900, 570, 'maximize', 0).setScrollFactor(0);
     button.setInteractive();

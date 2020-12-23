@@ -10,6 +10,8 @@ export default class GameOverScene extends Phaser.Scene {
 
   create(data) {
     const { playerName } = this.sys.game.globals;
+    this.gameOverSound = this.sound.add('gameOverFX', { volume: 0.5, loop: false });
+    this.gameOverSound.play();
     const button = this.add.image(900, 570, 'maximize', 0).setScrollFactor(0);
     button.setInteractive();
     button.setDepth(30);

@@ -96,6 +96,9 @@ import tweetFX from '../assets/sounds/Tweet.ogg';
 import selectFX from '../assets/sounds/select.ogg';
 import hitFX from '../assets/sounds/hit.ogg';
 import eatCandyFX from '../assets/sounds/Powerup.ogg';
+import victoryFX from '../assets/sounds/Victory.ogg';
+import gameOverFX from '../assets/sounds/gameOver01.ogg';
+import gameCompletedFX from '../assets/sounds/goodFinal.ogg';
 import '../style.css';
 
 
@@ -211,6 +214,9 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.audio('meetEnemyFX', [meetEnemyFX]);
     this.load.audio('hitFX', [hitFX]);
     this.load.audio('eatCandyFX', [eatCandyFX]);
+    this.load.audio('victoryFX', [victoryFX]);
+    this.load.audio('gameOverFX', [gameOverFX]);
+    this.load.audio('gameCompletedFX', [gameCompletedFX]);
     this.load.image('bgMenu', bgMenu);
     this.load.image('heartIcon', heart);
     this.load.image('starIcon', star);
