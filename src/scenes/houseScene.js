@@ -289,6 +289,9 @@ export default class HouseScene extends Phaser.Scene {
 
     this.sys.events.on('wake', this.wake, this);
     utils.setFullScreen(this, button);
+
+    this.sys.game.globals.bgMusic.stop();
+    utils.playBGMusic(this, 'houseMusic', 0.1, true);
   }
 
   update() {

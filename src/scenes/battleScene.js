@@ -13,7 +13,7 @@ export default class BattleScene extends Phaser.Scene {
   create(data) {
     this.victory = true;
     this.gameOver = true;
-    this.victorySound = this.sound.add('victoryFx', { volume: 0.5, loop: false });
+    this.victorySound = this.sound.add('victoryFX', { volume: 0.5, loop: false });
     this.checkEndBattle = () => {
       this.victory = true;
       this.gameOver = true;
@@ -46,6 +46,7 @@ export default class BattleScene extends Phaser.Scene {
         this.sys.game.globals.enemiesDefeated.push(data.enemyToKill);
         this.victoryWindow = new BattleEndWindow(this, 350, 100,
           this.enemiesInfo.totalXP, this.enemiesInfo.totalMoney);
+        this.sys.game.globals.bgMusic.stop();
         this.victorySound.play();
         this.onKeyInput = (event) => {
           if (event.code === 'Space') {

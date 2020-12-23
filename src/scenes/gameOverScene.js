@@ -9,6 +9,7 @@ export default class GameOverScene extends Phaser.Scene {
   }
 
   create(data) {
+    this.sys.game.globals.bgMusic.stop();
     const { playerName } = this.sys.game.globals;
     this.gameOverSound = this.sound.add('gameOverFX', { volume: 0.5, loop: false });
     this.gameOverSound.play();

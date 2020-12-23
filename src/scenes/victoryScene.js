@@ -9,6 +9,7 @@ export default class VictoryScene extends Phaser.Scene {
   }
 
   create(data) {
+    this.sys.game.globals.bgMusic.stop();
     this.cameras.main.setBackgroundColor('#0f9200');
     this.gameCompletedSound = this.sound.add('gameCompletedFX', { volume: 0.5, loop: false });
     this.gameCompletedSound.play();

@@ -348,6 +348,8 @@ export default class SchoolScene extends Phaser.Scene {
 
 
     utils.setFullScreen(this, button);
+    this.sys.game.globals.bgMusic.stop();
+    utils.playBGMusic(this, 'schoolMusic', 0.1, true);
   }
 
   update() {

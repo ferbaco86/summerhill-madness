@@ -91,6 +91,8 @@ import getItemFX from '../assets/sounds/itemget2.wav';
 import wowFX from '../assets/sounds/wow.wav';
 import acceptFX from '../assets/sounds/Accept3.ogg';
 import battleMusic from '../assets/sounds/battle.ogg';
+import houseMusic from '../assets/sounds/houseBG.wav';
+import schoolMusic from '../assets/sounds/schoolBG.wav';
 import meetEnemyFX from '../assets/sounds/meetEnemy.ogg';
 import tweetFX from '../assets/sounds/Tweet.ogg';
 import selectFX from '../assets/sounds/select.ogg';
@@ -203,6 +205,8 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.audio('monstersAmb', [monstersAmb]);
     this.load.audio('townMusic', [townMusic]);
     this.load.audio('battleMusic', [battleMusic]);
+    this.load.audio('houseMusic', [houseMusic]);
+    this.load.audio('schoolMusic', [schoolMusic]);
     this.load.audio('doorOpen', [doorOpenFX]);
     this.load.audio('stepsFX', [stepsFX]);
     this.load.audio('tweetFX', [tweetFX]);

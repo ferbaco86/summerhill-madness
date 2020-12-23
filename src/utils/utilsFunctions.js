@@ -491,11 +491,13 @@ const utils = (() => {
   const createActiveChest = (scene, spawnPointX, spawnPointY, texture, animation,
     hud, money, charStats, mainChar, candiesToAdd, textFX) => {
     const chest = scene.physics.add.sprite(spawnPointX, spawnPointY, texture, 0);
+    const getItemFx = scene.sound.add('getItemFX', { volume: 0.3, loop: false });
     const chestCollider = scene.physics.add.sprite(spawnPointX, spawnPointY + 3, 'emptySprite');
     chestCollider.body.setSize(chest.width, chest.height);
 
     const chestLogic = () => {
       chest.anims.play(animation);
+      getItemFx.play();
       scene.sys.game.globals.candies += candiesToAdd;
       const candyIcon = scene.add.image(spawnPointX, spawnPointY - 10, 'candyIcon');
       const textBox = createTextBox(scene, mainChar.x - 40, mainChar.y + 20, {
