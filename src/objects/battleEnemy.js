@@ -10,6 +10,8 @@ export default class BattleEnemy extends Unit {
     this.xp = xp;
     this.coins = coins;
     this.x = x;
+    this.hitSound = this.scene.sound.add('hitFX', { volume: 0.1, loop: false });
+    this.hitSound2 = this.scene.sound.add('hitFX', { volume: 0.1, loop: false });
   }
 
   attackAnim() {
@@ -20,5 +22,10 @@ export default class BattleEnemy extends Unit {
 
   takeDamageAnim() {
     this.anims.play(this.damageAnim);
+    this.hitSound.play();
+    this.playSecond = () => {
+      this.hitSound2.play();
+    };
+    this.scene.time.delayedCall(300, this.playSecond, [], this.scene);
   }
 }

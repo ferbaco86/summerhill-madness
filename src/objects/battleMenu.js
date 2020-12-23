@@ -5,6 +5,7 @@ import BattleMenuItem from './battleMenuItem';
 export default class BattleMenu extends Phaser.GameObjects.Container {
   constructor(x, y, scene, heroes) {
     super(scene, x, y);
+    this.scene = scene;
     this.menuItems = [];
     this.heroesAvatar = [];
     this.menuItemIndex = 0;
@@ -12,6 +13,7 @@ export default class BattleMenu extends Phaser.GameObjects.Container {
     this.x = x;
     this.y = y;
     this.selected = false;
+    this.soundCursor = this.scene.sound.add('tweetFX', { volume: 0.2, loop: false });
   }
 
   addMenuItem(action) {
@@ -28,6 +30,7 @@ export default class BattleMenu extends Phaser.GameObjects.Container {
       if (this.menuItemIndex < 0) this.menuItemIndex = this.menuItems.length - 1;
     } while (!this.menuItems[this.menuItemIndex].active);
     this.menuItems[this.menuItemIndex].select();
+    this.soundCursor.play();
   }
 
   moveSelectionDown() {
@@ -37,6 +40,7 @@ export default class BattleMenu extends Phaser.GameObjects.Container {
       if (this.menuItemIndex >= this.menuItems.length) this.menuItemIndex = 0;
     } while (!this.menuItems[this.menuItemIndex].active);
     this.menuItems[this.menuItemIndex].select();
+    this.soundCursor.play();
   }
 
   select(index) {

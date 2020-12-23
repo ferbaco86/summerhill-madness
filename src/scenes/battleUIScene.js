@@ -12,6 +12,7 @@ export default class BattleUIScene extends Phaser.Scene {
   }
 
   create() {
+    this.steps = this.sound.add('stepsFX', { volume: 0.3, loop: false });
     this.battleScene = this.scene.get('Battle');
     this.charID = null;
     this.selectedActionIndex = null;
@@ -78,6 +79,7 @@ export default class BattleUIScene extends Phaser.Scene {
           break;
         case 3:
           this.battleScene.exitBattle();
+          this.steps.play();
           break;
 
         default:

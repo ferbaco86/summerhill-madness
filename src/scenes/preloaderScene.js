@@ -92,6 +92,10 @@ import wowFX from '../assets/sounds/wow.wav';
 import acceptFX from '../assets/sounds/Accept3.ogg';
 import battleMusic from '../assets/sounds/battle.ogg';
 import meetEnemyFX from '../assets/sounds/meetEnemy.ogg';
+import tweetFX from '../assets/sounds/Tweet.ogg';
+import selectFX from '../assets/sounds/select.ogg';
+import hitFX from '../assets/sounds/hit.ogg';
+import eatCandyFX from '../assets/sounds/Powerup.ogg';
 import '../style.css';
 
 
@@ -198,11 +202,15 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.audio('battleMusic', [battleMusic]);
     this.load.audio('doorOpen', [doorOpenFX]);
     this.load.audio('stepsFX', [stepsFX]);
+    this.load.audio('tweetFX', [tweetFX]);
     this.load.audio('getItemFX', [getItemFX]);
     this.load.audio('wowFX', [wowFX]);
     this.load.audio('textFX', [textFX]);
     this.load.audio('acceptFX', [acceptFX]);
+    this.load.audio('selectFX', [selectFX]);
     this.load.audio('meetEnemyFX', [meetEnemyFX]);
+    this.load.audio('hitFX', [hitFX]);
+    this.load.audio('eatCandyFX', [eatCandyFX]);
     this.load.image('bgMenu', bgMenu);
     this.load.image('heartIcon', heart);
     this.load.image('starIcon', star);
@@ -401,10 +409,10 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   ready() {
-    this.scene.start('Title');
+    this.scene.start('Town');
     this.readyCount += 1;
     if (this.readyCount === 2) {
-      this.scene.start('Title');
+      this.scene.start('Town');
     }
   }
 }
