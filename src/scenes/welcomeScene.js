@@ -7,7 +7,7 @@ export default class CreditsScene extends Phaser.Scene {
   }
 
   create() {
-    this.cameras.main.setBackgroundColor('#0f9200');
+    this.add.image(0, 0, 'bgMenu').setOrigin(0);
     this.add.image(180, 150, 'winWindow').setOrigin(0);
     const button = this.add.image(900, 570, 'maximize', 0).setScrollFactor(0);
     button.setInteractive();
@@ -17,7 +17,7 @@ export default class CreditsScene extends Phaser.Scene {
       fontSize: '34px',
       fontFamily: 'pixelFont',
       wordWrap: { width: 560 },
-      align: 'justify', // 'left'|'center'|'right'|'justify'
+      align: 'justify',
     }).setOrigin(0);
     this.add.text(260, 420, 'After entering your name press enter to start your adventure', {
       fontSize: '14px',

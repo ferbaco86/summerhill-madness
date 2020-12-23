@@ -21,6 +21,7 @@ export default class HouseScene extends Phaser.Scene {
     this.dannyHelpText = "HEEY!! PLEASE HELP!! I'M IN MY ROOM! COME QUICK!!!";
     this.dannyTipText = "We should probably head to the SCHOOL up north and talk to the science teacher, he may have an idea of what's going on";
     this.playerName = this.sys.game.globals.playerName;
+    this.meetEnemyFX = this.sound.add('meetEnemyFX', { volume: 0.1, loop: false });
 
     this.exitHouse = () => {
       this.scene.stop('House');
@@ -263,6 +264,7 @@ export default class HouseScene extends Phaser.Scene {
           });
         }
       };
+      this.meetEnemyFX.play();
       this.cameras.main.shake(300, 0.02);
       this.time.delayedCall(300, this.startBattle, [], this);
     };

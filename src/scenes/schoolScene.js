@@ -68,7 +68,7 @@ export default class SchoolScene extends Phaser.Scene {
     this.textFx = this.sound.add('textFX', {
       volume: 0.2, loop: false,
     });
-
+    this.meetEnemyFX = this.sound.add('meetEnemyFX', { volume: 0.1, loop: false });
     this.cursors = this.input.keyboard.createCursorKeys();
     const button = this.add.image(620, 390, 'maximize', 0).setScrollFactor(0);
     button.setInteractive();
@@ -226,6 +226,7 @@ export default class SchoolScene extends Phaser.Scene {
           });
         }
       };
+      this.meetEnemyFX.play();
       this.cameras.main.shake(300, 0.02);
       this.time.delayedCall(300, this.startBattle, [], this);
     };

@@ -4,7 +4,6 @@ import chestSprite from '../assets/backgrounds/chestSpritesheet.png';
 import bgMenu from '../assets/backgrounds/Menu.png';
 import winWindow from '../assets/backgrounds/win.png';
 import hudBG from '../assets/backgrounds/hudBG.png';
-import soundMenu from '../assets/backgrounds/soundMenu.png';
 import introBG from '../assets/backgrounds/introScene.png';
 import title from '../assets/ui/smTitle.png';
 import soundTitle from '../assets/ui/soundTitle.png';
@@ -234,7 +233,6 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('homeRun', homeRun);
     this.load.image('smash', smash);
     this.load.image('bigBookHit', bigBookHit);
-    this.load.image('soundMenu', soundMenu);
     this.load.image('blueSlimeBattler', blueSlimeBattler);
     this.load.image('redSlimeBattler', redSlimeBattler);
     this.load.image('snakeBattler', snakeBattler);
@@ -436,10 +434,10 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   ready() {
-    this.scene.start('Town');
+    this.scene.start('Title');
     this.readyCount += 1;
     if (this.readyCount === 2) {
-      this.scene.start('Town');
+      this.scene.start('Title');
     }
   }
 }

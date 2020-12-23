@@ -405,7 +405,6 @@ const utils = (() => {
     starIcon, mainPortraitTexture, redHeadPortraitTexture, dannyPortraitTexture, xp = null) => {
     const BG = scene.add.image(x, y, bgPic).setDepth(30).setScale(0.3);
     const windowGroup = scene.add.group();
-    // const levelUpText = scene.add.text(x - 34, y - 52, 'Level Up!', { font: '16px pixelFont', color: '#87EB3F' });
     const levelUpTitle = scene.add.image(x - 60, y - 70, 'levelUpTitle').setOrigin(0);
     levelUpTitle.setScale(0.3);
     const hpText = scene.add.text(x - 50, y + 5, '+ 10', { font: '8px pixelFont', color: '#ffff' });
@@ -417,7 +416,6 @@ const utils = (() => {
     const attackText2 = scene.add.text(x + 50, y + 20, '+ 5', { font: '8px pixelFont', color: '#ffff' });
     attackText2.setDepth(40);
     levelUpTitle.setDepth(40);
-    // levelUpText.setOrigin(0);
     const mainCharPortrait = scene.add.image(x - 50, y - 15, mainPortraitTexture)
       .setDepth(40).setScale(0.7);
     const rhPortrait = scene.add.image(x + 50, y - 15, redHeadPortraitTexture)
@@ -553,7 +551,6 @@ const utils = (() => {
   };
 
   const playBGMusic = (scene, sound, volValue, loopState) => {
-    // scene.sys.game.globals.bgMusic.stop();
     const { model } = scene.sys.game.globals;
     model.bgMusicPlaying = false;
     if (model.musicOn === true && model.bgMusicPlaying === false) {

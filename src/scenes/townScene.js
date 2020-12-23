@@ -340,21 +340,21 @@ export default class TownScene extends Phaser.Scene {
     this.sys.events.on('wake', this.wake, this);
     utils.setFullScreen(this, button);
 
-    // this.sys.game.globals.bgMusic.stop();
+    this.sys.game.globals.bgMusic.stop();
     utils.playBGMusic(this, 'townMusic', 0.1, true);
   }
 
   update() {
     characterMov.charMovementControl(this.mainChar, this.cursors, 155, 50, -50, -50, 50,
       mainCharAnimInfo, 1);
-    // this.enemies.forEach(townEnemy => {
-    //   if (!this.sys.game.globals.enemiesDefeated.includes(townEnemy.name)
-    // || this.moveEnemy) {
-    //     if (Phaser.Math.Distance.Between(this.mainChar.x, this.mainChar.y,
-    //       townEnemy.x, townEnemy.y) < 80) {
-    //       this.physics.moveToObject(townEnemy, this.mainChar, 20);
-    //     }
-    //   }
-    // });
+    this.enemies.forEach(townEnemy => {
+      if (!this.sys.game.globals.enemiesDefeated.includes(townEnemy.name)
+    || this.moveEnemy) {
+        if (Phaser.Math.Distance.Between(this.mainChar.x, this.mainChar.y,
+          townEnemy.x, townEnemy.y) < 80) {
+          this.physics.moveToObject(townEnemy, this.mainChar, 20);
+        }
+      }
+    });
   }
 }

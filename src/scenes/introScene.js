@@ -158,6 +158,6 @@ export default class IntroScene extends Phaser.Scene {
 
     utils.setFullScreen(this, button);
     this.sys.game.globals.bgMusic.stop();
-    utils.playBGMusic(this, 'monstersAmb', 0.5, true);
+    utils.playBGMusic(this, 'monstersAmb', 0.3, true);
   }
 }
