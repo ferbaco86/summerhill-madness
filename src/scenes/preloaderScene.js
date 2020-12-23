@@ -1,12 +1,18 @@
 import Phaser from 'phaser';
 import utils from '../utils/utilsFunctions';
 import chestSprite from '../assets/backgrounds/chestSpritesheet.png';
-import bgMenu from '../assets/backgrounds/titleMenu.png';
+import bgMenu from '../assets/backgrounds/Menu.png';
 import winWindow from '../assets/backgrounds/win.png';
 import hudBG from '../assets/backgrounds/hudBG.png';
 import soundMenu from '../assets/backgrounds/soundMenu.png';
 import introBG from '../assets/backgrounds/introScene.png';
-import title from '../assets/title.png';
+import title from '../assets/ui/smTitle.png';
+import soundTitle from '../assets/ui/soundTitle.png';
+import top5Title from '../assets/ui/top5.png';
+import gameOverTitle from '../assets/ui/gameOver.png';
+import victoryTitle from '../assets/ui/victory.png';
+import congratsTitle from '../assets/ui/congrats.png';
+import levelUpTitle from '../assets/ui/levelUp.png';
 import purpleSquare from '../assets/ui/squarePurple.png';
 import redHeadFace from '../assets/redHeadCharacter/redHeadFaceFrame.png';
 import dannyFace from '../assets/dannyCharacter/dannyFaceFrame.png';
@@ -35,6 +41,7 @@ import mainWalkDown from '../assets/mainCharacter/mainWalkDown.png';
 import mainWalkLeft from '../assets/mainCharacter/mainWalkLeft.png';
 import mainWalkRight from '../assets/mainCharacter/mainWalkRight.png';
 import mainWalkUp from '../assets/mainCharacter/mainWalkUp.png';
+import mainCeleb from '../assets/mainCharacter/celebSpriteSheet.png';
 import batHit from '../assets/mainCharacter/BatHit.png';
 import bookHit from '../assets/dannyCharacter/dannyBookHitAnim.png';
 import tennisHit from '../assets/redHeadCharacter/tennisHit.png';
@@ -236,6 +243,12 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('plantBattler', plantBattler);
     this.load.image('demonBattler', demonBattler);
     this.load.image('gameTitle', title);
+    this.load.image('soundTitle', soundTitle);
+    this.load.image('top5Title', top5Title);
+    this.load.image('gameOverTitle', gameOverTitle);
+    this.load.image('congratsTitle', congratsTitle);
+    this.load.image('victoryTitle', victoryTitle);
+    this.load.image('levelUpTitle', levelUpTitle);
     this.load.image('introBG', introBG);
     this.load.image('wallTiles', wallsTileSet);
     this.load.image('battleUIBG', battleUIBG);
@@ -282,6 +295,10 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.spritesheet('mainUp', mainWalkUp, {
       frameWidth: 16,
       frameHeight: 26,
+    });
+    this.load.spritesheet('mainCeleb', mainCeleb, {
+      frameWidth: 30,
+      frameHeight: 30,
     });
     this.load.spritesheet('mainBatPick', batPickUp, {
       frameWidth: 30,
@@ -405,12 +422,12 @@ export default class PreloaderScene extends Phaser.Scene {
     this.animKeys = ['introSleepingAnim', 'redHeadWalkUp', 'redHeadWalkDown', 'redHeadWalkLeft', 'redHeadWalkRight',
       'mainCharWalkDown', 'mainCharWalkLeft', 'mainCharWalkRight', 'mainCharWalkUp', 'batPickUp', 'blueSlimeWalkDown',
       'redSlimeWalkDown', 'snakeWalkDown', 'beeWalkDown', 'flyWalkDown', 'plantWalkDown'];
-    this.battleAnimKeys = ['mainCharIdle', 'redHeadIdle', 'dannyIdle', 'dannyFloorCrawl'];
+    this.battleAnimKeys = ['mainCharIdle', 'redHeadIdle', 'dannyIdle', 'dannyFloorCrawl', 'mainCharCeleb'];
     this.hitAnimKeys = ['batHitAnim', 'tennisHitAnim', 'bookHitAnim', 'blueSlimeDamageAnim', 'redSlimeDamageAnim', 'snakeDamageAnim', 'beeDamageAnim', 'flyDamageAnim', 'plantDamageAnim',
       'demonDamageAnim', 'mainTakeDamageAnim', 'redHeadTakeDamageAnim', 'dannyTakeDamageAnim', 'mainEatAnim', 'redHeadEatAnim', 'dannyEatAnim', 'chestOpenAnim'];
     this.hitSpriteSheets = ['batHit', 'tennisHit', 'bookHit', 'blueSlimeDamage', 'redSlimeDamage', 'snakeDamage', 'beeDamage', 'flyDamage', 'plantDamage',
       'demonDamage', 'mainTakeDamage', 'redHeadTakeDamage', 'dannyTakeDamage', 'mainEat', 'redHeadEat', 'dannyEat', 'chestOpen'];
-    this.battleSpriteSheets = ['mainCharBattleStand', 'redHeadBattleStand', 'dannyBattleStand', 'dannyCrawl'];
+    this.battleSpriteSheets = ['mainCharBattleStand', 'redHeadBattleStand', 'dannyBattleStand', 'dannyCrawl', 'mainCeleb'];
     this.spriteSheets = ['introSleeping', 'redHeadUp', 'redHeadDown', 'redHeadLeft', 'redHeadRight',
       'mainDown', 'mainLeft', 'mainRight', 'mainUp', 'mainBatPick', 'blueSlimeDown', 'redSlimeDown', 'snakeDown', 'beeDown', 'flyDown', 'plantDown'];
     utils.createAnims(this, this.animKeys, this.spriteSheets, 10, -1);

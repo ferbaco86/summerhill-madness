@@ -10,6 +10,8 @@ export default class GameOverScene extends Phaser.Scene {
 
   create(data) {
     this.sys.game.globals.bgMusic.stop();
+    this.add.image(0, 0, 'bgMenu').setOrigin(0);
+    this.add.image(470, 90, 'gameOverTitle');
     const { playerName } = this.sys.game.globals;
     this.gameOverSound = this.sound.add('gameOverFX', { volume: 0.5, loop: false });
     this.gameOverSound.play();
@@ -20,11 +22,7 @@ export default class GameOverScene extends Phaser.Scene {
     HighScoresAPI.scores.user.user = playerName;
     HighScoresAPI.scores.user.score = data.money;
     this.add.sprite(480, 400, 'defeated').setScale(3);
-    this.add.text(100, 100, 'GAME OVER', {
-      fontSize: '44px',
-      fontFamily: 'pixelFont',
-    });
-    this.add.text(350, 200, `${playerName} You collected:`, {
+    this.add.text(350, 200, `${playerName}, you collected:`, {
       fontSize: '32px',
       fontFamily: 'pixelFont',
     });

@@ -405,7 +405,9 @@ const utils = (() => {
     starIcon, mainPortraitTexture, redHeadPortraitTexture, dannyPortraitTexture, xp = null) => {
     const BG = scene.add.image(x, y, bgPic).setDepth(30).setScale(0.3);
     const windowGroup = scene.add.group();
-    const levelUpText = scene.add.text(x - 34, y - 52, 'Level Up!', { font: '16px pixelFont', color: '#87EB3F' });
+    // const levelUpText = scene.add.text(x - 34, y - 52, 'Level Up!', { font: '16px pixelFont', color: '#87EB3F' });
+    const levelUpTitle = scene.add.image(x - 60, y - 70, 'levelUpTitle').setOrigin(0);
+    levelUpTitle.setScale(0.3);
     const hpText = scene.add.text(x - 50, y + 5, '+ 10', { font: '8px pixelFont', color: '#ffff' });
     hpText.setDepth(40);
     const attackText = scene.add.text(x - 50, y + 20, '+ 5', { font: '8px pixelFont', color: '#ffff' });
@@ -414,8 +416,8 @@ const utils = (() => {
     hpText2.setDepth(40);
     const attackText2 = scene.add.text(x + 50, y + 20, '+ 5', { font: '8px pixelFont', color: '#ffff' });
     attackText2.setDepth(40);
-    levelUpText.setDepth(40);
-    levelUpText.setOrigin(0);
+    levelUpTitle.setDepth(40);
+    // levelUpText.setOrigin(0);
     const mainCharPortrait = scene.add.image(x - 50, y - 15, mainPortraitTexture)
       .setDepth(40).setScale(0.7);
     const rhPortrait = scene.add.image(x + 50, y - 15, redHeadPortraitTexture)
@@ -469,7 +471,7 @@ const utils = (() => {
       windowGroup.add(actionsIcon2);
     }
     windowGroup.add(BG);
-    windowGroup.add(levelUpText);
+    windowGroup.add(levelUpTitle);
     windowGroup.add(mainCharPortrait);
     windowGroup.add(rhPortrait);
     windowGroup.add(hpIcon1);

@@ -233,10 +233,8 @@ export default class SchoolScene extends Phaser.Scene {
     this.dialogStart = true;
     this.bossCutScene = () => {
       if (this.dialogStart) {
-        // this.mainChar.body.setVelocity(0);
-        this.mainChar.body.destroy();
         this.mainChar.anims.stop();
-
+        this.mainChar.body.destroy();
         this.textBoxMain = utils.createTextBox(this, this.mainChar.x - 80, this.mainChar.y + 20, {
           wrapWidth: 400,
           fixedWidth: 400,

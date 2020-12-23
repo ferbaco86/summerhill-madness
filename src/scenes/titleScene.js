@@ -16,9 +16,10 @@ export default class TitleScene extends Phaser.Scene {
     button.setInteractive();
     button.setDepth(30);
     button.setScale(3);
+
     // Background Pic
     this.add.image(0, 0, 'bgMenu').setOrigin(0);
-    this.menuTitle = this.add.image(200, 0, 'gameTitle').setOrigin(0);
+    this.menuTitle = this.add.image(200, 20, 'gameTitle').setOrigin(0);
 
 
     // Game
@@ -36,6 +37,9 @@ export default class TitleScene extends Phaser.Scene {
 
     utils.setFullScreen(this, button);
 
+    if (this.sys.game.globals.bgMusic !== null) {
+      this.sys.game.globals.bgMusic.stop();
+    }
     utils.playBGMusic(this, 'bgMusic', 0.1, true);
   }
 }

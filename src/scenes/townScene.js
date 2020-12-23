@@ -20,7 +20,7 @@ export default class TownScene extends Phaser.Scene {
       this.cursors.down.reset();
     };
     this.meetEnemyFX = this.sound.add('meetEnemyFX', { volume: 0.1, loop: false });
-    this.startText = "I can move UP, DOWN, LEFT, RIGHT with the ARROW keys. To confirm an action you can use the SPACE key... ...Danny's house is the first house North West from here, we should probably head there first";
+    this.startText = "To confirm an action you can use the SPACE key...  ...I can move on the map using the ARROW keys...   ...Danny's house is the first one North West from here, we should probably head there first";
     this.playerName = this.sys.game.globals.playerName;
     this.fromBattle = data.fromBattle;
     this.textFx = this.sound.add('textFX', {

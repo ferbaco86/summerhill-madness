@@ -10,7 +10,8 @@ export default class VictoryScene extends Phaser.Scene {
 
   create(data) {
     this.sys.game.globals.bgMusic.stop();
-    this.cameras.main.setBackgroundColor('#0f9200');
+    this.add.image(0, 0, 'bgMenu').setOrigin(0);
+    this.add.image(465, 90, 'congratsTitle').setScale(1.5);
     this.gameCompletedSound = this.sound.add('gameCompletedFX', { volume: 0.5, loop: false });
     this.gameCompletedSound.play();
     const { playerName } = this.sys.game.globals;
@@ -20,12 +21,9 @@ export default class VictoryScene extends Phaser.Scene {
     button.setScale(3);
     HighScoresAPI.scores.user.user = playerName;
     HighScoresAPI.scores.user.score = data.money;
-    this.add.sprite(480, 400, 'defeated').setScale(3);
-    this.add.text(100, 100, 'CONGRATULATIONS! YOU SAVED SUMMERHILL!', {
-      fontSize: '44px',
-      fontFamily: 'pixelFont',
-    });
-    this.add.text(100, 170, 'YOU SAVED SUMMERHILL!', {
+    this.charCeleb = this.add.sprite(480, 400, 'mainCeleb').setScale(3);
+    this.charCeleb.play('mainCharCeleb');
+    this.add.text(200, 130, 'YOU SAVED SUMMERHILL!', {
       fontSize: '44px',
       fontFamily: 'pixelFont',
     });

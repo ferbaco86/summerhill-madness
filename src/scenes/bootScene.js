@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import Title from '../assets/title.png';
+import Title from '../assets/ui/smTitle.png';
 
 export default class BootScene extends Phaser.Scene {
   constructor() {
