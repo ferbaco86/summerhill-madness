@@ -132,7 +132,7 @@ export default class BattleScene extends Phaser.Scene {
           data.mainSuperDamage, data.mainAP, 10, 'homeRun',
           'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim', 'mainEatAnim');
         this.redHead = new BattlePlayer(this, 700, 240, 'redHeadBattleStand', 1, 'Ro', data.redHeadHP, data.redHeadMaxHP, data.redHeadDamage,
-          data.redHeadSuperDamage, data.redHeadAP, 8, 'smash',
+          data.redHeadSuperDamage, data.redHeadAP, 10, 'smash',
           'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim', 'redHeadEatAnim');
         this.danny = new BattlePlayer(this, 700, 340, 'dannyBattleStand', 1, 'Danny', data.dannyHP, data.dannyMaxHP, data.dannyDamage, data.dannySuperDamage,
           data.dannyAP, 10, 'bigBookHit', 'dannyIdle', 'bookHitAnim', 'dannyTakeDamageAnim', 'dannyEatAnim');

@@ -158,29 +158,29 @@ export default class TownScene extends Phaser.Scene {
       this.mainChar = new MainCharacter(this, houseEntranceSpawn.x, houseEntranceSpawn.y, 'mainDown', 1, 'mainFace',
         data.mainHP, data.mainAP, data.mainXP, this.playerName,
         data.mainDamage, data.mainSuperDamage, data.mainMaxHP, data.mainLevel, true);
-      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage, data.mainLevel);
       if (this.sys.game.globals.withDanny) {
-        this.danny = new Character(data.dannyHP, data.dannyMaxHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
+        this.danny = new Character(data.dannyHP, data.dannyMaxHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage, data.mainLevel);
       }
     } else if (data.fromSchool) {
       this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1, 'mainFace',
         data.mainHP, data.mainAP, data.mainXP, this.playerName,
         data.mainDamage, data.mainSuperDamage, data.mainMaxHP, data.mainLevel, true);
-      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage, data.mainLevel);
       if (this.sys.game.globals.withDanny) {
-        this.danny = new Character(data.dannyHP, data.dannyMaxHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
+        this.danny = new Character(data.dannyHP, data.dannyMaxHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage, data.mainLevel);
       }
     } else if (data.fromBattle) {
       this.mainChar = new MainCharacter(this, data.charPosX, data.charPosY - 30, 'mainDown', 1, 'mainFace',
         data.mainHP, data.mainAP, data.mainXP, this.playerName,
         data.mainDamage, data.mainSuperDamage, data.mainMaxHP, data.mainLevel, data.runAway);
-      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage, data.mainLevel);
       if (this.sys.game.globals.withDanny) {
-        this.danny = new Character(data.dannyHP, data.dannyMaxHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
+        this.danny = new Character(data.dannyHP, data.dannyMaxHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage, data.mainLevel);
       }
     } else {
       this.mainChar = new MainCharacter(this, spawnPoint.x, spawnPoint.y, 'mainDown', 1, 'mainFace', 100, 0, 0, this.playerName, 20, 40, 100, 1);
-      this.redHead = new Character(100, 100, 0, 0, 'Ro', 20, 40);
+      this.redHead = new Character(100, 100, 0, 0, 'Ro', 20, 40, 1);
       this.textBox = utils.createTextBox(this, this.mainChar.x - 80, this.mainChar.y + 20, {
         wrapWidth: 400,
         fixedWidth: 400,
@@ -308,7 +308,7 @@ export default class TownScene extends Phaser.Scene {
 
     if (!this.sys.game.globals.townChestOpened) {
       this.chest = utils.createActiveChest(this, chestSpawnPoint.x, chestSpawnPoint.y, 'chestOpen', 'chestOpenAnim',
-        hud, this.money, this.charStats, this.mainChar, 3, this.textFx);
+        hud, this.money, this.charStats, this.mainChar, 6, this.textFx);
     } else {
       this.chest = this.physics.add.sprite(chestSpawnPoint.x, chestSpawnPoint.y, 'chestOpen', 3);
     }

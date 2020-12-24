@@ -101,7 +101,7 @@ export default class HouseScene extends Phaser.Scene {
         this.mainChar = new MainCharacter(this, data.charPosX, data.charPosY - 12, 'mainDown', 1, 'mainFace',
           data.mainHP, data.mainAP, data.mainXP, this.playerName,
           data.mainDamage, data.mainSuperDamage, data.mainMaxHP, data.mainLevel);
-        this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+        this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage, data.mainLevel);
 
         if (this.sys.game.globals.dannyFirst) {
           this.textBox = utils.createTextBox(this,
@@ -120,13 +120,13 @@ export default class HouseScene extends Phaser.Scene {
         this.mainChar = new MainCharacter(this, data.charPosX, data.charPosY - 12, 'mainDown', 1, 'mainFace',
           data.mainHP, data.mainAP, data.mainXP, this.playerName,
           data.mainDamage, data.mainSuperDamage, data.mainMaxHP, data.mainLevel);
-        this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+        this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage, data.mainLevel);
       }
     } else {
       this.mainChar = new MainCharacter(this, charSpawnPoint.x, charSpawnPoint.y - 5, 'mainUp', 1, 'mainFace',
         data.mainHP, data.mainAP, data.mainXP, this.playerName,
         data.mainDamage, data.mainSuperDamage, data.mainMaxHP, data.mainLevel, true);
-      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage, data.mainLevel);
       if (!this.sys.game.globals.withDanny) {
         this.textBox = utils.createTextBox(this, charSpawnPoint.x - 60, charSpawnPoint.y - 60, {
           wrapWidth: 400,
@@ -140,7 +140,7 @@ export default class HouseScene extends Phaser.Scene {
         this.dannyOnFloor = this.add.sprite(dannySpawnPoint.x, dannySpawnPoint.y, 'dannyCrawl', 0);
         this.dannyOnFloor.anims.play('dannyFloorCrawl');
       } else {
-        this.danny = new Character(data.dannyHP, data.dannyMaxHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
+        this.danny = new Character(data.dannyHP, data.dannyMaxHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage, data.mainLevel);
       }
     }
 
@@ -167,7 +167,6 @@ export default class HouseScene extends Phaser.Scene {
       };
     }
 
-    console.log(this.mainChar.level);
     const hud = utils.displayHudElements(this, this.money, this.candy, this.charStats);
     this.physics.world.enable(this.mainChar);
 
@@ -200,7 +199,7 @@ export default class HouseScene extends Phaser.Scene {
           this.sys.game.globals.withDanny = true;
           this.sys.game.globals.dannyFirst = true;
 
-          this.danny = new Character(this.redHead.maxHP, this.redHead.maxHP, this.mainChar.maxAP, this.mainChar.xp, 'Danny', this.mainChar.damage, this.mainChar.superDamage);
+          this.danny = new Character(this.redHead.maxHP, this.redHead.maxHP, this.mainChar.maxAP, this.mainChar.xp, 'Danny', this.mainChar.damage, this.mainChar.superDamage, this.mainChar.level);
           this.scene.start('Battle', {
             fromHouse: true,
             posX: this.mainChar.x,
@@ -288,7 +287,7 @@ export default class HouseScene extends Phaser.Scene {
 
     if (!this.sys.game.globals.houseChestOpened) {
       this.chest = utils.createActiveChest(this, chestSpawnPoint.x, chestSpawnPoint.y, 'chestOpen', 'chestOpenAnim',
-        hud, this.money, this.charStats, this.mainChar, 3, this.textFx);
+        hud, this.money, this.charStats, this.mainChar, 6, this.textFx);
     } else {
       this.chest = this.physics.add.sprite(chestSpawnPoint.x, chestSpawnPoint.y - 5, 'chestOpen', 3);
     }

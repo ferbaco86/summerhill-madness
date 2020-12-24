@@ -22,7 +22,7 @@ export default class MainCharacter extends Phaser.Physics.Arcade.Sprite {
     this.levelUpSound = this.scene.sound.add('levelUpFX', { volume: 0.2, loop: false });
 
     this.showHideWindow = () => {
-      if (!runAway && xp <= 150) {
+      if (!runAway && xp <= 130) {
         this.levelUpWindow.setVisible(true);
         this.levelUpSound.play();
         const hideWindow = () => {
@@ -32,48 +32,45 @@ export default class MainCharacter extends Phaser.Physics.Arcade.Sprite {
       }
     };
 
-
-    if (xp > 150) {
-      this.xp = 150;
+    if (xp > 130) {
+      this.xp = 130;
     }
 
-    switch (this.xp) {
-      case 50:
-        this.level = 2;
-        this.damage = 25;
-        this.hp = 110;
-        this.maxHP = 110;
-        this.showHideWindow();
-        break;
-      case 80:
-        this.level = 3;
-        this.damage = 30;
-        this.hp = 120;
-        this.maxHP = 120;
-        this.ap = 10;
-        this.superDamage = 45;
-        this.showHideWindow();
-        break;
-      case 110:
-        this.level = 4;
-        this.damage = 35;
-        this.hp = 130;
-        this.maxHP = 130;
-        this.ap = 20;
-        this.superDamage = 55;
-        this.showHideWindow();
-        break;
-      case 150:
-        this.level = 5;
-        this.damage = 40;
-        this.hp = 140;
-        this.maxHP = 140;
-        this.ap = 30;
-        this.superDamage = 60;
-        this.showHideWindow();
-        break;
-      default:
-        break;
+    if (this.xp >= 60 && this.xp < 90) {
+      this.ap = 10;
+    } else if (this.xp >= 90 && this.xp < 130) {
+      this.ap = 30;
+    } else if (this.xp >= 130) {
+      this.ap = 40;
+    }
+
+    if (this.xp >= 30 && this.xp < 80 && this.level < 2) {
+      this.level = 2;
+      this.damage = 30;
+      this.hp = 120;
+      this.maxHP = 120;
+      this.showHideWindow();
+    } else if (this.xp >= 60 && this.xp < 90 && this.level < 3) {
+      this.level = 3;
+      this.damage = 35;
+      this.hp = 130;
+      this.maxHP = 130;
+      this.superDamage = 55;
+      this.showHideWindow();
+    } else if (this.xp >= 90 && this.xp < 130 && this.level < 4) {
+      this.level = 4;
+      this.damage = 40;
+      this.hp = 140;
+      this.maxHP = 140;
+      this.superDamage = 65;
+      this.showHideWindow();
+    } else if (this.xp >= 130 && this.level < 5) {
+      this.level = 5;
+      this.damage = 45;
+      this.hp = 150;
+      this.maxHP = 150;
+      this.superDamage = 70;
+      this.showHideWindow();
     }
   }
 }

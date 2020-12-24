@@ -111,11 +111,11 @@ const utils = (() => {
         scene.time.delayedCall(1000, textBox.typeNextPage, [], textBox);
         if (textBox.isLastPage) {
           const finishMessage = () => {
-            enableCursors(scene);
             textBox.destroy();
             if (eventEmit != null) {
               scene.emitter.emit(eventEmit);
             }
+            enableCursors(scene);
           };
           scene.time.delayedCall(1000, finishMessage, [], textBox);
         }
@@ -210,7 +210,7 @@ const utils = (() => {
 
     switch (enemyName) {
       case 'demon':
-        enemy1 = new BattleEnemy(scene, 100, 200, 'demonBattler', 0, 'Demon', 40, 10, 'demonDamageAnim', 50, 100);
+        enemy1 = new BattleEnemy(scene, 100, 200, 'demonBattler', 0, 'Demon', 350, 30, 'demonDamageAnim', 50, 100);
         enemies.push(enemy1);
         totalXP = 50;
         totalMoney = 5000;

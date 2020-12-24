@@ -1,6 +1,6 @@
 
 export default class Character {
-  constructor(hp, maxHP, ap, xp, name, damage, superDamage) {
+  constructor(hp, maxHP, ap, xp, name, damage, superDamage, level) {
     this.hp = hp;
     this.ap = ap;
     this.xp = xp;
@@ -10,39 +10,39 @@ export default class Character {
     this.maxHP = maxHP;
     this.maxAP = this.ap;
 
-    if (xp > 150) {
-      this.xp = 150;
+
+    if (xp > 130) {
+      this.xp = 130;
     }
 
-    switch (this.xp) {
-      case 50:
-        this.damage = 25;
-        this.hp = 110;
-        this.maxHP = 110;
-        break;
-      case 80:
-        this.damage = 30;
-        this.hp = 120;
-        this.maxHP = 120;
-        this.ap = 10;
-        this.superDamage = 45;
-        break;
-      case 110:
-        this.damage = 35;
-        this.hp = 130;
-        this.maxHP = 130;
-        this.ap = 20;
-        this.superDamage = 55;
-        break;
-      case 150:
-        this.damage = 40;
-        this.hp = 140;
-        this.maxHP = 140;
-        this.ap = 30;
-        this.superDamage = 60;
-        break;
-      default:
-        break;
+    if (this.xp >= 60 && this.xp < 90) {
+      this.ap = 10;
+    } else if (this.xp >= 90 && this.xp < 130) {
+      this.ap = 30;
+    } else if (this.xp >= 130) {
+      this.ap = 40;
+    }
+
+    if (this.xp >= 30 && this.xp < 80 && level < 2) {
+      this.damage = 30;
+      this.hp = 120;
+      this.maxHP = 120;
+    } else if (this.xp >= 60 && this.xp < 90 && level < 3) {
+      this.level = 3;
+      this.damage = 35;
+      this.hp = 130;
+      this.maxHP = 130;
+      this.superDamage = 55;
+    } else if (this.xp >= 90 && this.xp < 130 && level < 4) {
+      this.damage = 40;
+      this.hp = 140;
+      this.maxHP = 140;
+      this.superDamage = 65;
+    } else if (this.xp >= 130 && level < 5) {
+      this.damage = 45;
+      this.hp = 150;
+      this.maxHP = 150;
+      this.superDamage = 70;
     }
   }
 }

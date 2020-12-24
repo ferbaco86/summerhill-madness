@@ -97,21 +97,21 @@ export default class SchoolScene extends Phaser.Scene {
       this.mainChar = new MainCharacter(this, data.charPosX, data.charPosY - 30, 'mainDown', 1, 'mainFace',
         data.mainHP, data.mainAP, data.mainXP, this.playerName,
         data.mainDamage, data.mainSuperDamage, data.mainMaxHP, data.mainLevel, data.runAway);
-      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage, data.mainLevel);
       if (this.sys.game.globals.withDanny) {
-        this.danny = new Character(data.dannyHP, data.dannyMaxHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
+        this.danny = new Character(data.dannyHP, data.dannyMaxHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage, data.mainLevel);
       }
     } else if (this.sys.game.globals.withDanny) {
       this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x + 5, schoolEntranceSpawn.y + 5, 'mainUp', 1, 'mainFace',
         data.mainHP, data.mainAP, data.mainXP, this.playerName,
         data.mainDamage, data.mainSuperDamage, data.mainMaxHP, data.mainLevel, true);
-      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
-      this.danny = new Character(data.dannyHP, data.dannyMaxHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
+      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage, data.mainLevel);
+      this.danny = new Character(data.dannyHP, data.dannyMaxHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage, data.mainLevel);
     } else {
       this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x + 5, schoolEntranceSpawn.y + 5, 'mainUp', 1, 'mainFace',
         data.mainHP, data.mainAP, data.mainXP, this.playerName,
         data.mainDamage, data.mainSuperDamage, data.mainMaxHP, data.mainLevel, true);
-      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage, data.mainLevel);
     }
 
 
@@ -344,7 +344,7 @@ export default class SchoolScene extends Phaser.Scene {
 
     if (!this.sys.game.globals.schoolChestOpened) {
       this.chest = utils.createActiveChest(this, chestSpawnPoint.x, chestSpawnPoint.y, 'chestOpen', 'chestOpenAnim',
-        hud, this.money, this.charStats, this.mainChar, 3, this.textFx);
+        hud, this.money, this.charStats, this.mainChar, 6, this.textFx);
     } else {
       this.chest = this.physics.add.sprite(chestSpawnPoint.x, chestSpawnPoint.y - 5, 'chestOpen', 3);
     }
