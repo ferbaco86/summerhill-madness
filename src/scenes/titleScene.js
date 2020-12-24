@@ -29,7 +29,7 @@ export default class TitleScene extends Phaser.Scene {
     this.optionsButton = new Button(this, 400, 300, 'button1', 'button2', 'Sound', 'Options');
 
     // Top 5
-    this.top5Button = new Button(this, 400, 500, 'button1', 'button2', 'Top 5', 'HighScores');
+    this.top5Button = new Button(this, 400, 400, 'button1', 'button2', 'Top 5', 'HighScores');
 
 
     utils.setFullScreen(this, button);

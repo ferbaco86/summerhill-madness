@@ -1,10 +1,10 @@
 import Unit from './unit';
 
 export default class BattlePlayer extends Unit {
-  constructor(scene, x, y, texture, frame, type, hp,
+  constructor(scene, x, y, texture, frame, type, hp, maxHP,
     damage, abilityDamage, ap, apCost, abilityPic, idleAnim, hitAnim, damageAnim, eatAnim) {
     super(scene, x, y, texture, frame, type, hp, damage, abilityDamage,
-      ap, apCost, abilityPic);
+      ap, apCost, abilityPic, maxHP);
     this.setScale(3);
     scene.add.existing(this);
     this.type = type;

@@ -2,12 +2,12 @@ import Phaser from 'phaser';
 
 export default class Unit extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, texture, frame, type, hp, damage, abilityDamage = null, ap = null,
-    apCost = null, abilityPic = null) {
+    apCost = null, abilityPic = null, maxHP = null) {
     super(scene, x, y, texture, frame);
     this.scene = scene;
     this.type = type;
     this.hp = hp;
-    this.maxHP = this.hp;
+    this.maxHP = maxHP;
     this.damage = damage;
     this.abilityDamage = abilityDamage;
     this.living = true;
@@ -16,6 +16,7 @@ export default class Unit extends Phaser.GameObjects.Sprite {
     this.apCost = apCost;
     this.maxAP = this.ap;
     this.abilityPic = abilityPic;
+    this.soundSmash = this.scene.sound.add('smashFX', { volume: 0.2, loop: false });
   }
 
   // we will use this to notify the menu item when the unit is dead
@@ -36,6 +37,8 @@ export default class Unit extends Phaser.GameObjects.Sprite {
       target.takeDamage(this.abilityDamage);
       this.showAbilityPic(target);
       this.reduceAP(this.apCost);
+      this.soundSmash.play();
+
       this.scene.events.emit('Message',
         `Woow! ${target.type} suffers ${this.abilityDamage} damage!!`);
     }

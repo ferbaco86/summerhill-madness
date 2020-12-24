@@ -23,6 +23,7 @@ export default class SchoolScene extends Phaser.Scene {
         this.scene.start('Town', {
           fromSchool: true,
           mainHP: this.mainChar.hp,
+          mainMaxHP: this.mainChar.maxHP,
           mainAP: this.mainChar.ap,
           mainName: this.mainChar.name,
           mainDamage: this.mainChar.damage,
@@ -30,12 +31,13 @@ export default class SchoolScene extends Phaser.Scene {
           mainXP: this.mainChar.xp,
           mainLevel: this.mainChar.level,
           redHeadHP: this.redHead.hp,
+          redHeadMaxHP: this.redHead.maxHP,
           redHeadAP: this.redHead.ap,
           redHeadDamage: this.redHead.damage,
           redHeadSuperDamage: this.redHead.superDamage,
           redHeadXP: this.redHead.xp,
-          redHeadLevel: this.redHead.level,
           dannyHP: this.danny.hp,
+          dannyMaxHP: this.danny.maxHP,
           dannyAP: this.danny.ap,
           dannyDamage: this.danny.damage,
           dannySuperDamage: this.danny.superDamage,
@@ -46,6 +48,7 @@ export default class SchoolScene extends Phaser.Scene {
         this.scene.start('Town', {
           fromSchool: true,
           mainHP: this.mainChar.hp,
+          mainMaxHP: this.mainChar.maxHP,
           mainAP: this.mainChar.ap,
           mainName: this.mainChar.name,
           mainDamage: this.mainChar.damage,
@@ -53,11 +56,11 @@ export default class SchoolScene extends Phaser.Scene {
           mainXP: this.mainChar.xp,
           mainLevel: this.mainChar.level,
           redHeadHP: this.redHead.hp,
+          redHeadMaxHP: this.redHead.maxHP,
           redHeadAP: this.redHead.ap,
           redHeadDamage: this.redHead.damage,
           redHeadSuperDamage: this.redHead.superDamage,
           redHeadXP: this.redHead.xp,
-          redHeadLevel: this.redHead.level,
           money: this.money,
         });
       }
@@ -93,22 +96,22 @@ export default class SchoolScene extends Phaser.Scene {
     if (data.fromBattle) {
       this.mainChar = new MainCharacter(this, data.charPosX, data.charPosY - 30, 'mainDown', 1, 'mainFace',
         data.mainHP, data.mainAP, data.mainXP, this.playerName,
-        data.mainDamage, data.mainSuperDamage, data.runAway);
-      this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+        data.mainDamage, data.mainSuperDamage, data.mainMaxHP, data.mainLevel, data.runAway);
+      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
       if (this.sys.game.globals.withDanny) {
-        this.danny = new Character(data.dannyHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
+        this.danny = new Character(data.dannyHP, data.dannyMaxHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
       }
     } else if (this.sys.game.globals.withDanny) {
       this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x + 5, schoolEntranceSpawn.y + 5, 'mainUp', 1, 'mainFace',
         data.mainHP, data.mainAP, data.mainXP, this.playerName,
-        data.mainDamage, data.mainSuperDamage, true);
-      this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
-      this.danny = new Character(data.dannyHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
+        data.mainDamage, data.mainSuperDamage, data.mainMaxHP, data.mainLevel, true);
+      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+      this.danny = new Character(data.dannyHP, data.dannyMaxHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage);
     } else {
       this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x + 5, schoolEntranceSpawn.y + 5, 'mainUp', 1, 'mainFace',
         data.mainHP, data.mainAP, data.mainXP, this.playerName,
-        data.mainDamage, data.mainSuperDamage, true);
-      this.redHead = new Character(data.redHeadHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
+        data.mainDamage, data.mainSuperDamage, data.mainMaxHP, data.mainLevel, true);
+      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage);
     }
 
 
@@ -187,17 +190,21 @@ export default class SchoolScene extends Phaser.Scene {
             posY: this.mainChar.y,
             enemyToKill: enemy.name,
             mainHP: this.mainChar.hp,
+            mainMaxHP: this.mainChar.maxHP,
             mainAP: this.mainChar.ap,
             mainName: this.mainChar.name,
             mainDamage: this.mainChar.damage,
             mainSuperDamage: this.mainChar.superDamage,
             mainXP: this.mainChar.xp,
+            mainLevel: this.mainChar.level,
             redHeadHP: this.redHead.hp,
+            redHeadMaxHP: this.redHead.maxHP,
             redHeadAP: this.redHead.ap,
             redHeadDamage: this.redHead.damage,
             redHeadSuperDamage: this.redHead.superDamage,
             redHeadXP: this.redHead.xp,
             dannyHP: this.danny.hp,
+            dannyMaxHP: this.danny.maxHP,
             dannyAP: this.danny.ap,
             dannyDamage: this.danny.damage,
             dannySuperDamage: this.danny.superDamage,
@@ -211,12 +218,15 @@ export default class SchoolScene extends Phaser.Scene {
             posY: this.mainChar.y,
             enemyToKill: enemy.name,
             mainHP: this.mainChar.hp,
+            mainMaxHP: this.mainChar.maxHP,
             mainAP: this.mainChar.ap,
             mainName: this.mainChar.name,
             mainDamage: this.mainChar.damage,
             mainSuperDamage: this.mainChar.superDamage,
             mainXP: this.mainChar.xp,
+            mainLevel: this.mainChar.level,
             redHeadHP: this.redHead.hp,
+            redHeadMaxHP: this.redHead.maxHP,
             redHeadAP: this.redHead.ap,
             redHeadDamage: this.redHead.damage,
             redHeadSuperDamage: this.redHead.superDamage,
@@ -282,17 +292,21 @@ export default class SchoolScene extends Phaser.Scene {
             posY: this.mainChar.y,
             enemyToKill: 'demon',
             mainHP: this.mainChar.hp,
+            mainMaxHP: this.mainChar.maxHP,
             mainAP: this.mainChar.ap,
             mainName: this.mainChar.name,
             mainDamage: this.mainChar.damage,
             mainSuperDamage: this.mainChar.superDamage,
             mainXP: this.mainChar.xp,
+            mainLevel: this.mainChar.level,
             redHeadHP: this.redHead.hp,
+            redHeadMaxHP: this.redHead.maxHP,
             redHeadAP: this.redHead.ap,
             redHeadDamage: this.redHead.damage,
             redHeadSuperDamage: this.redHead.superDamage,
             redHeadXP: this.redHead.xp,
             dannyHP: this.danny.hp,
+            dannyMaxHP: this.danny.maxHP,
             dannyAP: this.danny.ap,
             dannyDamage: this.danny.damage,
             dannySuperDamage: this.danny.superDamage,
@@ -306,12 +320,15 @@ export default class SchoolScene extends Phaser.Scene {
             posY: this.mainChar.y,
             enemyToKill: 'demon',
             mainHP: this.mainChar.hp,
+            mainMaxHP: this.mainChar.maxHP,
             mainAP: this.mainChar.ap,
             mainName: this.mainChar.name,
             mainDamage: this.mainChar.damage,
             mainSuperDamage: this.mainChar.superDamage,
             mainXP: this.mainChar.xp,
+            mainLevel: this.mainChar.level,
             redHeadHP: this.redHead.hp,
+            redHeadMaxHP: this.redHead.maxHP,
             redHeadAP: this.redHead.ap,
             redHeadDamage: this.redHead.damage,
             redHeadSuperDamage: this.redHead.superDamage,

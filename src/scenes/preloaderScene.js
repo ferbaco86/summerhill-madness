@@ -107,6 +107,8 @@ import eatCandyFX from '../assets/sounds/Powerup.ogg';
 import victoryFX from '../assets/sounds/Victory.ogg';
 import gameOverFX from '../assets/sounds/gameOver01.ogg';
 import gameCompletedFX from '../assets/sounds/goodFinal.ogg';
+import levelUpFX from '../assets/sounds/levelup.wav';
+import smashFX from '../assets/sounds/smash.wav';
 import '../style.css';
 
 
@@ -227,6 +229,8 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.audio('victoryFX', [victoryFX]);
     this.load.audio('gameOverFX', [gameOverFX]);
     this.load.audio('gameCompletedFX', [gameCompletedFX]);
+    this.load.audio('levelUpFX', [levelUpFX]);
+    this.load.audio('smashFX', [smashFX]);
     this.load.image('bgMenu', bgMenu);
     this.load.image('heartIcon', heart);
     this.load.image('starIcon', star);

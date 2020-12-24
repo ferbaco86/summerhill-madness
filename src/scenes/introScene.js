@@ -9,9 +9,9 @@ export default class IntroScene extends Phaser.Scene {
   }
 
   create() {
-    this.redHeadText = `Hey ${this.sys.game.globals.playerName} wake up!, wake up!. There's something really weird going on in the city! There's monsters all over the place! We have to get out!`;
+    this.redHeadText = `Hey ${this.sys.game.globals.playerName} wake up!, wake up!. There's something really weird going on in the town! There's monsters all over the place! We have to get out!`;
     this.mainCharText = "WOW!! are you for real?! We should probably go to Danny's... ...house and see how he is doing! Let me grab something... ...to use as a weapon and we should get going!";
-    this.batPickUpText = 'Cool! you found a bat. This will come in handy for dealing... ...with monsters';
+    this.batPickUpText = 'Cool! I found a bat. This will come in handy for dealing... ...with monsters';
     this.fromIntro = true;
     this.cameras.main.setBackgroundColor('#000000');
     this.cameras.main.fadeIn(500, 0, 0, 0);
@@ -97,7 +97,7 @@ export default class IntroScene extends Phaser.Scene {
         this.mainChar.anims.play('batPickUp');
         utils.createTextBox(this, xPos - 340, 350, {
           wrapWidth: 470,
-        }, 'messageBattleUI', 'purpleSquare', this.textFx, '26px', 'goOutside').start(this.batPickUpText, 50);
+        }, 'messageBattleUI', 'mainFace', this.textFx, '26px', 'goOutside').start(this.batPickUpText, 50);
         this.stepsFx.stop();
 
         this.getItemFx.play();
