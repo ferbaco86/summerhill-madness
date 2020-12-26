@@ -15,6 +15,16 @@ Recruit friends, form a team and try to save your little town of SummerHill from
 - To select an option on the main menu, use the mouse right click on the corresponding button.
 - To move on the map and in the battle UI use the arrow keys, to confirm an action use the SPACE bar. 
 
+## Built With
+
+- Phaser 3.24.1/WebGL 
+- CSS
+- Javascript ES6
+- Webpack
+- Aseprite
+- Tiled
+- Netlify for deployment
+
 
 ## Getting Started
 
