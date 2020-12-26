@@ -210,7 +210,7 @@ const utils = (() => {
 
     switch (enemyName) {
       case 'demon':
-        enemy1 = new BattleEnemy(scene, 100, 200, 'demonBattler', 0, 'Demon', 1750, 30, 'demonDamageAnim', 50, 100);
+        enemy1 = new BattleEnemy(scene, 100, 200, 'demonBattler', 0, 'Demon', 1150, 30, 'demonDamageAnim', 50, 100);
         enemies.push(enemy1);
         totalXP = 50;
         totalMoney = 5000;
@@ -262,7 +262,7 @@ const utils = (() => {
         enemies.push(enemy1);
         enemies.push(enemy2);
         enemies.push(enemy3);
-        totalXP = 50;
+        totalXP = 5;
         totalMoney = 4;
         enemiesInfo.enemies = enemies;
         enemiesInfo.totalXP = totalXP;
@@ -277,8 +277,8 @@ const utils = (() => {
         enemies.push(enemy2);
         enemies.push(enemy3);
         enemies.push(enemy4);
-        totalXP = 5;
-        totalMoney = 4;
+        totalXP = 10;
+        totalMoney = 6;
         enemiesInfo.enemies = enemies;
         enemiesInfo.totalXP = totalXP;
         enemiesInfo.totalMoney = totalMoney;

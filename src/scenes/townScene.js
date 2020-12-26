@@ -56,17 +56,25 @@ export default class TownScene extends Phaser.Scene {
         data.charsInfo.main.hp, data.charsInfo.main.ap, data.charsInfo.main.xp, this.playerName,
         data.charsInfo.main.damage, data.charsInfo.main.superDamage,
         data.charsInfo.main.maxHP, data.charsInfo.main.level, true);
-      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage, data.mainLevel);
+      this.redHead = new Character(data.charsInfo.redHead.hp, data.charsInfo.redHead.maxHP, data.charsInfo.redHead.ap, data.charsInfo.redHead.xp, 'Ro',
+        data.charsInfo.redHead.damage, data.charsInfo.redHead.superDamage,
+        data.charsInfo.main.level);
       if (this.sys.game.globals.withDanny) {
-        this.danny = new Character(data.dannyHP, data.dannyMaxHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage, data.mainLevel);
+        this.danny = new Character(data.charsInfo.danny.hp, data.charsInfo.danny.maxHP,
+          data.charsInfo.danny.ap,
+          data.charsInfo.danny.xp, 'Danny', data.charsInfo.danny.damage, data.charsInfo.danny.superDamage,
+          data.charsInfo.main.level);
       }
     } else if (data.fromSchool) {
       this.mainChar = new MainCharacter(this, schoolEntranceSpawn.x, schoolEntranceSpawn.y, 'mainDown', 1, 'mainFace',
-        data.mainHP, data.mainAP, data.mainXP, this.playerName,
-        data.mainDamage, data.mainSuperDamage, data.mainMaxHP, data.mainLevel, true);
-      this.redHead = new Character(data.redHeadHP, data.redHeadMaxHP, data.redHeadAP, data.redHeadXP, 'Ro', data.redHeadDamage, data.redHeadSuperDamage, data.mainLevel);
+        data.charsInfo.main.hp, data.charsInfo.main.ap, data.charsInfo.main.xp, this.playerName,
+        data.charsInfo.main.damage, data.charsInfo.main.superDamage,
+        data.charsInfo.main.maxHP, data.charsInfo.main.level, true);
+      this.redHead = new Character(data.charsInfo.redHead.hp, data.charsInfo.redHead.maxHP, data.charsInfo.redHead.ap, data.charsInfo.redHead.xp, 'Ro', data.charsInfo.redHead.damage,
+        data.charsInfo.redHead.superDamage, data.charsInfo.main.level);
       if (this.sys.game.globals.withDanny) {
-        this.danny = new Character(data.dannyHP, data.dannyMaxHP, data.dannyAP, data.dannyXP, 'Danny', data.dannyDamage, data.dannySuperDamage, data.mainLevel);
+        this.danny = new Character(data.charsInfo.danny.hp, data.charsInfo.danny.maxHP, data.charsInfo.danny.ap, data.charsInfo.danny.xp, 'Danny', data.charsInfo.danny.damage,
+          data.charsInfo.danny.superDamage, data.charsInfo.main.level);
       }
     } else if (data.fromBattle) {
       this.mainChar = new MainCharacter(this, data.charPosX, data.charPosY - 30, 'mainDown', 1, 'mainFace',
@@ -268,7 +276,7 @@ export default class TownScene extends Phaser.Scene {
     this.sys.events.on('wake', this.wake, this);
     utils.setFullScreen(this, button);
 
-    // this.sys.game.globals.bgMusic.stop();
+    this.sys.game.globals.bgMusic.stop();
     utils.playBGMusic(this, 'townMusic', 0.1, true);
   }
 

@@ -60,45 +60,6 @@ export default class BattleScene extends Phaser.Scene {
 
       this.index = -1;
       this.scene.run('BattleUI');
-
-      this.allCharsInfoExitBattle = {
-        main: {
-          hp: this.mainChar.hp,
-          maxHP: this.mainChar.maxHP,
-          ap: this.mainChar.ap,
-          name: this.mainChar.name,
-          damage: this.mainChar.damage,
-          superDamage: this.mainChar.abilityDamage,
-          xp: data.charsInfo.main.xp,
-          level: data.charsInfo.main.level,
-        },
-        redHead: {
-          hp: this.redHead.hp,
-          maxHP: this.redHead.maxHP,
-          ap: this.redHead.ap,
-          damage: this.redHead.damage,
-          superDamage: this.redHead.abilityDamage,
-          xp: data.charsInfo.redHead.xp,
-        },
-      };
-      if (this.sys.game.globals.withDanny) {
-        this.allCharsInfo.danny = {
-          hp: this.danny.hp,
-          maxHP: this.danny.maxHP,
-          ap: this.danny.ap,
-          damage: this.danny.damage,
-          superDamage: this.danny.abilityDamage,
-          xp: data.charsInfo.danny.xp + this.enemiesInfo.totalXP,
-        };
-        this.allCharsInfoExitBattle.danny = {
-          hp: this.danny.hp,
-          maxHP: this.danny.maxHP,
-          ap: this.danny.ap,
-          damage: this.danny.damage,
-          superDamage: this.danny.abilityDamage,
-          xp: data.charsInfo.danny.xp,
-        };
-      }
     };
 
 
