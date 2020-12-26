@@ -216,6 +216,8 @@ export default class BattleScene extends Phaser.Scene {
         newScene = 'House';
       } else if (data.fromSchool) {
         newScene = 'School';
+      } else if (data.fromDemon) {
+        newScene = 'School';
       }
       this.allCharsInfoExitBattle = {
         main: {
