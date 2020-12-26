@@ -119,15 +119,14 @@ export default class SchoolScene extends Phaser.Scene {
     this.blueRedSlime = utils.createMonster(this, enemySpawnPoint3.x, enemySpawnPoint3.y, 'redSlimeDown', 1, 'schoolRedSlime', 'redSlimeWalkDown');
     this.fly = utils.createMonster(this, enemySpawnPoint4.x, enemySpawnPoint4.y, 'flyDown', 1, 'schoolFly', 'flyWalkDown');
     this.bee = utils.createMonster(this, enemySpawnPoint5.x, enemySpawnPoint5.y, 'beeDown', 1, 'schoolBee', 'beeWalkDown');
-    const bossDemon = this.physics.add.sprite(enemySpawnPoint1.x - 100, enemySpawnPoint1.y, 'demonBattler');
-    bossDemon.setName('demon');
-    bossDemon.flipX = true;
+    this.demon = utils.createMonster(this, enemySpawnPoint1.x - 100, enemySpawnPoint1.y, 'demonStand', 0, 'demon', 'demonStandAnim');
 
     this.schoolEnemyGroup = this.add.group();
     this.schoolEnemyGroup.add(this.plantSlime);
     this.schoolEnemyGroup.add(this.blueRedSlime);
     this.schoolEnemyGroup.add(this.fly);
     this.schoolEnemyGroup.add(this.bee);
+    this.schoolEnemyGroup.add(this.demon);
     this.enemies = this.schoolEnemyGroup.getChildren();
 
     generateMaps.generateCollision(this, this.schoolEnemyGroup, 'World', 'Decorators', arrayLayers, ['World', 'Decorators']);
@@ -191,14 +190,25 @@ export default class SchoolScene extends Phaser.Scene {
     this.onMeetEnemy = (player, enemy) => {
       this.startBattle = () => {
         this.scene.stop('School');
-        this.scene.start('Battle', {
-          posX: this.mainChar.x,
-          posY: this.mainChar.y,
-          charsInfo: this.allCharsInfo,
-          enemyToKill: enemy.name,
-          fromSchool: true,
-          money: this.money,
-        });
+        if (enemy.name === 'demon') {
+          this.scene.start('Battle', {
+            posX: this.mainChar.x,
+            posY: this.mainChar.y,
+            charsInfo: this.allCharsInfo,
+            enemyToKill: enemy.name,
+            fromDemon: true,
+            money: this.money,
+          });
+        } else {
+          this.scene.start('Battle', {
+            posX: this.mainChar.x,
+            posY: this.mainChar.y,
+            charsInfo: this.allCharsInfo,
+            enemyToKill: enemy.name,
+            fromSchool: true,
+            money: this.money,
+          });
+        }
       };
       this.meetEnemyFX.play();
       this.cameras.main.shake(300, 0.02);
@@ -208,8 +218,6 @@ export default class SchoolScene extends Phaser.Scene {
     this.dialogStart = true;
     this.bossCutScene = () => {
       if (this.dialogStart) {
-        this.mainChar.anims.stop();
-        this.mainChar.body.destroy();
         this.textBoxMain = utils.createTextBox(this, this.mainChar.x - 80, this.mainChar.y + 20, {
           wrapWidth: 400,
           fixedWidth: 400,
@@ -248,19 +256,8 @@ export default class SchoolScene extends Phaser.Scene {
     };
 
     this.onMeetDemon = () => {
-      this.startBattle = () => {
-        this.scene.stop('School');
-        this.scene.start('Battle', {
-          posX: this.mainChar.x,
-          posY: this.mainChar.y,
-          enemyToKill: 'demon',
-          charsInfo: this.allCharsInfo,
-          fromDemon: true,
-          money: this.money,
-        });
-      };
-      this.cameras.main.shake(300, 0.02);
-      this.time.delayedCall(300, this.startBattle, [], this);
+      this.tweens.add({ targets: this.mainChar, duration: 3500, x: enemySpawnPoint1 - 100 });
+      this.mainChar.anims.play('mainCharWalkRight');
     };
 
     if (!this.sys.game.globals.schoolChestOpened) {

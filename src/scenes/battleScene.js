@@ -208,8 +208,6 @@ export default class BattleScene extends Phaser.Scene {
 
     this.exitBattle = () => {
       let newScene;
-      this.scene.sleep('BattleUI');
-      this.scene.stop('Battle');
       if (data.fromTown) {
         newScene = 'Town';
       } else if (data.fromHouse) {
@@ -249,14 +247,18 @@ export default class BattleScene extends Phaser.Scene {
           xp: data.charsInfo.danny.xp,
         };
       }
-      this.scene.start(newScene, {
-        charPosX: data.posX,
-        charPosY: data.posY,
-        fromBattle: true,
-        runAway: true,
-        money: data.money,
-        charsInfo: this.allCharsInfoExitBattle,
-      });
+      if (!data.fromDemon) {
+        this.scene.sleep('BattleUI');
+        this.scene.stop('Battle');
+        this.scene.start(newScene, {
+          charPosX: data.posX,
+          charPosY: data.posY,
+          fromBattle: true,
+          runAway: true,
+          money: data.money,
+          charsInfo: this.allCharsInfoExitBattle,
+        });
+      }
     };
     this.startBattle();
     this.sys.events.on('wake', this.startBattle, this);

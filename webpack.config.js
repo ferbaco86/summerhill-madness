@@ -79,6 +79,7 @@ module.exports = {
     new CssMinimizerPlugin(),
     new HtmlWebpackPlugin({
       template: './index.html',
+      favicon: './favicon.png',
     }),
   ],
 };

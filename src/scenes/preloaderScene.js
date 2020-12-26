@@ -60,6 +60,7 @@ import plantBattler from '../assets/monsters/plantBattler.png';
 import beeBattler from '../assets/monsters/beeBattler.png';
 import flyBattler from '../assets/monsters/flyBattler.png';
 import demonBattler from '../assets/monsters/demonBattler.png';
+import demonStand from '../assets/monsters/demon-sheet.png';
 import snakeDown from '../assets/monsters/snakeIdleWalkDownSprite.png';
 import beeDown from '../assets/monsters/beeIdleWalkDown.png';
 import flyDown from '../assets/monsters/flyIdleWalkDown.png';
@@ -330,6 +331,10 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 30,
       frameHeight: 30,
     });
+    this.load.spritesheet('demonStand', demonStand, {
+      frameWidth: 48,
+      frameHeight: 48,
+    });
     this.load.spritesheet('mainCharBattleStand', mainCharBattleStand, {
       frameWidth: 30,
       frameHeight: 30,
@@ -423,7 +428,7 @@ export default class PreloaderScene extends Phaser.Scene {
   create() {
     this.animKeys = ['introSleepingAnim', 'redHeadWalkUp', 'redHeadWalkDown', 'redHeadWalkLeft', 'redHeadWalkRight',
       'mainCharWalkDown', 'mainCharWalkLeft', 'mainCharWalkRight', 'mainCharWalkUp', 'batPickUp', 'blueSlimeWalkDown',
-      'redSlimeWalkDown', 'snakeWalkDown', 'beeWalkDown', 'flyWalkDown', 'plantWalkDown'];
+      'redSlimeWalkDown', 'snakeWalkDown', 'beeWalkDown', 'flyWalkDown', 'plantWalkDown', 'demonStandAnim'];
     this.battleAnimKeys = ['mainCharIdle', 'redHeadIdle', 'dannyIdle', 'dannyFloorCrawl', 'mainCharCeleb'];
     this.hitAnimKeys = ['batHitAnim', 'tennisHitAnim', 'bookHitAnim', 'blueSlimeDamageAnim', 'redSlimeDamageAnim', 'snakeDamageAnim', 'beeDamageAnim', 'flyDamageAnim', 'plantDamageAnim',
       'demonDamageAnim', 'mainTakeDamageAnim', 'redHeadTakeDamageAnim', 'dannyTakeDamageAnim', 'mainEatAnim', 'redHeadEatAnim', 'dannyEatAnim', 'chestOpenAnim'];
@@ -431,7 +436,7 @@ export default class PreloaderScene extends Phaser.Scene {
       'demonDamage', 'mainTakeDamage', 'redHeadTakeDamage', 'dannyTakeDamage', 'mainEat', 'redHeadEat', 'dannyEat', 'chestOpen'];
     this.battleSpriteSheets = ['mainCharBattleStand', 'redHeadBattleStand', 'dannyBattleStand', 'dannyCrawl', 'mainCeleb'];
     this.spriteSheets = ['introSleeping', 'redHeadUp', 'redHeadDown', 'redHeadLeft', 'redHeadRight',
-      'mainDown', 'mainLeft', 'mainRight', 'mainUp', 'mainBatPick', 'blueSlimeDown', 'redSlimeDown', 'snakeDown', 'beeDown', 'flyDown', 'plantDown'];
+      'mainDown', 'mainLeft', 'mainRight', 'mainUp', 'mainBatPick', 'blueSlimeDown', 'redSlimeDown', 'snakeDown', 'beeDown', 'flyDown', 'plantDown', 'demonStand'];
     utils.createAnims(this, this.animKeys, this.spriteSheets, 10, -1);
     utils.createAnims(this, this.battleAnimKeys, this.battleSpriteSheets, 4, -1);
     utils.createAnims(this, this.hitAnimKeys, this.hitSpriteSheets, 10, 1);

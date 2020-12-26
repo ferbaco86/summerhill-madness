@@ -12,7 +12,7 @@ Recruit friends, form a team and try to save your little town of SummerHill from
 
 ## How to Play
 
-- To select an option on the main menu, use the mouse right click on the corresponding button.
+- To select an option on the main menu, use the mouse right click on the corresponding button. You can also use the right click on the fullscreen icon to toggle fullscreen mode.
 - To move on the map and in the battle UI use the arrow keys, to confirm an action use the SPACE bar. 
 
 ## Built With
