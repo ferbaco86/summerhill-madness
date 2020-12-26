@@ -39,9 +39,9 @@ export default class MainCharacter extends Phaser.Physics.Arcade.Sprite {
     if (this.xp >= 60 && this.xp < 90) {
       this.ap = 10;
     } else if (this.xp >= 90 && this.xp < 130) {
-      this.ap = 30;
+      this.ap = 20;
     } else if (this.xp >= 130) {
-      this.ap = 40;
+      this.ap = 30;
     }
 
     if (this.xp >= 30 && this.xp < 80 && this.level < 2) {

@@ -29,6 +29,79 @@ export default class BattleScene extends Phaser.Scene {
       return this.victory || this.gameOver;
     };
 
+
+    this.startBattle = () => {
+      this.cameras.main.fadeIn(1000, 0, 0, 0);
+      if (data.fromTown) {
+        this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
+      } else if (data.fromHouse) {
+        this.add.image(0, -200, 'houseBattleBG').setOrigin(0, 0).setScale(2);
+      } else if (data.fromSchool || data.fromDemon) {
+        this.add.image(0, -200, 'schoolBattleBG').setOrigin(0, 0).setScale(2);
+      }
+      this.mainChar = new BattlePlayer(this, 700, 140, 'mainCharBattleStand', 1, data.charsInfo.main.name, data.charsInfo.main.hp, data.charsInfo.main.maxHP,
+        data.charsInfo.main.damage, data.charsInfo.main.superDamage, data.charsInfo.main.ap, 10, 'homeRun',
+        'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim', 'mainEatAnim');
+      this.redHead = new BattlePlayer(this, 700, 240, 'redHeadBattleStand', 1, 'Ro', data.charsInfo.redHead.hp, data.charsInfo.redHead.maxHP, data.charsInfo.redHead.damage,
+        data.charsInfo.redHead.superDamage, data.charsInfo.redHead.ap, 10, 'smash',
+        'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim', 'redHeadEatAnim');
+      this.healthText = new BattleHudDisplay(this, this.mainChar.x, this.mainChar.y, 'heartIcon', '');
+      this.actionPointsText = new BattleHudDisplay(this, this.mainChar.x, this.mainChar.y, 'starIcon', '');
+      this.heroes = [this.mainChar, this.redHead];
+      if (this.sys.game.globals.withDanny) {
+        this.danny = new BattlePlayer(this, 700, 340, 'dannyBattleStand', 1, 'Danny', data.charsInfo.danny.hp, data.charsInfo.danny.maxHP, data.charsInfo.danny.damage,
+          data.charsInfo.danny.superDamage, data.charsInfo.danny.ap, 10,
+          'bigBookHit', 'dannyIdle', 'bookHitAnim', 'dannyTakeDamageAnim', 'dannyEatAnim');
+        this.heroes.push(this.danny);
+      }
+      this.enemiesInfo = utils.selectEnemies(this, data.enemyToKill);
+      this.enemies = this.enemiesInfo.enemies;
+      this.units = this.heroes.concat(this.enemies);
+
+      this.index = -1;
+      this.scene.run('BattleUI');
+
+      this.allCharsInfoExitBattle = {
+        main: {
+          hp: this.mainChar.hp,
+          maxHP: this.mainChar.maxHP,
+          ap: this.mainChar.ap,
+          name: this.mainChar.name,
+          damage: this.mainChar.damage,
+          superDamage: this.mainChar.abilityDamage,
+          xp: data.charsInfo.main.xp,
+          level: data.charsInfo.main.level,
+        },
+        redHead: {
+          hp: this.redHead.hp,
+          maxHP: this.redHead.maxHP,
+          ap: this.redHead.ap,
+          damage: this.redHead.damage,
+          superDamage: this.redHead.abilityDamage,
+          xp: data.charsInfo.redHead.xp,
+        },
+      };
+      if (this.sys.game.globals.withDanny) {
+        this.allCharsInfo.danny = {
+          hp: this.danny.hp,
+          maxHP: this.danny.maxHP,
+          ap: this.danny.ap,
+          damage: this.danny.damage,
+          superDamage: this.danny.abilityDamage,
+          xp: data.charsInfo.danny.xp + this.enemiesInfo.totalXP,
+        };
+        this.allCharsInfoExitBattle.danny = {
+          hp: this.danny.hp,
+          maxHP: this.danny.maxHP,
+          ap: this.danny.ap,
+          damage: this.danny.damage,
+          superDamage: this.danny.abilityDamage,
+          xp: data.charsInfo.danny.xp,
+        };
+      }
+    };
+
+
     this.endBattle = () => {
       // clear state, remove sprites
       this.heroes.length = 0;
@@ -61,104 +134,53 @@ export default class BattleScene extends Phaser.Scene {
             }
           }
         };
+        this.allCharsInfo = {
+          main: {
+            hp: this.mainChar.hp,
+            maxHP: this.mainChar.maxHP,
+            ap: this.mainChar.ap,
+            name: this.mainChar.name,
+            damage: this.mainChar.damage,
+            superDamage: this.mainChar.abilityDamage,
+            xp: data.charsInfo.main.xp + this.enemiesInfo.totalXP,
+            level: data.charsInfo.main.level,
+          },
+          redHead: {
+            hp: this.redHead.hp,
+            maxHP: this.redHead.maxHP,
+            ap: this.redHead.ap,
+            damage: this.redHead.damage,
+            superDamage: this.redHead.abilityDamage,
+            xp: data.charsInfo.redHead.xp + this.enemiesInfo.totalXP,
+          },
+        };
+        if (this.sys.game.globals.withDanny) {
+          this.allCharsInfo.danny = {
+            hp: this.danny.hp,
+            maxHP: this.danny.maxHP,
+            ap: this.danny.ap,
+            damage: this.danny.damage,
+            superDamage: this.danny.abilityDamage,
+            xp: data.charsInfo.danny.xp + this.enemiesInfo.totalXP,
+          };
+        }
         this.input.keyboard.on('keydown', this.onKeyInput, this);
       } else {
         this.scene.stop('Battle');
         this.scene.start('GameOver', { money: data.money, name: this.mainChar.name });
       }
+
       this.endScene = (newScene) => {
         this.scene.stop('Battle');
-        if (this.sys.game.globals.withDanny) {
-          this.scene.start(newScene, {
-            fromBattle: true,
-            charPosX: data.posX,
-            charPosY: data.posY,
-            mainHP: this.mainChar.hp,
-            mainMaxHP: this.mainChar.maxHP,
-            mainAP: this.mainChar.ap,
-            mainXP: data.mainXP + this.enemiesInfo.totalXP,
-            mainLevel: data.mainLevel,
-            mainDamage: this.mainChar.damage,
-            mainSuperDamage: this.mainChar.abilityDamage,
-            redHeadHP: this.redHead.hp,
-            redHeadMaxHP: this.redHead.maxHP,
-            redHeadAP: this.redHead.ap,
-            redHeadXP: data.redHeadXP + this.enemiesInfo.totalXP,
-            redHeadDamage: this.redHead.damage,
-            redHeadSuperDamage: this.redHead.abilityDamage,
-            dannyHP: this.danny.hp,
-            dannyMaxHP: this.danny.maxHP,
-            dannyAP: this.danny.ap,
-            dannyXP: data.dannyXP + this.enemiesInfo.totalXP,
-            dannyDamage: this.danny.damage,
-            dannySuperDamage: this.danny.abilityDamage,
-            money: data.money + this.enemiesInfo.totalMoney,
-          });
-        } else {
-          this.scene.start(newScene, {
-            fromBattle: true,
-            charPosX: data.posX,
-            charPosY: data.posY,
-            mainHP: this.mainChar.hp,
-            mainMaxHP: this.mainChar.maxHP,
-            mainAP: this.mainChar.ap,
-            mainXP: data.mainXP + this.enemiesInfo.totalXP,
-            mainLevel: data.mainLevel,
-            mainDamage: this.mainChar.damage,
-            mainSuperDamage: this.mainChar.abilityDamage,
-            redHeadHP: this.redHead.hp,
-            redHeadMaxHP: this.redHead.maxHP,
-            redHeadAP: this.redHead.ap,
-            redHeadXP: data.redHeadXP + this.enemiesInfo.totalXP,
-            redHeadDamage: this.redHead.damage,
-            redHeadSuperDamage: this.redHead.abilityDamage,
-            money: data.money + this.enemiesInfo.totalMoney,
-          });
-        }
+        this.scene.start(newScene, {
+          charPosX: data.posX,
+          charPosY: data.posY,
+          fromBattle: true,
+          charsInfo: this.allCharsInfo,
+          money: data.money + this.enemiesInfo.totalMoney,
+        });
       };
     };
-
-    this.startBattle = () => {
-      this.cameras.main.fadeIn(1000, 0, 0, 0);
-      if (data.fromTown) {
-        this.add.image(0, -200, 'townBattleBG').setOrigin(0, 0).setScale(2);
-      } else if (data.fromHouse) {
-        this.add.image(0, -200, 'houseBattleBG').setOrigin(0, 0).setScale(2);
-      } else if (data.fromSchool || data.fromDemon) {
-        this.add.image(0, -200, 'schoolBattleBG').setOrigin(0, 0).setScale(2);
-      }
-      if (this.sys.game.globals.withDanny) {
-        this.mainChar = new BattlePlayer(this, 700, 140, 'mainCharBattleStand', 1, data.mainName, data.mainHP, data.mainMaxHP, data.mainDamage,
-          data.mainSuperDamage, data.mainAP, 10, 'homeRun',
-          'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim', 'mainEatAnim');
-        this.redHead = new BattlePlayer(this, 700, 240, 'redHeadBattleStand', 1, 'Ro', data.redHeadHP, data.redHeadMaxHP, data.redHeadDamage,
-          data.redHeadSuperDamage, data.redHeadAP, 10, 'smash',
-          'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim', 'redHeadEatAnim');
-        this.danny = new BattlePlayer(this, 700, 340, 'dannyBattleStand', 1, 'Danny', data.dannyHP, data.dannyMaxHP, data.dannyDamage, data.dannySuperDamage,
-          data.dannyAP, 10, 'bigBookHit', 'dannyIdle', 'bookHitAnim', 'dannyTakeDamageAnim', 'dannyEatAnim');
-        this.healthText = new BattleHudDisplay(this, this.mainChar.x, this.mainChar.y, 'heartIcon', '');
-        this.actionPointsText = new BattleHudDisplay(this, this.mainChar.x, this.mainChar.y, 'starIcon', '');
-        this.heroes = [this.mainChar, this.redHead, this.danny];
-      } else {
-        this.mainChar = new BattlePlayer(this, 700, 200, 'mainCharBattleStand', 1, data.mainName, data.mainHP, data.mainMaxHP, data.mainDamage,
-          data.mainSuperDamage, data.mainAP, 10, 'homeRun',
-          'mainCharIdle', 'batHitAnim', 'mainTakeDamageAnim', 'mainEatAnim');
-        this.redHead = new BattlePlayer(this, 700, 330, 'redHeadBattleStand', 1, 'Ro', data.redHeadHP, data.redHeadMaxHP, data.redHeadDamage,
-          data.redHeadSuperDamage, data.redHeadAP, 10, 'smash',
-          'redHeadIdle', 'tennisHitAnim', 'redHeadTakeDamageAnim', 'redHeadEatAnim');
-        this.healthText = new BattleHudDisplay(this, this.mainChar.x, this.mainChar.y, 'heartIcon', '');
-        this.actionPointsText = new BattleHudDisplay(this, this.mainChar.x, this.mainChar.y, 'starIcon', '');
-        this.heroes = [this.mainChar, this.redHead];
-      }
-
-      this.enemiesInfo = utils.selectEnemies(this, data.enemyToKill);
-      this.enemies = this.enemiesInfo.enemies;
-      this.units = this.heroes.concat(this.enemies);
-
-      this.index = -1;
-      this.scene.run('BattleUI');
-    };
-
 
     this.nextTurn = () => {
       if (this.checkEndBattle()) {
@@ -234,58 +256,48 @@ export default class BattleScene extends Phaser.Scene {
       } else if (data.fromSchool) {
         newScene = 'School';
       }
+      this.allCharsInfoExitBattle = {
+        main: {
+          hp: this.mainChar.hp,
+          maxHP: this.mainChar.maxHP,
+          ap: this.mainChar.ap,
+          name: this.mainChar.name,
+          damage: this.mainChar.damage,
+          superDamage: this.mainChar.abilityDamage,
+          xp: data.charsInfo.main.xp,
+          level: data.charsInfo.main.level,
+        },
+        redHead: {
+          hp: this.redHead.hp,
+          maxHP: this.redHead.maxHP,
+          ap: this.redHead.ap,
+          damage: this.redHead.damage,
+          superDamage: this.redHead.abilityDamage,
+          xp: data.charsInfo.redHead.xp,
+        },
+      };
       if (this.sys.game.globals.withDanny) {
-        this.scene.start(newScene, {
-          fromBattle: true,
-          charPosX: data.posX,
-          charPosY: data.posY,
-          runAway: true,
-          mainHP: this.mainChar.hp,
-          mainMaxHP: this.mainChar.maxHP,
-          mainAP: this.mainChar.ap,
-          mainXP: data.mainXP,
-          mainLevel: data.mainLevel,
-          mainDamage: this.mainChar.damage,
-          mainSuperDamage: this.mainChar.abilityDamage,
-          redHeadHP: this.redHead.hp,
-          redHeadMaxHP: this.redHead.maxHP,
-          redHeadAP: this.redHead.ap,
-          redHeadXP: data.redHeadXP,
-          redHeadDamage: this.redHead.damage,
-          redHeadSuperDamage: this.redHead.abilityDamage,
-          dannyHP: this.danny.hp,
-          dannyMaxHP: this.danny.maxHP,
-          dannyAP: this.danny.ap,
-          dannyXP: data.dannyXP,
-          dannyDamage: this.danny.damage,
-          dannySuperDamage: this.danny.abilityDamage,
-          money: data.money,
-        });
-      } else {
-        this.scene.start(newScene, {
-          fromBattle: true,
-          charPosX: data.posX,
-          charPosY: data.posY,
-          runAway: true,
-          mainHP: this.mainChar.hp,
-          mainMaxHP: this.mainChar.maxHP,
-          mainAP: this.mainChar.ap,
-          mainXP: data.mainXP,
-          mainLevel: data.mainLevel,
-          mainDamage: this.mainChar.damage,
-          mainSuperDamage: this.mainChar.abilityDamage,
-          redHeadHP: this.redHead.hp,
-          redHeadMaxHP: this.redHead.maxHP,
-          redHeadAP: this.redHead.ap,
-          redHeadXP: data.redHeadXP,
-          redHeadDamage: this.redHead.damage,
-          redHeadSuperDamage: this.redHead.abilityDamage,
-          money: data.money,
-        });
+        this.allCharsInfoExitBattle.danny = {
+          hp: this.danny.hp,
+          maxHP: this.danny.maxHP,
+          ap: this.danny.ap,
+          damage: this.danny.damage,
+          superDamage: this.danny.abilityDamage,
+          xp: data.charsInfo.danny.xp,
+        };
       }
+      this.scene.start(newScene, {
+        charPosX: data.posX,
+        charPosY: data.posY,
+        fromBattle: true,
+        runAway: true,
+        money: data.money,
+        charsInfo: this.allCharsInfoExitBattle,
+      });
     };
     this.startBattle();
     this.sys.events.on('wake', this.startBattle, this);
+
 
     this.sys.game.globals.bgMusic.stop();
     utils.playBGMusic(this, 'battleMusic', 0.1, true);

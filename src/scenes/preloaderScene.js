@@ -189,7 +189,7 @@ export default class PreloaderScene extends Phaser.Scene {
       this.ready();
     });
 
-    this.timedEvent = this.time.delayedCall(10000, this.ready, [], this);
+    this.timedEvent = this.time.delayedCall(25000, this.ready, [], this);
 
     // load assets needed in our game
     this.load.image('button1', button1);
@@ -438,10 +438,10 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   ready() {
-    this.scene.start('Title');
+    this.scene.start('Town');
     this.readyCount += 1;
     if (this.readyCount === 2) {
-      this.scene.start('Title');
+      this.scene.start('Town');
     }
   }
 }

@@ -210,7 +210,7 @@ const utils = (() => {
 
     switch (enemyName) {
       case 'demon':
-        enemy1 = new BattleEnemy(scene, 100, 200, 'demonBattler', 0, 'Demon', 350, 30, 'demonDamageAnim', 50, 100);
+        enemy1 = new BattleEnemy(scene, 100, 200, 'demonBattler', 0, 'Demon', 1750, 30, 'demonDamageAnim', 50, 100);
         enemies.push(enemy1);
         totalXP = 50;
         totalMoney = 5000;
@@ -409,11 +409,11 @@ const utils = (() => {
     levelUpTitle.setScale(0.3);
     const hpText = scene.add.text(x - 50, y + 5, '+ 10', { font: '8px pixelFont', color: '#ffff' });
     hpText.setDepth(40);
-    const attackText = scene.add.text(x - 50, y + 20, '+ 5', { font: '8px pixelFont', color: '#ffff' });
+    const attackText = scene.add.text(x - 50, y + 20, '+ 10', { font: '8px pixelFont', color: '#ffff' });
     attackText.setDepth(40);
     const hpText2 = scene.add.text(x + 50, y + 5, '+ 10', { font: '8px pixelFont', color: '#ffff' });
     hpText2.setDepth(40);
-    const attackText2 = scene.add.text(x + 50, y + 20, '+ 5', { font: '8px pixelFont', color: '#ffff' });
+    const attackText2 = scene.add.text(x + 50, y + 20, '+ 10', { font: '8px pixelFont', color: '#ffff' });
     attackText2.setDepth(40);
     levelUpTitle.setDepth(40);
     const mainCharPortrait = scene.add.image(x - 50, y - 15, mainPortraitTexture)
@@ -429,7 +429,7 @@ const utils = (() => {
         .setDepth(40);
       const damageIcon3 = scene.add.image(x - 10, y + 25, swordIcon)
         .setDepth(40);
-      const attackText3 = scene.add.text(x, y + 20, '+ 5', { font: '8px pixelFont', color: '#ffff' });
+      const attackText3 = scene.add.text(x, y + 20, '+ 10', { font: '8px pixelFont', color: '#ffff' });
       attackText3.setDepth(40);
       windowGroup.add(dannyCharPortrait);
       windowGroup.add(hpIcon3);
