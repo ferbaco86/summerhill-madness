@@ -5,7 +5,7 @@ import mainCharAnimInfo from '../assets/data/mainCharAnims.json';
 import utils from '../utils/utilsFunctions';
 import MainCharacter from '../objects/mainCharacter';
 import Character from '../objects/character';
-import EventDispatcher from '../utils/eventDispatcher';
+import EventDispatcher from '../objects/eventDispatcher';
 
 export default class SchoolScene extends Phaser.Scene {
   constructor() {

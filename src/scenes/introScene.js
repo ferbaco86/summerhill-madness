@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import EventDispatcher from '../utils/eventDispatcher';
+import EventDispatcher from '../objects/eventDispatcher';
 import utils from '../utils/utilsFunctions';
 
 

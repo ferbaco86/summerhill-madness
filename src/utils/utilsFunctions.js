@@ -560,7 +560,6 @@ const utils = (() => {
       scene.sys.game.globals.bgMusic = bgMusic;
     }
   };
-
   return {
     createTextBox,
     fadeOutScene,

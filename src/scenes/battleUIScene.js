@@ -2,7 +2,6 @@ import Phaser from 'phaser';
 import BattleHeroesMenu from '../objects/battleHeroesMenu';
 import BattleActionMenu from '../objects/battleActionMenu';
 import BattleEnemiesMenu from '../objects/battleEnemiesMenu';
-import Message from '../objects/message';
 import utils from '../utils/utilsFunctions';
 
 
@@ -133,8 +132,6 @@ export default class BattleUIScene extends Phaser.Scene {
 
     this.sys.events.on('wake', this.createMenu, this);
 
-    this.message = new Message(this, this.battleScene.events);
-    this.add.existing(this.message);
 
     this.createMenu();
     utils.setFullScreen(this, button);

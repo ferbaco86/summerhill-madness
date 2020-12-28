@@ -171,16 +171,16 @@ export default class BattleScene extends Phaser.Scene {
         this.actionPointsText.setHealthText(`${this.units[this.index].ap} / ${this.units[this.index].maxAP}`);
       } else { // else if its enemy unit
         // pick random hero
-        let r;
+        let random;
         do {
-          r = Math.floor(Math.random() * this.heroes.length);
-        } while (!this.heroes[r].living);
+          random = Math.floor(Math.random() * this.heroes.length);
+        } while (!this.heroes[random].living);
         // call the enemy's attack function
 
         this.units[this.index].attackAnim();
-        this.heroes[r].playTakeDamage();
+        this.heroes[random].playTakeDamage();
         this.attackHeroes = () => {
-          this.units[this.index].attack(this.heroes[r]);
+          this.units[this.index].attack(this.heroes[random]);
         };
         this.time.delayedCall(600, this.attackHeroes, [], this);
         // add timer for the next turn, so will have smooth gameplay

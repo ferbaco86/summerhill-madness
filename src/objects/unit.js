@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import message from '../utils/displayMessage';
 
 export default class Unit extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, texture, frame, type, hp, damage, abilityDamage = null, ap = null,
@@ -27,8 +28,12 @@ export default class Unit extends Phaser.GameObjects.Sprite {
   attack(target) {
     if (target.living) {
       target.takeDamage(this.damage);
-      this.scene.events.emit('Message',
-        `Ouch! ${target.type} receives ${this.damage} damage!!`);
+      const text = `Ouch! ${target.type} receives ${this.damage} damage!!`;
+      const messageContainer = message.displayMessage(this.scene, 500, 50, text);
+      this.destroyMessage = () => {
+        messageContainer.destroy();
+      };
+      this.scene.time.delayedCall(1500, this.destroyMessage, [], this);
     }
   }
 
@@ -39,8 +44,12 @@ export default class Unit extends Phaser.GameObjects.Sprite {
       this.reduceAP(this.apCost);
       this.soundSmash.play();
 
-      this.scene.events.emit('Message',
-        `Woow! ${target.type} suffers ${this.abilityDamage} damage!!`);
+      const text = `Woow! ${target.type} suffers ${this.abilityDamage} damage!!`;
+      const messageContainer = message.displayMessage(this.scene, 500, 50, text);
+      this.destroyMessage = () => {
+        messageContainer.destroy();
+      };
+      this.scene.time.delayedCall(1500, this.destroyMessage, [], this);
     }
   }
 
@@ -65,8 +74,12 @@ export default class Unit extends Phaser.GameObjects.Sprite {
   }
 
   noMoreAp() {
-    this.scene.events.emit('Message',
-      `Oh no ${this.type} has 0 AP`);
+    const text = ` Oh no, ${this.type} has 0 AP`;
+    const messageContainer = message.displayMessage(this.scene, 500, 50, text);
+    this.destroyMessage = () => {
+      messageContainer.destroy();
+    };
+    this.scene.time.delayedCall(1500, this.destroyMessage, [], this);
   }
 
   reduceAP(amount) {
@@ -76,18 +89,19 @@ export default class Unit extends Phaser.GameObjects.Sprite {
   healHP(amount) {
     let healed = false;
     if (this.hp === this.maxHP) {
-      this.scene.events.emit('Message',
-        `${this.type} has full health`);
+      this.messageContainer = message.displayMessage(this.scene, 500, 50, `${this.type} has full health`);
     } else if (this.scene.sys.game.globals.candies === 0) {
-      this.scene.events.emit('Message',
-        "You don't have candies");
+      this.messageContainer = message.displayMessage(this.scene, 500, 50, "You don't have candies");
     } else {
       this.hp += amount;
-      this.scene.events.emit('Message',
-        `${this.type} healed ${amount} HP`);
+      this.messageContainer = message.displayMessage(this.scene, 500, 50, `${this.type} healed ${amount} HP`);
       healed = true;
       this.scene.sys.game.globals.candies -= 1;
     }
+    this.destroyMessage = () => {
+      this.messageContainer.destroy();
+    };
+    this.scene.time.delayedCall(1500, this.destroyMessage, [], this);
     return healed;
   }
 }
