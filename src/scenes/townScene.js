@@ -276,7 +276,7 @@ export default class TownScene extends Phaser.Scene {
     this.sys.events.on('wake', this.wake, this);
     utils.setFullScreen(this, button);
 
-    // this.sys.game.globals.bgMusic.stop();
+    this.sys.game.globals.bgMusic.stop();
     utils.playBGMusic(this, 'townMusic', 0.1, true);
   }
 
