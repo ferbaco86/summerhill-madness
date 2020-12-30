@@ -1,12 +1,15 @@
 {
-  "plugins": ["@babel/plugin-transform-runtime"],
+  "plugins": ["@babel/plugin-transform-runtime",
+              "@babel/plugin-proposal-class-properties",
+              "@babel/plugin-transform-modules-commonjs"],
   "presets": [
     [
       "@babel/preset-env",
       {
         "targets": {
           "node": "current"
-        }
+        },
+        "modules": "auto"
       }
     ]
   ]
